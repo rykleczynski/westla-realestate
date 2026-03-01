@@ -1,19 +1,35 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>West LA Real Estate</title>    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>West LA Real Estate | Luxury Homes, Investment Properties & First-Time Buyer Resources</title>
+    <meta name="description" content="Your premier West Los Angeles real estate resource. Explore luxury homes in Brentwood, Santa Monica, Westwood & Century City. Expert guidance for investors, first-time buyers, and sellers." />
+    <meta name="keywords" content="West LA real estate, homes for sale West Los Angeles, luxury homes Brentwood, Santa Monica real estate, first time home buyer LA, investment property West LA, sell my house West LA" />
+    <meta property="og:title" content="West LA Real Estate | Luxury Homes & Investment Properties" />
+    <meta property="og:description" content="Your premier West Los Angeles real estate resource. Expert guidance for investors, first-time buyers, and sellers." />
+    <meta property="og:type" content="website" />
+    <!-- canonical URL should be set dynamically per page -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "West LA Real Estate",
+      "description": "Premier real estate services in West Los Angeles. Specializing in luxury homes, investment properties, and first-time buyer guidance.",
+      "areaServed": {
+        "@type": "Place",
+        "name": "West Los Angeles, California"
+      },
+      "url": "/",
+      "knowsAbout": ["Luxury Real Estate", "Investment Properties", "First-Time Home Buying", "Property Selling"]
+    }
+    </script>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
@@ -22,5 +38,4 @@
       src="%VITE_ANALYTICS_ENDPOINT%/umami"
       data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
-
 </html>

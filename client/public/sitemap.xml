@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://westla.realestate/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/brentwood</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/santa-monica</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/westwood</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/century-city</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/palms</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/sawtelle</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/neighborhoods/venice</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/investors</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://westla.realestate/buyers</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://westla.realestate/sellers</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://westla.realestate/properties</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://westla.realestate/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://westla.realestate/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
