@@ -1,13 +1,20 @@
 /*
  * THE BLACK FOLIO — Properties Page
- * Property search and listings with filtering
+ * Property search and listings with filtering + Idxcellent MLS widget
  */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Search, SlidersHorizontal, MapPin, Bed, Bath, Maximize, Heart, ArrowRight } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+
+/* Idxcellent MLS: set VITE_IDXCELLENT_WIDGET_URL to your widget URL from the Idxcellent setup page (Default.aspx?wid=...). Use VITE_IDXCELLENT_SCRIPT_URL for dev (e.g. dev.themls.com). */
+const IDXCELLENT_SCRIPT_URL =
+  import.meta.env.VITE_IDXCELLENT_SCRIPT_URL || "https://www.themls.com/IDXNET/Scripts/idxwidget.js";
+const IDXCELLENT_WIDGET_URL =
+  import.meta.env.VITE_IDXCELLENT_WIDGET_URL ||
+  "https://www.themls.com/IDXNET/Default.aspx?wid=CG9Atj%2fV2MXwgVaUKuBHtSogjg9NU3931cpRi1%2fNzUQEQL";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
@@ -61,6 +68,16 @@ export default function Properties() {
     toast("Feature coming soon — save favorites with an account.");
   };
 
+  // Load Idxcellent widget script (required by MLS iframe)
+  useEffect(() => {
+    if (document.getElementById("idx-widget-script")) return;
+    const script = document.createElement("script");
+    script.id = "idx-widget-script";
+    script.src = IDXCELLENT_SCRIPT_URL;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <Navigation />
@@ -80,7 +97,35 @@ export default function Properties() {
         </div>
       </section>
 
-      {/* Search & Filters */}
+      {/* Idxcellent MLS Search — live listings from the MLS */}
+      <section className="pb-12">
+        <div className="container">
+          <AnimatedSection>
+            <motion.div variants={fadeUp} className="mb-4">
+              <h2 className="text-lg font-semibold tracking-wide text-white/90">
+                Live MLS Listings
+              </h2>
+              <p className="text-sm text-white/50 mt-1">
+                Search all available properties from the MLS below.
+              </p>
+            </motion.div>
+            <motion.div
+              variants={fadeUp}
+              className="idx-body w-full max-w-[933px] mx-auto overflow-hidden rounded-sm border border-white/10 bg-[#1a1a1a]"
+            >
+              <iframe
+                id="idxcellent-iframe"
+                title="MLS Property Search"
+                src={IDXCELLENT_WIDGET_URL}
+                className="w-full border-0 bg-[#b7b7b7] min-h-[900px]"
+                style={{ width: "100%", maxWidth: "933px", height: "900px" }}
+              />
+            </motion.div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Search & Filters — featured/sample listings */}
       <section className="pb-8 sticky top-20 z-30 bg-[#111111]/95 backdrop-blur-md border-b border-white/5">
         <div className="container">
           <div className="flex flex-col sm:flex-row gap-3">

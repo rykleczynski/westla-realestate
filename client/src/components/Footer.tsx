@@ -15,11 +15,11 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 border border-white/40 flex items-center justify-center">
-                <span className="text-xs font-bold tracking-widest">W</span>
+                <span className="text-xs font-bold tracking-widest">RK.</span>
               </div>
               <div>
                 <span className="text-sm font-semibold tracking-[0.2em] uppercase">
-                  West LA
+                  Ryan K
                 </span>
                 <span className="block text-[0.6rem] tracking-[0.25em] uppercase text-silver">
                   Real Estate
@@ -101,7 +101,7 @@ export default function Footer() {
         <div className="hairline mt-12 mb-8" />
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/30 tracking-wider">
-            &copy; {new Date().getFullYear()} West LA Real Estate. All rights reserved.
+            &copy; {new Date().getFullYear()} Ryan K Real Estate. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <span className="text-xs text-white/30 tracking-wider">DRE# 00000000</span>

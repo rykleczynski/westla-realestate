@@ -53,11 +53,11 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 border border-white/40 flex items-center justify-center group-hover:border-white transition-colors">
-              <span className="text-xs font-bold tracking-widest">W</span>
+              <span className="text-xs font-bold tracking-widest">RK.</span>
             </div>
             <div className="hidden sm:block">
               <span className="text-sm font-semibold tracking-[0.2em] uppercase">
-                West LA
+                Ryan K
               </span>
               <span className="block text-[0.6rem] tracking-[0.25em] uppercase text-silver">
                 Real Estate

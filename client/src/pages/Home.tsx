@@ -3,7 +3,7 @@
  * Cinematic full-viewport sections, editorial layout
  * Dark canvas with luminous property imagery
  */
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
 import {
@@ -13,11 +13,6 @@ import {
   DollarSign,
   Search,
   Star,
-  ChevronLeft,
-  ChevronRight,
-  Building2,
-  Users,
-  Award,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -57,84 +52,13 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
   );
 }
 
-/* Counter animation */
-function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffix?: string; prefix?: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const duration = 2000;
-    const step = (timestamp: number) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [isInView, end]);
-
-  return (
-    <span ref={ref}>
-      {prefix}{count}{suffix}
-    </span>
-  );
-}
-
-/* Featured listings data */
-const featuredListings = [
-  {
-    id: 1,
-    title: "Modern Oceanfront Estate",
-    location: "Santa Monica",
-    price: "$12,500,000",
-    beds: 5,
-    baths: 6,
-    sqft: "6,200",
-    image: SANTA_MONICA_IMG,
-  },
-  {
-    id: 2,
-    title: "Mediterranean Villa",
-    location: "Brentwood",
-    price: "$8,750,000",
-    beds: 6,
-    baths: 7,
-    sqft: "8,400",
-    image: BRENTWOOD_IMG,
-  },
-  {
-    id: 3,
-    title: "Contemporary Penthouse",
-    location: "Century City",
-    price: "$4,200,000",
-    beds: 3,
-    baths: 3,
-    sqft: "3,100",
-    image: INTERIOR_IMG,
-  },
-  {
-    id: 4,
-    title: "Architectural Masterpiece",
-    location: "Westwood",
-    price: "$6,900,000",
-    beds: 4,
-    baths: 5,
-    sqft: "5,800",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-  },
-];
-
 /* Neighborhoods data */
 const neighborhoods = [
   { name: "Brentwood", slug: "brentwood", median: "$3.2M", image: BRENTWOOD_IMG },
   { name: "Santa Monica", slug: "santa-monica", median: "$2.8M", image: SANTA_MONICA_IMG },
-  { name: "Westwood", slug: "westwood", median: "$1.8M", image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600&q=80" },
-  { name: "Century City", slug: "century-city", median: "$1.5M", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" },
-  { name: "Palms", slug: "palms", median: "$950K", image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" },
+  { name: "Westwood", slug: "westwood", median: "$1.8M", image: "https://images.unsplash.com/photo-1636734354525-9cf1368058e8?w=600&q=80" },
+  { name: "Century City", slug: "century-city", median: "$1.5M", image: "https://images.unsplash.com/photo-1693716959993-7e5709ad429b?w=600&q=80" },
+  { name: "Palms", slug: "palms", median: "$950K", image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" },
 ];
 
 /* Testimonials */
@@ -157,7 +81,6 @@ const testimonials = [
 ];
 
 export default function Home() {
-  const [currentListing, setCurrentListing] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   return (
@@ -190,12 +113,12 @@ export default function Home() {
           >
             <span className="section-label block mb-4">West Los Angeles</span>
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.05] max-w-3xl">
-              Luxury Living,
+              Southern California Living,
               <br />
               <span className="font-light">Redefined.</span>
             </h1>
             <p className="mt-6 text-base lg:text-lg text-white/60 max-w-xl leading-relaxed">
-              Your premier resource for luxury homes, investment properties, and
+              Your one-stop shop for exclusive homes, investment properties, and
               expert guidance across West Los Angeles&apos;s most coveted neighborhoods.
             </p>
 
@@ -227,26 +150,6 @@ export default function Home() {
         >
           <div className="w-[1px] h-12 bg-gradient-to-b from-white/40 to-transparent" />
         </motion.div>
-      </section>
-
-      {/* ===== STATS BAR ===== */}
-      <section className="border-y border-white/5 bg-[#0e0e0e]">
-        <div className="container py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { value: 500, suffix: "+", label: "Properties Sold", icon: Building2 },
-            { value: 2, prefix: "$", suffix: "B+", label: "Total Sales Volume", icon: TrendingUp },
-            { value: 15, suffix: "+", label: "Years Experience", icon: Award },
-            { value: 98, suffix: "%", label: "Client Satisfaction", icon: Users },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <stat.icon className="w-5 h-5 text-silver mx-auto mb-3" />
-              <div className="text-3xl lg:text-4xl font-extralight tracking-tight">
-                <AnimatedCounter end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} />
-              </div>
-              <p className="text-xs tracking-[0.15em] uppercase text-white/40 mt-2">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* ===== PERSONA PATHWAYS ===== */}
@@ -317,88 +220,6 @@ export default function Home() {
               </AnimatedSection>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ===== FEATURED LISTINGS ===== */}
-      <section className="py-24 lg:py-32 bg-[#0e0e0e]">
-        <div className="container">
-          <AnimatedSection>
-            <div className="flex items-end justify-between mb-12">
-              <div>
-                <motion.span variants={fadeUp} className="section-label block mb-4">
-                  Featured
-                </motion.span>
-                <motion.h2 variants={fadeUp} className="text-3xl lg:text-5xl font-bold tracking-tight">
-                  Exclusive
-                  <span className="font-light"> Listings</span>
-                </motion.h2>
-              </div>
-              <motion.div variants={fadeUp} className="hidden sm:flex items-center gap-2">
-                <button
-                  onClick={() => setCurrentListing(Math.max(0, currentListing - 1))}
-                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors"
-                  aria-label="Previous listing"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setCurrentListing(Math.min(featuredListings.length - 1, currentListing + 1))}
-                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors"
-                  aria-label="Next listing"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </motion.div>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredListings.map((listing, i) => (
-              <AnimatedSection key={listing.id}>
-                <motion.div
-                  variants={fadeUp}
-                  className="group relative overflow-hidden folio-frame"
-                >
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img
-                      src={listing.image}
-                      alt={listing.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/90 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <span className="section-label">{listing.location}</span>
-                    <h3 className="text-xl font-semibold tracking-wide mt-1 mb-2">
-                      {listing.title}
-                    </h3>
-                    <div className="flex items-center gap-4 text-sm text-white/60">
-                      <span>{listing.beds} Beds</span>
-                      <span className="text-white/20">|</span>
-                      <span>{listing.baths} Baths</span>
-                      <span className="text-white/20">|</span>
-                      <span>{listing.sqft} Sq Ft</span>
-                    </div>
-                    <p className="text-2xl font-extralight tracking-tight mt-3">
-                      {listing.price}
-                    </p>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection className="mt-10 text-center">
-            <motion.div variants={fadeUp}>
-              <Link
-                href="/properties"
-                className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-colors"
-              >
-                View All Properties <ArrowRight className="w-3 h-3" />
-              </Link>
-            </motion.div>
-          </AnimatedSection>
         </div>
       </section>
 

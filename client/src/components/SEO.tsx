@@ -16,7 +16,7 @@ interface SEOProps {
 export default function SEO({ title, description, canonical, ogImage, schema }: SEOProps) {
   useEffect(() => {
     // Update document title
-    document.title = `${title} | West LA Real Estate`;
+    document.title = `${title} | Ryan K Real Estate`;
 
     // Update meta tags
     const updateMeta = (name: string, content: string, isProperty = false) => {
@@ -81,7 +81,7 @@ export function getLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    "name": "West LA Real Estate",
+    "name": "Ryan K Real Estate",
     "description": "Premier real estate team specializing in luxury homes, investment properties, and first-time buyer guidance across West Los Angeles including Brentwood, Santa Monica, Westwood, Century City, Palms, Sawtelle, and Venice.",
     "url": "https://westla.realestate",
     "telephone": "(310) 555-0100",
@@ -136,7 +136,7 @@ export function getWebPageSchema(name: string, description: string, url: string)
     "url": url,
     "isPartOf": {
       "@type": "WebSite",
-      "name": "West LA Real Estate",
+      "name": "Ryan K Real Estate",
       "url": "https://westla.realestate"
     }
   };
