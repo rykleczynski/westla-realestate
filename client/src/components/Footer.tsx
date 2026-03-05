@@ -14,9 +14,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 border border-white/40 flex items-center justify-center">
-                <span className="text-xs font-bold tracking-widest">RK.</span>
-              </div>
+              <img
+                src="/logo.svg"
+                alt="RK. Ryan K Real Estate"
+                className="h-8 w-8 object-contain"
+              />
               <div>
                 <span className="text-sm font-semibold tracking-[0.2em] uppercase">
                   Ryan K

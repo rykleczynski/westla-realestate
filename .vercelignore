@@ -1,0 +1,9 @@
+# Ignore server (Vercel serves static client only)
+server/
+# Dev / tooling
+.manus-logs
+*.log
+# Local / docs
+.env.local
+.env.*.local
+Idxcellent-Setup.pdf

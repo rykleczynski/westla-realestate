@@ -52,9 +52,11 @@ export default function Navigation() {
         <div className="container flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 border border-white/40 flex items-center justify-center group-hover:border-white transition-colors">
-              <span className="text-xs font-bold tracking-widest">RK.</span>
-            </div>
+            <img
+              src="/logo.svg"
+              alt="RK. Ryan K Real Estate"
+              className="h-8 w-8 object-contain"
+            />
             <div className="hidden sm:block">
               <span className="text-sm font-semibold tracking-[0.2em] uppercase">
                 Ryan K
