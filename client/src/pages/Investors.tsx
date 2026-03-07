@@ -217,6 +217,8 @@ export default function Investors() {
               { label: "USC Area Investors", href: "/investors/usc-area" },
               { label: "South Bay Investors", href: "/investors/south-bay" },
               { label: "Long Beach Investors", href: "/investors/long-beach" },
+              { label: "Westwood Investors", href: "/investors/westwood" },
+              { label: "Gardena Investors", href: "/investors/gardena" },
             ].map((item) => (
               <AnimatedSection key={item.href}>
                 <motion.div variants={fadeUp}>

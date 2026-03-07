@@ -28,4 +28,6 @@
   <url><loc>https://westla.realestate/investors/usc-area</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://westla.realestate/investors/south-bay</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://westla.realestate/investors/long-beach</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/investors/westwood</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://westla.realestate/investors/gardena</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
