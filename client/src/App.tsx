@@ -14,6 +14,18 @@ import Properties from "./pages/Properties";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import LosAngelesInvestors from "./pages/investors/LosAngelesInvestors";
+import OffMarketDealsLosAngeles from "./pages/investors/OffMarketDealsLosAngeles";
+import Exchange1031LosAngeles from "./pages/investors/Exchange1031LosAngeles";
+import MultifamilyLosAngeles from "./pages/investors/MultifamilyLosAngeles";
+import SantaMonicaInvestors from "./pages/investors/SantaMonicaInvestors";
+import VeniceInvestors from "./pages/investors/VeniceInvestors";
+import CulverCityInvestors from "./pages/investors/CulverCityInvestors";
+import BeverlyHillsInvestors from "./pages/investors/BeverlyHillsInvestors";
+import DtlaInvestors from "./pages/investors/DtlaInvestors";
+import UscAreaInvestors from "./pages/investors/UscAreaInvestors";
+import SouthBayInvestors from "./pages/investors/SouthBayInvestors";
+import LongBeachInvestors from "./pages/investors/LongBeachInvestors";
 
 function Router() {
   return (
@@ -28,6 +40,18 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
+      <Route path="/investors/los-angeles" component={LosAngelesInvestors} />
+      <Route path="/investors/off-market-deals-los-angeles" component={OffMarketDealsLosAngeles} />
+      <Route path="/investors/1031-exchange-los-angeles" component={Exchange1031LosAngeles} />
+      <Route path="/investors/multifamily-investment-los-angeles" component={MultifamilyLosAngeles} />
+      <Route path="/investors/santa-monica" component={SantaMonicaInvestors} />
+      <Route path="/investors/venice" component={VeniceInvestors} />
+      <Route path="/investors/culver-city" component={CulverCityInvestors} />
+      <Route path="/investors/beverly-hills" component={BeverlyHillsInvestors} />
+      <Route path="/investors/dtla" component={DtlaInvestors} />
+      <Route path="/investors/usc-area" component={UscAreaInvestors} />
+      <Route path="/investors/south-bay" component={SouthBayInvestors} />
+      <Route path="/investors/long-beach" component={LongBeachInvestors} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

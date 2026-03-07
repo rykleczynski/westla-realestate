@@ -190,6 +190,52 @@ export default function Investors() {
         </div>
       </section>
 
+      {/* Investor SEO Hubs */}
+      <section className="py-20 lg:py-28">
+        <div className="container">
+          <AnimatedSection>
+            <motion.span variants={fadeUp} className="section-label block mb-4">
+              Investor Hubs
+            </motion.span>
+            <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight mb-12">
+              Explore Investor
+              <span className="font-light"> Strategy Pages</span>
+            </motion.h2>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { label: "Los Angeles Investor Guide", href: "/investors/los-angeles" },
+              { label: "Off-Market Deals in LA", href: "/investors/off-market-deals-los-angeles" },
+              { label: "1031 Exchange in LA", href: "/investors/1031-exchange-los-angeles" },
+              { label: "Multifamily Investing in LA", href: "/investors/multifamily-investment-los-angeles" },
+              { label: "Santa Monica Investors", href: "/investors/santa-monica" },
+              { label: "Venice Investors", href: "/investors/venice" },
+              { label: "Culver City Investors", href: "/investors/culver-city" },
+              { label: "Beverly Hills Investors", href: "/investors/beverly-hills" },
+              { label: "DTLA Investors", href: "/investors/dtla" },
+              { label: "USC Area Investors", href: "/investors/usc-area" },
+              { label: "South Bay Investors", href: "/investors/south-bay" },
+              { label: "Long Beach Investors", href: "/investors/long-beach" },
+            ].map((item) => (
+              <AnimatedSection key={item.href}>
+                <motion.div variants={fadeUp}>
+                  <Link
+                    href={item.href}
+                    className="group folio-frame p-6 bg-[#161616] flex items-center justify-between hover:border-white/20 transition-colors"
+                  >
+                    <span className="text-sm tracking-wide text-white/80 group-hover:text-white">
+                      {item.label}
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-silver group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Off-Market CTA */}
       <section className="py-20 lg:py-28">
         <div className="container">
