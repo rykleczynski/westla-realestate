@@ -236,6 +236,48 @@ export default function Neighborhoods() {
         </div>
       </section>
 
+      <section className="py-16 lg:py-24 bg-[#0e0e0e]">
+        <div className="container">
+          <AnimatedSection>
+            <motion.span variants={fadeUp} className="section-label block mb-4">
+              Investor Intelligence
+            </motion.span>
+            <motion.h2 variants={fadeUp} className="text-2xl lg:text-3xl font-bold tracking-tight mb-10">
+              Investor Strategy Hubs by Area
+            </motion.h2>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { label: "Santa Monica Investors", href: "/investors/santa-monica" },
+              { label: "Venice Investors", href: "/investors/venice" },
+              { label: "Westwood Investors", href: "/investors/westwood" },
+              { label: "Culver City Investors", href: "/investors/culver-city" },
+              { label: "Beverly Hills Investors", href: "/investors/beverly-hills" },
+              { label: "DTLA Investors", href: "/investors/dtla" },
+              { label: "USC Area Investors", href: "/investors/usc-area" },
+              { label: "South Bay Investors", href: "/investors/south-bay" },
+            ].map((item) => (
+              <AnimatedSection key={item.href}>
+                <motion.div variants={fadeUp}>
+                  <Link
+                    href={item.href}
+                    className="group block folio-frame p-5 bg-[#161616] hover:border-white/20 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-white/75 group-hover:text-white transition-colors">
+                        {item.label}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-silver group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Link>
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
