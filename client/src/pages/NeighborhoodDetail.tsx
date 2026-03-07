@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { ArrowLeft, ArrowRight, MapPin, School, Clock, TrendingUp, Home as HomeIcon } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO, { getBreadcrumbSchema, getFAQSchema, getWebPageSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -152,6 +153,24 @@ export default function NeighborhoodDetail() {
 
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title={`${data.name} Real Estate Guide | West LA Neighborhood`}
+        description={`Explore ${data.name} real estate trends, pricing, lifestyle, schools, and investor-friendly neighborhood insights.`}
+        canonical={`https://westla.realestate/neighborhoods/${params.slug}`}
+        schema={[
+          getWebPageSchema(
+            `${data.name} Real Estate Guide`,
+            `Market trends, lifestyle, and local insights for ${data.name}.`,
+            `https://westla.realestate/neighborhoods/${params.slug}`,
+          ),
+          getFAQSchema(data.faqs),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Neighborhoods", url: "https://westla.realestate/neighborhoods" },
+            { name: data.name, url: `https://westla.realestate/neighborhoods/${params.slug}` },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero */}

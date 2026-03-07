@@ -9,6 +9,7 @@ import { DollarSign, TrendingUp, Camera, Megaphone, ArrowRight, CheckCircle, Bar
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -40,6 +41,22 @@ export default function Sellers() {
 
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="Sell Your Home in Los Angeles | Seller Strategy + Valuation"
+        description="Seller-focused Los Angeles real estate page with valuation tools, prep checklists, and market-informed selling strategy."
+        canonical="https://westla.realestate/sellers"
+        schema={[
+          getWebPageSchema(
+            "Sell Your Home in Los Angeles",
+            "Practical resources and strategy for home sellers in West LA.",
+            "https://westla.realestate/sellers",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Sellers", url: "https://westla.realestate/sellers" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero with Valuation Tool */}

@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -97,6 +98,22 @@ const neighborhoods = [
 export default function Neighborhoods() {
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="West LA Neighborhood Guides | Santa Monica, Brentwood, Venice + More"
+        description="Explore West Los Angeles neighborhood guides with market snapshots, lifestyle highlights, and local real estate insights."
+        canonical="https://westla.realestate/neighborhoods"
+        schema={[
+          getWebPageSchema(
+            "West LA Neighborhood Guides",
+            "Neighborhood market and lifestyle guides across West Los Angeles.",
+            "https://westla.realestate/neighborhoods",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Neighborhoods", url: "https://westla.realestate/neighborhoods" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero */}

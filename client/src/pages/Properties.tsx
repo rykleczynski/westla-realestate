@@ -8,6 +8,7 @@ import { Search, SlidersHorizontal, MapPin, Bed, Bath, Maximize, Heart, ArrowRig
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 /* Idxcellent MLS: set VITE_IDXCELLENT_WIDGET_URL to your widget URL from the Idxcellent setup page (Default.aspx?wid=...). Use VITE_IDXCELLENT_SCRIPT_URL for dev (e.g. dev.themls.com). */
 const IDXCELLENT_SCRIPT_URL =
@@ -80,6 +81,22 @@ export default function Properties() {
 
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="Los Angeles Property Search | Live MLS + Investor Listings"
+        description="Search Los Angeles properties with live MLS integration, neighborhood filters, and investor-oriented listing discovery."
+        canonical="https://westla.realestate/properties"
+        schema={[
+          getWebPageSchema(
+            "Los Angeles Property Search",
+            "Live MLS and curated property search for LA buyers and investors.",
+            "https://westla.realestate/properties",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Properties", url: "https://westla.realestate/properties" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Header */}

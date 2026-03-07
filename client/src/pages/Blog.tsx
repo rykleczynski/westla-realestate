@@ -8,6 +8,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -89,6 +90,22 @@ const categories = ["All", "Market Report", "Neighborhood Spotlight", "Investmen
 export default function Blog() {
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="Los Angeles Real Estate Blog | Market Reports, Investor Insights, Buyer Guides"
+        description="Read Los Angeles real estate market reports, investor analysis, buyer guides, and seller strategy updates."
+        canonical="https://westla.realestate/blog"
+        schema={[
+          getWebPageSchema(
+            "Los Angeles Real Estate Blog",
+            "Market reports, investor insights, and practical real estate guides.",
+            "https://westla.realestate/blog",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Blog", url: "https://westla.realestate/blog" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Header */}
