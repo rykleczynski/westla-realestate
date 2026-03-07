@@ -8,6 +8,7 @@ import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -39,6 +40,22 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="Contact West LA Real Estate Team | Book a Consult"
+        description="Contact our West LA real estate team for buying, selling, and investor support across Los Angeles neighborhoods."
+        canonical="https://westla.realestate/contact"
+        schema={[
+          getWebPageSchema(
+            "Contact West LA Real Estate Team",
+            "Contact page for consultations and real estate inquiries.",
+            "https://westla.realestate/contact",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Contact", url: "https://westla.realestate/contact" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Header */}

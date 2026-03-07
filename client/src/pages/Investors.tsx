@@ -9,6 +9,7 @@ import { TrendingUp, BarChart3, Shield, ArrowRight, Building2, Calculator, FileT
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -36,6 +37,22 @@ const investmentAreas = [
 export default function Investors() {
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="Real Estate Investing in Los Angeles | Investor Portal"
+        description="Data-driven Los Angeles real estate investing resources, off-market opportunities, and neighborhood-specific investor strategy pages."
+        canonical="https://westla.realestate/investors"
+        schema={[
+          getWebPageSchema(
+            "Los Angeles Real Estate Investor Portal",
+            "Investor-focused market data, strategy, and off-market deal access.",
+            "https://westla.realestate/investors",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Investors", url: "https://westla.realestate/investors" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero */}

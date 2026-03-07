@@ -9,6 +9,7 @@ import { Home, CheckCircle, ArrowRight, BookOpen, Calculator, FileText, MapPin, 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import SEO, { getWebPageSchema, getBreadcrumbSchema, getFAQSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -42,6 +43,23 @@ const faqs = [
 export default function Buyers() {
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="First-Time Home Buyer Guide Los Angeles | West LA"
+        description="Step-by-step first-time buyer guide for Los Angeles with neighborhood insights, financing FAQs, and practical resources."
+        canonical="https://westla.realestate/buyers"
+        schema={[
+          getWebPageSchema(
+            "First-Time Home Buyer Guide Los Angeles",
+            "Educational home-buying resources for first-time buyers in West LA.",
+            "https://westla.realestate/buyers",
+          ),
+          getFAQSchema(faqs),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "Buyers", url: "https://westla.realestate/buyers" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero */}

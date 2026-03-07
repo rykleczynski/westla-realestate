@@ -8,6 +8,7 @@ import { motion, useInView } from "framer-motion";
 import { Award, Users, Building2, TrendingUp, ArrowRight } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -27,6 +28,22 @@ const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKw
 export default function About() {
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="About West LA Real Estate Team | Local Experts"
+        description="Learn about our West Los Angeles real estate team, local market expertise, and investor-friendly approach."
+        canonical="https://westla.realestate/about"
+        schema={[
+          getWebPageSchema(
+            "About West LA Real Estate Team",
+            "Team background and market expertise for West LA real estate.",
+            "https://westla.realestate/about",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://westla.realestate/" },
+            { name: "About", url: "https://westla.realestate/about" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero */}

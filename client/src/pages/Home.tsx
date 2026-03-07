@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO, { getLocalBusinessSchema, getWebPageSchema } from "@/components/SEO";
 
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/hero-westla-skyline-VBWfTyAEiaSCRKVWtRKwdj.webp";
 const SANTA_MONICA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/neighborhood-santa-monica-DrPbXuiz8e6QYKHUR9nkro.webp";
@@ -85,6 +86,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="West LA Real Estate | Homes, Investments, and Market Insights"
+        description="Explore West Los Angeles real estate opportunities for investors, buyers, and sellers across Brentwood, Santa Monica, Westwood, Century City, Palms, Sawtelle, Venice, and more."
+        canonical="https://westla.realestate/"
+        schema={[
+          getLocalBusinessSchema(),
+          getWebPageSchema(
+            "West LA Real Estate",
+            "Homes, investments, and market insights across West Los Angeles.",
+            "https://westla.realestate/",
+          ),
+        ]}
+      />
       <Navigation />
 
       {/* ===== HERO SECTION ===== */}
