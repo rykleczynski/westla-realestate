@@ -26,6 +26,8 @@ import DtlaInvestors from "./pages/investors/DtlaInvestors";
 import UscAreaInvestors from "./pages/investors/UscAreaInvestors";
 import SouthBayInvestors from "./pages/investors/SouthBayInvestors";
 import LongBeachInvestors from "./pages/investors/LongBeachInvestors";
+import WestwoodInvestors from "./pages/investors/WestwoodInvestors";
+import GardenaInvestors from "./pages/investors/GardenaInvestors";
 
 function Router() {
   return (
@@ -52,6 +54,8 @@ function Router() {
       <Route path="/investors/usc-area" component={UscAreaInvestors} />
       <Route path="/investors/south-bay" component={SouthBayInvestors} />
       <Route path="/investors/long-beach" component={LongBeachInvestors} />
+      <Route path="/investors/westwood" component={WestwoodInvestors} />
+      <Route path="/investors/gardena" component={GardenaInvestors} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

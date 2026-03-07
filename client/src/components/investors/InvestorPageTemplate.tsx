@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle, ShieldAlert } from "lucide-react";
+import { ArrowRight, CheckCircle, Download, ShieldAlert } from "lucide-react";
+import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO, { getBreadcrumbSchema, getFAQSchema, getWebPageSchema } from "@/components/SEO";
@@ -13,6 +15,61 @@ const BASE_URL = "https://westla.realestate";
 
 export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps) {
   const pageUrl = `${BASE_URL}/investors/${page.slug}`;
+  const [offMarketForm, setOffMarketForm] = useState({
+    name: "",
+    email: "",
+    budget: "",
+    neighborhoods: page.geoFocus || "",
+  });
+
+  const downloadLeadMagnet = () => {
+    const content = [
+      `${page.h1} — Investor Deal Snapshot`,
+      "",
+      "Practical Checklist:",
+      ...page.takeawayItems.map((item, i) => `${i + 1}. ${item}`),
+      "",
+      "Strategy Prompts:",
+      ...page.strategyPoints.map((item, i) => `${i + 1}. ${item}`),
+      "",
+      "Disclaimer: Educational content only. Verify assumptions with licensed legal/tax/financial professionals.",
+    ].join("\n");
+
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${page.slug}-investor-deal-snapshot.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    toast.success("Lead magnet downloaded.");
+  };
+
+  const submitOffMarketRequest = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!offMarketForm.name || !offMarketForm.email) {
+      toast.error("Please provide your name and email.");
+      return;
+    }
+
+    const subject = encodeURIComponent(`Off-Market Request: ${page.h1}`);
+    const body = encodeURIComponent(
+      [
+        `Name: ${offMarketForm.name}`,
+        `Email: ${offMarketForm.email}`,
+        `Budget: ${offMarketForm.budget || "Not provided"}`,
+        `Target neighborhoods: ${offMarketForm.neighborhoods || "Not provided"}`,
+        `Source page: ${pageUrl}`,
+      ].join("\n"),
+    );
+
+    window.location.href = `mailto:info@westla.realestate?subject=${subject}&body=${body}`;
+    toast.success("Opening your email app to submit the request.");
+  };
 
   return (
     <div className="min-h-screen bg-[#111111]">
@@ -60,34 +117,62 @@ export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps
 
           <div className="folio-frame p-7 bg-[#161616]">
             <h2 className="text-2xl font-semibold tracking-tight mb-5">{page.takeawayTitle}</h2>
-            <ul className="space-y-3">
+            <ul className="space-y-3 mb-6">
               {page.takeawayItems.map((item) => (
                 <li key={item} className="text-white/60 text-sm leading-relaxed border-b border-white/10 pb-2">
                   {item}
                 </li>
               ))}
             </ul>
+            <button
+              type="button"
+              onClick={downloadLeadMagnet}
+              className="inline-flex items-center gap-2 px-5 py-3 bg-white text-black text-xs font-semibold tracking-[0.12em] uppercase hover:bg-white/90 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Download Deal Snapshot
+            </button>
           </div>
         </div>
       </section>
 
       <section className="py-14 lg:py-20 bg-[#0e0e0e]">
         <div className="container">
-          <h2 className="text-3xl font-bold tracking-tight mb-8">Lead Magnet: Investor Deal Snapshot</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-8">Lead Magnet + Conversion</h2>
           <p className="text-white/50 max-w-3xl mb-8">
-            Request our neighborhood-specific investor deal snapshot with underwriting prompts, risk checks, and the top mistakes to avoid in this market.
+            Request off-market opportunities and get a practical investment snapshot you can use during underwriting.
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="folio-frame p-7 bg-[#161616]">
               <h3 className="text-xl font-semibold mb-4">Request Off-Market Deals</h3>
-              <p className="text-sm text-white/45 mb-5">Tell us your buy box and we&apos;ll share matching opportunities when available.</p>
-              <form className="space-y-3">
-                <input className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm" placeholder="Name" />
-                <input className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm" placeholder="Email" />
-                <input className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm" placeholder="Budget range" />
-                <input className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm" placeholder="Target neighborhoods" />
-                <button type="button" className="w-full py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors">
+              <p className="text-sm text-white/45 mb-5">Share your buy box and we&apos;ll match opportunities when available.</p>
+              <form className="space-y-3" onSubmit={submitOffMarketRequest}>
+                <input
+                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
+                  placeholder="Name"
+                  value={offMarketForm.name}
+                  onChange={(e) => setOffMarketForm((p) => ({ ...p, name: e.target.value }))}
+                />
+                <input
+                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
+                  placeholder="Email"
+                  value={offMarketForm.email}
+                  onChange={(e) => setOffMarketForm((p) => ({ ...p, email: e.target.value }))}
+                />
+                <input
+                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
+                  placeholder="Budget range"
+                  value={offMarketForm.budget}
+                  onChange={(e) => setOffMarketForm((p) => ({ ...p, budget: e.target.value }))}
+                />
+                <input
+                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
+                  placeholder="Target neighborhoods"
+                  value={offMarketForm.neighborhoods}
+                  onChange={(e) => setOffMarketForm((p) => ({ ...p, neighborhoods: e.target.value }))}
+                />
+                <button type="submit" className="w-full py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors">
                   Request Off-Market Matches
                 </button>
               </form>
@@ -99,7 +184,7 @@ export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps
                 <p className="text-sm text-white/45 leading-relaxed mb-6">
                   Get a practical 1:1 review of your goals, buy box, and deal pipeline with market-specific guidance.
                 </p>
-                <p className="text-xs text-white/35">Preferred conversion paths enabled: consult booking + off-market request.</p>
+                <p className="text-xs text-white/35">Primary conversion goals: off-market request + consult booking.</p>
               </div>
               <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors self-start">
                 Book Consult <ArrowRight className="w-3 h-3" />
