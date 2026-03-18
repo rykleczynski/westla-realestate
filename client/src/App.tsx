@@ -10,7 +10,6 @@ import NeighborhoodDetail from "./pages/NeighborhoodDetail";
 import Investors from "./pages/Investors";
 import Buyers from "./pages/Buyers";
 import Sellers from "./pages/Sellers";
-import Properties from "./pages/Properties";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -38,7 +37,6 @@ function Router() {
       <Route path="/investors" component={Investors} />
       <Route path="/buyers" component={Buyers} />
       <Route path="/sellers" component={Sellers} />
-      <Route path="/properties" component={Properties} />
       <Route path="/blog" component={Blog} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />

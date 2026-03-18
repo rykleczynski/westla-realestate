@@ -271,10 +271,10 @@ export default function NeighborhoodDetail() {
                     Schedule a Tour
                   </Link>
                   <Link
-                    href="/properties"
+                    href="/contact"
                     className="block w-full py-3 mt-3 border border-white/20 text-center text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-colors"
                   >
-                    View Listings
+                    Inquire About Listings
                   </Link>
                 </div>
 

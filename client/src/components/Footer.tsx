@@ -29,7 +29,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-white/50 leading-relaxed max-w-xs">
-              Your premier resource for luxury real estate in West Los Angeles.
+              Your premier resource for residential real estate in West Los Angeles.
               Serving investors, first-time buyers, and sellers across Brentwood,
               Santa Monica, Westwood, and beyond.
             </p>
@@ -41,7 +41,6 @@ export default function Footer() {
             <div className="flex flex-col gap-3">
               {[
                 { label: "Neighborhoods", href: "/neighborhoods" },
-                { label: "Properties", href: "/properties" },
                 { label: "Market Insights", href: "/blog" },
                 { label: "About Us", href: "/about" },
               ].map((link) => (
@@ -84,16 +83,16 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-silver mt-0.5 shrink-0" />
                 <span className="text-sm text-white/50">
-                  West Los Angeles, CA
+                  Los Angeles, CA
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-silver shrink-0" />
-                <span className="text-sm text-white/50">(310) 555-0100</span>
+                <span className="text-sm text-white/50">(224)-249-1004</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-silver shrink-0" />
-                <span className="text-sm text-white/50">info@westla.realestate</span>
+                <span className="text-sm text-white/50">rkleczynski@kw.com</span>
               </div>
             </div>
           </div>
@@ -106,7 +105,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Ryan K Real Estate. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <span className="text-xs text-white/30 tracking-wider">DRE# 00000000</span>
+            <span className="text-xs text-white/30 tracking-wider">DRE# 02402858</span>
             <span className="text-xs text-white/30">|</span>
             <span className="text-xs text-white/30 tracking-wider">Privacy Policy</span>
             <span className="text-xs text-white/30">|</span>

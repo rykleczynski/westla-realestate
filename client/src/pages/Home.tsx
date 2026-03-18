@@ -139,7 +139,7 @@ export default function Home() {
             {/* Dual CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
               <Link
-                href="/properties"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
               >
                 <Search className="w-4 h-4" />

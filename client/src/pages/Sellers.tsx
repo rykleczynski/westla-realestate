@@ -2,7 +2,7 @@
  * THE BLACK FOLIO — Seller's Resource Center
  * Home valuation, market insights, and selling guidance
  */
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
 import { DollarSign, TrendingUp, Camera, Megaphone, ArrowRight, CheckCircle, BarChart3, Clock, Star } from "lucide-react";
@@ -10,6 +10,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
+import GetInTouchForm from "@/components/GetInTouchForm";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -27,18 +28,6 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
 const INTERIOR_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/luxury-interior-XkMNb7ufufLac9VK4t4iEv.webp";
 
 export default function Sellers() {
-  const [address, setAddress] = useState("");
-
-  const handleValuation = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!address.trim()) {
-      toast.error("Please enter your property address.");
-      return;
-    }
-    toast.success("Valuation request submitted! We'll send your personalized report within 24 hours.");
-    setAddress("");
-  };
-
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
@@ -91,26 +80,7 @@ export default function Sellers() {
                 <p className="text-sm text-white/40 mb-6">
                   Get a free, personalized home valuation based on current West LA market data.
                 </p>
-                <form onSubmit={handleValuation} className="space-y-4">
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Enter your property address"
-                    className="w-full px-4 py-3 bg-[#111111] border border-white/10 text-sm text-white placeholder:text-white/30 focus:border-white/30 focus:outline-none transition-colors"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    className="w-full px-4 py-3 bg-[#111111] border border-white/10 text-sm text-white placeholder:text-white/30 focus:border-white/30 focus:outline-none transition-colors"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
-                  >
-                    Get My Free Valuation
-                  </button>
-                </form>
+                <GetInTouchForm />
               </motion.div>
             </AnimatedSection>
           </div>

@@ -18,7 +18,6 @@ const navLinks = [
       { label: "Selling Your Home", href: "/sellers" },
     ],
   },
-  { label: "Properties", href: "/properties" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];

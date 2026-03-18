@@ -1,14 +1,13 @@
 /*
  * THE BLACK FOLIO — About Page
- * Brand story, team bio, and credentials
+ * Ryan Kleczynski — bio and credentials
  */
 import { useRef } from "react";
 import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
-import { Award, Users, Building2, TrendingUp, ArrowRight } from "lucide-react";
+import { Award, Building2, TrendingUp, ArrowRight, Target, BarChart3, Shield } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -28,22 +27,6 @@ const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKw
 export default function About() {
   return (
     <div className="min-h-screen bg-[#111111]">
-      <SEO
-        title="About West LA Real Estate Team | Local Experts"
-        description="Learn about our West Los Angeles real estate team, local market expertise, and investor-friendly approach."
-        canonical="https://westla.realestate/about"
-        schema={[
-          getWebPageSchema(
-            "About West LA Real Estate Team",
-            "Team background and market expertise for West LA real estate.",
-            "https://westla.realestate/about",
-          ),
-          getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "About", url: "https://westla.realestate/about" },
-          ]),
-        ]}
-      />
       <Navigation />
 
       {/* Hero */}
@@ -55,16 +38,17 @@ export default function About() {
         <div className="relative z-10 container">
           <AnimatedSection>
             <motion.span variants={fadeUp} className="section-label block mb-4">
-              About Us
+              About
             </motion.span>
             <motion.h1 variants={fadeUp} className="text-4xl lg:text-6xl font-bold tracking-tight mb-6 max-w-3xl">
-              West LA&apos;s Premier
-              <span className="font-light"> Real Estate Team</span>
+              Ryan Kleczynski
+              <span className="font-light"> -         
+                Los Angeles Real Estate</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="text-lg text-white/50 max-w-2xl leading-relaxed">
-              We are a boutique real estate team specializing exclusively in West Los Angeles.
-              Our deep local expertise, data-driven approach, and commitment to personalized
-              service set us apart in one of the world&apos;s most competitive markets.
+              Results-driven real estate professional delivering strategic insight, sharp negotiation,
+              and exceptional outcomes. Investor-minded expertise for buyers, sellers, and investors
+              across Southern California.
             </motion.p>
           </AnimatedSection>
         </div>
@@ -74,130 +58,91 @@ export default function About() {
       <section className="border-y border-white/5 bg-[#0e0e0e]">
         <div className="container py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { value: "500+", label: "Properties Sold", icon: Building2 },
-            { value: "$2B+", label: "Total Sales Volume", icon: TrendingUp },
-            { value: "15+", label: "Years Experience", icon: Award },
-            { value: "98%", label: "Client Satisfaction", icon: Users },
+            { value: "SoCal", label: "Market Focus", icon: Building2 },
+            { value: "Data-Driven", label: "Approach", icon: TrendingUp },
+            { value: "Investor", label: "Mindset", icon: Target },
+            { value: "Full-Service", label: "Buy, Sell & Invest", icon: Award },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <stat.icon className="w-5 h-5 text-silver mx-auto mb-3" />
-              <p className="text-3xl font-extralight tracking-tight">{stat.value}</p>
+              <p className="text-2xl lg:text-3xl font-extralight tracking-tight">{stat.value}</p>
               <p className="text-xs tracking-[0.15em] uppercase text-white/40 mt-2">{stat.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Our Story */}
+      {/* Bio + Photo */}
       <section className="py-20 lg:py-28">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <AnimatedSection>
-              <motion.div variants={fadeUp}>
-                <span className="section-label block mb-4">Our Story</span>
-                <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-6">
-                  Born &amp; Raised in
-                  <span className="font-light"> West LA</span>
-                </h2>
-                <div className="space-y-4 text-white/50 leading-relaxed">
-                  <p>
-                    Founded with a singular focus on West Los Angeles, our team brings
-                    an unmatched depth of local knowledge to every transaction. We don&apos;t
-                    just work in West LA — we live here, raise our families here, and
-                    are deeply invested in the communities we serve.
-                  </p>
-                  <p>
-                    Our approach combines cutting-edge market analytics with old-fashioned
-                    relationship building. We believe that the best real estate outcomes
-                    come from truly understanding our clients&apos; goals and matching them
-                    with the right opportunities at the right time.
-                  </p>
-                  <p>
-                    Whether you&apos;re a seasoned investor seeking off-market deals, a
-                    first-time buyer navigating the LA market, or a homeowner looking to
-                    maximize your sale price, we bring the same level of dedication,
-                    expertise, and personalized attention to every engagement.
-                  </p>
+              <motion.div variants={fadeUp} className="space-y-6">
+                <div className="aspect-[4/5] max-w-md overflow-hidden folio-frame">
+                  <img
+                    src="/ryan-headshot.png"
+                    alt="Ryan Kleczynski"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  />
                 </div>
               </motion.div>
             </AnimatedSection>
 
             <AnimatedSection>
-              <motion.div variants={fadeUp} className="space-y-6">
-                {[
-                  { title: "Hyper-Local Expertise", desc: "We specialize exclusively in West LA — from Brentwood to Venice, Santa Monica to Century City. This focus gives us unparalleled market knowledge and relationships." },
-                  { title: "Data-Driven Decisions", desc: "Every recommendation is backed by comprehensive market data, comparable analysis, and trend forecasting. We don't guess — we analyze." },
-                  { title: "Concierge Service", desc: "From staging and photography to legal and financial referrals, we provide a full-service experience that simplifies every aspect of your real estate journey." },
-                ].map((item) => (
-                  <div key={item.title} className="folio-frame p-6 bg-[#161616]">
-                    <h3 className="text-base font-semibold tracking-wide mb-2">{item.title}</h3>
-                    <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
+              <motion.div variants={fadeUp}>
+                <span className="section-label block mb-4">About Ryan</span>
+                <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-6">
+                  Strategic Insight.
+                  <span className="font-light"> Exceptional Outcomes.</span>
+                </h2>
+                <div className="space-y-4 text-white/50 leading-relaxed">
+                  <p>
+                    Ryan Kleczynski is a results-driven real estate professional known for delivering strategic insight, sharp negotiation, and exceptional outcomes for his clients. With extensive experience as a real estate investor, Ryan approaches every transaction with a deep understanding of market dynamics, asset valuation, and wealth-building through property ownership. His investor mindset allows him to identify opportunities others miss and guide clients toward decisions that maximize both short-term value and long-term returns.
+                  </p>
+                  <p>
+                    Specializing in competitive markets across Southern California, Ryan is recognized for his ability to navigate complex transactions with precision and confidence. Whether representing buyers, sellers, or investors, he combines data-driven analysis with an aggressive negotiation strategy to secure the strongest possible terms. His clients benefit from a disciplined approach to pricing, marketing, and deal structuring that consistently positions them ahead of the market.
+                  </p>
+                  <p>
+                    Ryan&apos;s philosophy is simple: real estate is not just about buying or selling property—it&apos;s about building wealth, creating leverage, and executing smart investments. He is committed to providing a highly professional, transparent, and strategic experience that empowers clients to move forward with confidence.
+                  </p>
+                  <p>
+                    Known for his relentless work ethic, market expertise, and commitment to excellence, Ryan has built a reputation as a trusted advisor for those looking to acquire, sell, or invest in real estate at the highest level.
+                  </p>
+                </div>
               </motion.div>
             </AnimatedSection>
           </div>
         </div>
       </section>
 
-      {/* Team */}
+      {/* Value props */}
       <section className="py-20 lg:py-28 bg-[#0e0e0e]">
         <div className="container">
           <AnimatedSection>
             <motion.span variants={fadeUp} className="section-label block mb-4">
-              The Team
+              How I Work
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight mb-12">
-              Meet Your
-              <span className="font-light"> Advisors</span>
+              What You Can
+              <span className="font-light"> Expect</span>
             </motion.h2>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              {
-                name: "Lead Agent",
-                role: "Principal Broker",
-                bio: "With over 15 years of experience in West LA luxury real estate, our lead agent has closed over $2 billion in transactions and is consistently ranked among the top agents in Los Angeles.",
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-              },
-              {
-                name: "Buyer Specialist",
-                role: "Buyer's Agent",
-                bio: "Specializing in helping first-time buyers and relocating professionals find their perfect home in West LA. Known for patience, market knowledge, and skilled negotiation.",
-                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
-              },
-              {
-                name: "Investment Advisor",
-                role: "Investment Specialist",
-                bio: "A former financial analyst turned real estate investor, our investment specialist brings a data-driven approach to identifying high-yield opportunities across West LA.",
-                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-              },
-            ].map((member) => (
-              <AnimatedSection key={member.name}>
-                <motion.div variants={fadeUp} className="folio-frame overflow-hidden bg-[#161616]">
-                  <div className="aspect-[4/5] overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold tracking-wide">{member.name}</h3>
-                    <p className="text-xs tracking-[0.15em] uppercase text-silver mt-1 mb-3">{member.role}</p>
-                    <p className="text-sm text-white/40 leading-relaxed">{member.bio}</p>
-                  </div>
+              { title: "Data-Driven Analysis", desc: "Every recommendation is backed by comprehensive market data, comparables, and trend analysis. No guesswork—strategic decisions built on numbers.", icon: BarChart3 },
+              { title: "Aggressive Negotiation", desc: "Sharp negotiation and deal structuring to secure the strongest possible terms for buyers, sellers, and investors.", icon: Target },
+              { title: "Transparent & Professional", desc: "A disciplined, transparent process from pricing and marketing to closing. You stay informed and in control.", icon: Shield },
+            ].map((item) => (
+              <AnimatedSection key={item.title}>
+                <motion.div variants={fadeUp} className="folio-frame p-6 bg-[#161616]">
+                  <item.icon className="w-5 h-5 text-silver mb-4" />
+                  <h3 className="text-base font-semibold tracking-wide mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
                 </motion.div>
               </AnimatedSection>
             ))}
           </div>
-
-          <AnimatedSection className="mt-8 text-center">
-            <motion.p variants={fadeUp} className="text-sm text-white/30 italic">
-              Team member names and photos are placeholders — update with your actual team information.
-            </motion.p>
-          </AnimatedSection>
         </div>
       </section>
 
@@ -209,17 +154,17 @@ export default function About() {
               Credentials
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight mb-12">
-              Awards &amp;
-              <span className="font-light"> Recognition</span>
+              Expertise &amp;
+              <span className="font-light"> Focus</span>
             </motion.h2>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              "Top 1% of Agents Nationwide",
-              "LA Business Journal Top Real Estate Team",
-              "Zillow Premier Agent",
-              "Certified Luxury Home Marketing Specialist",
+              "Southern California Markets",
+              "Buyer & Seller Representation",
+              "Investment & Wealth-Building",
+              "Complex Transaction Navigation",
             ].map((award) => (
               <AnimatedSection key={award}>
                 <motion.div variants={fadeUp} className="folio-frame p-6 bg-[#161616] text-center">
@@ -241,8 +186,8 @@ export default function About() {
                 Let&apos;s Work Together
               </h2>
               <p className="text-white/50 max-w-lg mx-auto mb-8">
-                Whether you&apos;re buying, selling, or investing in West LA,
-                we&apos;d love to hear about your goals.
+                Whether you&apos;re buying, selling, or investing in West LA or greater Southern California,
+                I&apos;d love to hear about your goals.
               </p>
               <Link
                 href="/contact"

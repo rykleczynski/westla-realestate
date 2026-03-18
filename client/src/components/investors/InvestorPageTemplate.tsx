@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO, { getBreadcrumbSchema, getFAQSchema, getWebPageSchema } from "@/components/SEO";
 import type { InvestorPageData } from "@/data/investorPages";
+import GetInTouchForm from "@/components/GetInTouchForm";
 
 interface InvestorPageTemplateProps {
   page: InvestorPageData;
@@ -15,13 +16,6 @@ const BASE_URL = "https://westla.realestate";
 
 export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps) {
   const pageUrl = `${BASE_URL}/investors/${page.slug}`;
-  const [offMarketForm, setOffMarketForm] = useState({
-    name: "",
-    email: "",
-    budget: "",
-    neighborhoods: page.geoFocus || "",
-  });
-
   const downloadLeadMagnet = () => {
     const content = [
       `${page.h1} — Investor Deal Snapshot`,
@@ -46,29 +40,6 @@ export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps
     URL.revokeObjectURL(url);
 
     toast.success("Lead magnet downloaded.");
-  };
-
-  const submitOffMarketRequest = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!offMarketForm.name || !offMarketForm.email) {
-      toast.error("Please provide your name and email.");
-      return;
-    }
-
-    const subject = encodeURIComponent(`Off-Market Request: ${page.h1}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${offMarketForm.name}`,
-        `Email: ${offMarketForm.email}`,
-        `Budget: ${offMarketForm.budget || "Not provided"}`,
-        `Target neighborhoods: ${offMarketForm.neighborhoods || "Not provided"}`,
-        `Source page: ${pageUrl}`,
-      ].join("\n"),
-    );
-
-    window.location.href = `mailto:info@westla.realestate?subject=${subject}&body=${body}`;
-    toast.success("Opening your email app to submit the request.");
   };
 
   return (
@@ -147,35 +118,7 @@ export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps
             <div className="folio-frame p-7 bg-[#161616]">
               <h3 className="text-xl font-semibold mb-4">Request Off-Market Deals</h3>
               <p className="text-sm text-white/45 mb-5">Share your buy box and we&apos;ll match opportunities when available.</p>
-              <form className="space-y-3" onSubmit={submitOffMarketRequest}>
-                <input
-                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
-                  placeholder="Name"
-                  value={offMarketForm.name}
-                  onChange={(e) => setOffMarketForm((p) => ({ ...p, name: e.target.value }))}
-                />
-                <input
-                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
-                  placeholder="Email"
-                  value={offMarketForm.email}
-                  onChange={(e) => setOffMarketForm((p) => ({ ...p, email: e.target.value }))}
-                />
-                <input
-                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
-                  placeholder="Budget range"
-                  value={offMarketForm.budget}
-                  onChange={(e) => setOffMarketForm((p) => ({ ...p, budget: e.target.value }))}
-                />
-                <input
-                  className="w-full px-4 py-3 bg-[#111111] border border-white/15 text-sm"
-                  placeholder="Target neighborhoods"
-                  value={offMarketForm.neighborhoods}
-                  onChange={(e) => setOffMarketForm((p) => ({ ...p, neighborhoods: e.target.value }))}
-                />
-                <button type="submit" className="w-full py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors">
-                  Request Off-Market Matches
-                </button>
-              </form>
+              <GetInTouchForm />
             </div>
 
             <div className="folio-frame p-7 bg-[#161616] flex flex-col justify-between">

@@ -84,10 +84,10 @@ export default function Investors() {
                 Access Off-Market Deals
               </Link>
               <Link
-                href="/properties"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/30 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-colors"
               >
-                Browse Investment Properties
+                Inquire About Properties
               </Link>
             </motion.div>
           </AnimatedSection>
