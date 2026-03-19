@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ryanklosangeles/sitemap.xml
+Sitemap: https://ryanklosangeles.com/sitemap.xml
