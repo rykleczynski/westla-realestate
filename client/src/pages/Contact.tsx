@@ -2,13 +2,14 @@
  * THE BLACK FOLIO — Contact Page
  * Contact form, office info, and map
  */
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
-import GetInTouchForm from "@/components/GetInTouchForm";
+import { toast } from "sonner";
+import BookingCalendar from "@/components/BookingCalendar";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -24,6 +25,59 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
 }
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    inquiryType: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !formData.firstName?.trim() ||
+      !formData.lastName?.trim() ||
+      !formData.email?.trim() ||
+      !formData.phone?.trim()
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          inquiryType: formData.inquiryType || undefined,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        toast.error(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+      toast.success("Message sent! We'll be in touch within 24 hours.");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        inquiryType: "",
+      });
+    } catch {
+      toast.error("Could not send message. Please check your connection and try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
@@ -87,7 +141,85 @@ export default function Contact() {
               <AnimatedSection>
                 <motion.div variants={fadeUp}>
                   <h2 className="text-2xl font-bold tracking-tight mb-8">Send Us a Message</h2>
-                  <GetInTouchForm />
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-xs tracking-[0.1em] uppercase text-white/40 mb-2">
+                          First name *
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.firstName}
+                          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                          placeholder="First name"
+                          className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 text-sm text-white placeholder:text-white/25 focus:border-white/30 focus:outline-none transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs tracking-[0.1em] uppercase text-white/40 mb-2">
+                          Last name *
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.lastName}
+                          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                          placeholder="Last name"
+                          className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 text-sm text-white placeholder:text-white/25 focus:border-white/30 focus:outline-none transition-colors"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-xs tracking-[0.1em] uppercase text-white/40 mb-2">
+                          Email *
+                        </label>
+                        <input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="you@email.com"
+                          className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 text-sm text-white placeholder:text-white/25 focus:border-white/30 focus:outline-none transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs tracking-[0.1em] uppercase text-white/40 mb-2">
+                          Phone number *
+                        </label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="(310) 555-0000"
+                          className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 text-sm text-white placeholder:text-white/25 focus:border-white/30 focus:outline-none transition-colors"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs tracking-[0.1em] uppercase text-white/40 mb-2">
+                        Inquiry type
+                      </label>
+                      <select
+                        value={formData.inquiryType}
+                        onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
+                        className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 text-sm text-white focus:border-white/30 focus:outline-none transition-colors"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="buying">Buying a Home</option>
+                        <option value="selling">Selling My Home</option>
+                        <option value="investing">Investment Properties</option>
+                        <option value="valuation">Home Valuation</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      <Send className="w-4 h-4" />
+                      {submitting ? "Sending…" : "Submit"}
+                    </button>
+                  </form>
                 </motion.div>
               </AnimatedSection>
             </div>
@@ -157,6 +289,23 @@ export default function Contact() {
               </AnimatedSection>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Booking Calendar */}
+      <section className="pb-16 lg:pb-24">
+        <div className="container max-w-4xl mx-auto">
+          <AnimatedSection>
+            <motion.div variants={fadeUp}>
+              <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-4">
+                Schedule a Consultation
+              </h2>
+              <p className="text-sm text-white/50 mb-6 max-w-2xl">
+                Choose a time that works best for you to discuss your buying, selling, or investing goals in West LA.
+              </p>
+              <BookingCalendar />
+            </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 

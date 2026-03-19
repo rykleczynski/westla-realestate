@@ -68,33 +68,49 @@ async function startServer() {
         phone = "",
         interest = "",
         inquiryType = "",
-        message = "",
       } = req.body || {};
       const firstName = String(rawFirst).trim() || (legacyName ? String(legacyName).trim().split(/\s+/)[0] : "");
       const lastName = String(rawLast).trim() || (legacyName ? String(legacyName).trim().split(/\s+/).slice(1).join(" ") : "");
       const trimmedEmail = String(email).trim();
-      const trimmedMessage = String(message).trim();
       const interestValue = inquiryType || interest;
 
+      // Map inquiry type to lead_type label for CRM
+      const leadType =
+        inquiryType === "buying"
+          ? "Buyer"
+          : inquiryType === "selling"
+          ? "Seller"
+          : inquiryType === "investing"
+          ? "Investor"
+          : inquiryType === "valuation"
+          ? "Info"
+          : "Other";
+
       const trimmedPhone = phone ? String(phone).trim() : "";
-      if (!firstName || !lastName || !trimmedEmail || !trimmedPhone || !trimmedMessage) {
-        res.status(400).json({ error: "First name, last name, email, phone, and message are required." });
+      if (!firstName || !lastName || !trimmedEmail || !trimmedPhone) {
+        res.status(400).json({ error: "First name, last name, email, and phone are required." });
         return;
       }
 
       const fullName = [firstName, lastName].filter(Boolean).join(" ");
 
-      const customFields: { id: string; key?: string; field_value: string }[] = [];
-      if (process.env.GHL_MESSAGE_FIELD_ID && trimmedMessage) {
-        customFields.push({
-          id: process.env.GHL_MESSAGE_FIELD_ID,
-          field_value: trimmedMessage,
-        });
-      }
+      const customFields: { id?: string; key?: string; field_value: string }[] = [];
       if (process.env.GHL_INTEREST_FIELD_ID && interestValue) {
         customFields.push({
           id: process.env.GHL_INTEREST_FIELD_ID,
           field_value: interestValue,
+        });
+      }
+      if (process.env.GHL_LEAD_TYPE_FIELD_ID && leadType) {
+        customFields.push({
+          id: process.env.GHL_LEAD_TYPE_FIELD_ID,
+          field_value: leadType,
+        });
+      }
+      if (process.env.GHL_CONVERSATIONAL_AI_STATUS_FIELD_ID) {
+        customFields.push({
+          id: process.env.GHL_CONVERSATIONAL_AI_STATUS_FIELD_ID,
+          field_value: "AI On",
         });
       }
 
@@ -105,7 +121,7 @@ async function startServer() {
         name: fullName,
         email: trimmedEmail,
         phone: trimmedPhone,
-        source: "Website Contact Form",
+        source: "Website",
         tags: interestValue ? [interestValue] : ["website"],
         ...(customFields.length > 0 && { customFields }),
       };
@@ -121,10 +137,12 @@ async function startServer() {
         body: JSON.stringify(body),
       });
 
-      const responseData = await response.json().catch(() => null);
+      const responseData = (await response.json().catch(() => null)) as
+        | { id?: string; contact?: { id?: string } }
+        | null;
 
       if (!response.ok) {
-        const err = responseData && typeof responseData === "object" ? responseData : { message: response.statusText };
+        const err = responseData && typeof responseData === "object" ? (responseData as any) : { message: response.statusText };
         const msg = err.message;
         const errMessage = Array.isArray(msg) ? msg.join(", ") : typeof msg === "string" ? msg : "Failed to submit.";
         console.error("GHL API error:", response.status, errMessage, responseData);
