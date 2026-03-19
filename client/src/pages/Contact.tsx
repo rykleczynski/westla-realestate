@@ -207,6 +207,7 @@ export default function Contact() {
                         <option value="buying">Buying a Home</option>
                         <option value="selling">Selling My Home</option>
                         <option value="investing">Investment Properties</option>
+                        <option value="leasing">Leasing / Tenant Placement</option>
                         <option value="valuation">Home Valuation</option>
                         <option value="other">Other</option>
                       </select>

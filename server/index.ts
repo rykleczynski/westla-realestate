@@ -82,6 +82,8 @@ async function startServer() {
           ? "Seller"
           : inquiryType === "investing"
           ? "Investor"
+          : inquiryType === "leasing"
+          ? "Leasing"
           : inquiryType === "valuation"
           ? "Info"
           : "Other";
