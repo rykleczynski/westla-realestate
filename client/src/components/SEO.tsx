@@ -138,6 +138,32 @@ export function getFAQSchema(faqs: { q: string; a: string }[]) {
   };
 }
 
+export function getServiceSchema(input: {
+  name: string;
+  description: string;
+  serviceType: string;
+  url: string;
+  areaServed?: string;
+}) {
+  const siteUrl = getSiteUrl();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": input.name,
+    "description": input.description,
+    "serviceType": input.serviceType,
+    "provider": {
+      "@type": "RealEstateAgent",
+      "name": "Ryan K Real Estate",
+      "url": siteUrl,
+    },
+    ...(input.areaServed && {
+      "areaServed": { "@type": "City", "name": input.areaServed },
+    }),
+    "url": input.url,
+  };
+}
+
 export function getWebPageSchema(name: string, description: string, url: string) {
   const siteUrl = getSiteUrl();
   return {

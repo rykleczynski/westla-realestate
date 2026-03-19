@@ -293,7 +293,7 @@ export default function Contact() {
       </section>
 
       {/* Booking Calendar */}
-      <section className="pb-16 lg:pb-24">
+      <section id="schedule" className="pb-16 lg:pb-24">
         <div className="container max-w-4xl mx-auto">
           <AnimatedSection>
             <motion.div variants={fadeUp}>
