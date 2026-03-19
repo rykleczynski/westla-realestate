@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://westla.realestate/sitemap.xml
+Sitemap: https://ryanklosangeles/sitemap.xml
