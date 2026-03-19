@@ -40,16 +40,16 @@ export default function Investors() {
       <SEO
         title="Real Estate Investing in Los Angeles | Investor Portal"
         description="Data-driven Los Angeles real estate investing resources, off-market opportunities, and neighborhood-specific investor strategy pages."
-        canonical="https://westla.realestate/investors"
+        canonical="https://ryanklosangeles.com/investors"
         schema={[
           getWebPageSchema(
             "Los Angeles Real Estate Investor Portal",
             "Investor-focused market data, strategy, and off-market deal access.",
-            "https://westla.realestate/investors",
+            "https://ryanklosangeles.com/investors",
           ),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Investors", url: "https://westla.realestate/investors" },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Investors", url: "https://ryanklosangeles.com/investors" },
           ]),
         ]}
       />

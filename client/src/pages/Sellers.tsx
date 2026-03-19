@@ -33,16 +33,16 @@ export default function Sellers() {
       <SEO
         title="Sell Your Home in Los Angeles | Seller Strategy + Valuation"
         description="Seller-focused Los Angeles real estate page with valuation tools, prep checklists, and market-informed selling strategy."
-        canonical="https://westla.realestate/sellers"
+        canonical="https://ryanklosangeles.com/sellers"
         schema={[
           getWebPageSchema(
             "Sell Your Home in Los Angeles",
             "Practical resources and strategy for home sellers in West LA.",
-            "https://westla.realestate/sellers",
+            "https://ryanklosangeles.com/sellers",
           ),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Sellers", url: "https://westla.realestate/sellers" },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Sellers", url: "https://ryanklosangeles.com/sellers" },
           ]),
         ]}
       />

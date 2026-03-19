@@ -89,13 +89,13 @@ export default function Home() {
       <SEO
         title="West LA Real Estate | Homes, Investments, and Market Insights"
         description="Explore West Los Angeles real estate opportunities for investors, buyers, and sellers across Brentwood, Santa Monica, Westwood, Century City, Palms, Sawtelle, Venice, and more."
-        canonical="https://westla.realestate/"
+        canonical="https://ryanklosangeles.com/"
         schema={[
           getLocalBusinessSchema(),
           getWebPageSchema(
             "West LA Real Estate",
             "Homes, investments, and market insights across West Los Angeles.",
-            "https://westla.realestate/",
+            "https://ryanklosangeles.com/",
           ),
         ]}
       />

@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle, Download, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import SEO, { getBreadcrumbSchema, getFAQSchema, getWebPageSchema } from "@/components/SEO";
+import SEO, { getBreadcrumbSchema, getFAQSchema, getSiteUrl, getWebPageSchema } from "@/components/SEO";
 import type { InvestorPageData } from "@/data/investorPages";
 import GetInTouchForm from "@/components/GetInTouchForm";
 
@@ -12,10 +12,9 @@ interface InvestorPageTemplateProps {
   page: InvestorPageData;
 }
 
-const BASE_URL = "https://westla.realestate";
-
 export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps) {
-  const pageUrl = `${BASE_URL}/investors/${page.slug}`;
+  const baseUrl = getSiteUrl();
+  const pageUrl = `${baseUrl}/investors/${page.slug}`;
   const downloadLeadMagnet = () => {
     const content = [
       `${page.h1} — Investor Deal Snapshot`,
@@ -144,7 +143,7 @@ export default function InvestorPageTemplate({ page }: InvestorPageTemplateProps
             <ul className="space-y-2 text-sm text-white/55">
               <li>1) Add property in GSC (Domain property preferred).</li>
               <li>2) Verify ownership via DNS TXT record.</li>
-              <li>3) Submit sitemap: <span className="text-silver">https://westla.realestate/sitemap.xml</span>.</li>
+              <li>3) Submit sitemap: <span className="text-silver">https://ryanklosangeles.com/sitemap.xml</span>.</li>
               <li>4) Request indexing for top investor pages first.</li>
               <li>5) Monitor queries, CTR, and coverage weekly.</li>
             </ul>

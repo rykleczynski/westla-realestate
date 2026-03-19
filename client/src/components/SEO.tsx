@@ -5,6 +5,16 @@
  */
 import { useEffect } from "react";
 
+export const DEFAULT_SITE_URL = "https://ryanklosangeles.com";
+
+export function getSiteUrl() {
+  const envUrl = (import.meta as any).env?.VITE_SITE_URL as string | undefined;
+  const normalizedEnvUrl = envUrl?.trim().replace(/\/+$/, "");
+  if (normalizedEnvUrl) return normalizedEnvUrl;
+  if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
+  return DEFAULT_SITE_URL;
+}
+
 interface SEOProps {
   title: string;
   description: string;
@@ -78,14 +88,15 @@ export default function SEO({ title, description, canonical, ogImage, schema }: 
 /* Pre-built schema generators */
 
 export function getLocalBusinessSchema() {
+  const siteUrl = getSiteUrl();
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     "name": "Ryan K Real Estate",
     "description": "Premier real estate team specializing in luxury homes, investment properties, and first-time buyer guidance across West Los Angeles including Brentwood, Santa Monica, Westwood, Century City, Palms, Sawtelle, and Venice.",
-    "url": "https://westla.realestate",
-    "telephone": "(310) 555-0100",
-    "email": "info@westla.realestate",
+    "url": siteUrl,
+    "telephone": "(224)-249-1004",
+    "email": "rkleczynski@kw.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "West Los Angeles",
@@ -128,6 +139,7 @@ export function getFAQSchema(faqs: { q: string; a: string }[]) {
 }
 
 export function getWebPageSchema(name: string, description: string, url: string) {
+  const siteUrl = getSiteUrl();
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -137,7 +149,7 @@ export function getWebPageSchema(name: string, description: string, url: string)
     "isPartOf": {
       "@type": "WebSite",
       "name": "Ryan K Real Estate",
-      "url": "https://westla.realestate"
+      "url": siteUrl
     }
   };
 }

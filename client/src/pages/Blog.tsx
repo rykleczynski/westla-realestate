@@ -93,16 +93,16 @@ export default function Blog() {
       <SEO
         title="Los Angeles Real Estate Blog | Market Reports, Investor Insights, Buyer Guides"
         description="Read Los Angeles real estate market reports, investor analysis, buyer guides, and seller strategy updates."
-        canonical="https://westla.realestate/blog"
+        canonical="https://ryanklosangeles.com/blog"
         schema={[
           getWebPageSchema(
             "Los Angeles Real Estate Blog",
             "Market reports, investor insights, and practical real estate guides.",
-            "https://westla.realestate/blog",
+            "https://ryanklosangeles.com/blog",
           ),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Blog", url: "https://westla.realestate/blog" },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Blog", url: "https://ryanklosangeles.com/blog" },
           ]),
         ]}
       />

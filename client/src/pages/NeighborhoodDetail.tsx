@@ -156,18 +156,18 @@ export default function NeighborhoodDetail() {
       <SEO
         title={`${data.name} Real Estate Guide | West LA Neighborhood`}
         description={`Explore ${data.name} real estate trends, pricing, lifestyle, schools, and investor-friendly neighborhood insights.`}
-        canonical={`https://westla.realestate/neighborhoods/${params.slug}`}
+        canonical={`https://ryanklosangeles.com/neighborhoods/${params.slug}`}
         schema={[
           getWebPageSchema(
             `${data.name} Real Estate Guide`,
             `Market trends, lifestyle, and local insights for ${data.name}.`,
-            `https://westla.realestate/neighborhoods/${params.slug}`,
+            `https://ryanklosangeles.com/neighborhoods/${params.slug}`,
           ),
           getFAQSchema(data.faqs),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Neighborhoods", url: "https://westla.realestate/neighborhoods" },
-            { name: data.name, url: `https://westla.realestate/neighborhoods/${params.slug}` },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Neighborhoods", url: "https://ryanklosangeles.com/neighborhoods" },
+            { name: data.name, url: `https://ryanklosangeles.com/neighborhoods/${params.slug}` },
           ]),
         ]}
       />

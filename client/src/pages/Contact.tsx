@@ -83,16 +83,16 @@ export default function Contact() {
       <SEO
         title="Contact West LA Real Estate Team | Book a Consult"
         description="Contact our West LA real estate team for buying, selling, and investor support across Los Angeles neighborhoods."
-        canonical="https://westla.realestate/contact"
+        canonical="https://ryanklosangeles.com/contact"
         schema={[
           getWebPageSchema(
             "Contact West LA Real Estate Team",
             "Contact page for consultations and real estate inquiries.",
-            "https://westla.realestate/contact",
+            "https://ryanklosangeles.com/contact",
           ),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Contact", url: "https://westla.realestate/contact" },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Contact", url: "https://ryanklosangeles.com/contact" },
           ]),
         ]}
       />

@@ -46,17 +46,17 @@ export default function Buyers() {
       <SEO
         title="First-Time Home Buyer Guide Los Angeles | West LA"
         description="Step-by-step first-time buyer guide for Los Angeles with neighborhood insights, financing FAQs, and practical resources."
-        canonical="https://westla.realestate/buyers"
+        canonical="https://ryanklosangeles.com/buyers"
         schema={[
           getWebPageSchema(
             "First-Time Home Buyer Guide Los Angeles",
             "Educational home-buying resources for first-time buyers in West LA.",
-            "https://westla.realestate/buyers",
+            "https://ryanklosangeles.com/buyers",
           ),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Buyers", url: "https://westla.realestate/buyers" },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Buyers", url: "https://ryanklosangeles.com/buyers" },
           ]),
         ]}
       />

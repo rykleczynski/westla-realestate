@@ -101,16 +101,16 @@ export default function Neighborhoods() {
       <SEO
         title="West LA Neighborhood Guides | Santa Monica, Brentwood, Venice + More"
         description="Explore West Los Angeles neighborhood guides with market snapshots, lifestyle highlights, and local real estate insights."
-        canonical="https://westla.realestate/neighborhoods"
+        canonical="https://ryanklosangeles.com/neighborhoods"
         schema={[
           getWebPageSchema(
             "West LA Neighborhood Guides",
             "Neighborhood market and lifestyle guides across West Los Angeles.",
-            "https://westla.realestate/neighborhoods",
+            "https://ryanklosangeles.com/neighborhoods",
           ),
           getBreadcrumbSchema([
-            { name: "Home", url: "https://westla.realestate/" },
-            { name: "Neighborhoods", url: "https://westla.realestate/neighborhoods" },
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "Neighborhoods", url: "https://ryanklosangeles.com/neighborhoods" },
           ]),
         ]}
       />
