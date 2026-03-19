@@ -9,6 +9,15 @@ import {
   CalendarDays,
   ShieldCheck,
   CircleX,
+  Users,
+  SearchCheck,
+  Megaphone,
+  MessagesSquare,
+  FileCheck2,
+  Handshake,
+  BadgeDollarSign,
+  Clock3,
+  Star,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -23,31 +32,37 @@ import SEO, {
 
 const strategyItems = [
   {
+    icon: Users,
     title: "Exclusive Tenant Network Pool",
     description:
       "Before your listing goes public, I tap into my private database of pre-screened, actively searching tenants. Many units are filled before they ever hit the market.",
   },
   {
+    icon: SearchCheck,
     title: "MLS + 300+ Syndicated Sites",
     description:
       "Your property is listed on the MLS and syndicated to 300+ rental platforms, including Zillow, Trulia, Realtor.com, and Apartments.com.",
   },
   {
+    icon: Megaphone,
     title: "Social Media Marketing",
     description:
       "Targeted paid and organic campaigns across Instagram, Facebook, and Nextdoor reach local in-market renters with professional creative and copy.",
   },
   {
+    icon: MessagesSquare,
     title: "All Inquiries & Showings Handled",
     description:
       "Every call, text, email, and showing request is managed for you. You do not have to coordinate appointments or field repetitive tenant questions.",
   },
   {
+    icon: FileCheck2,
     title: "In-Depth Tenant Screening",
     description:
       "Full credit, background, and income verification are baseline. Personal reference checks and face-to-face interviews add an extra quality filter.",
   },
   {
+    icon: Handshake,
     title: "End-to-End Lease Coordination",
     description:
       "From offer to signed lease, I manage negotiations and paperwork so your lease execution is clean, compliant, and efficient.",
@@ -113,22 +128,43 @@ export default function RentalListingAgentLosAngeles() {
 
       <Navigation />
 
-      <section className="pt-32 pb-14 lg:pt-40 lg:pb-20">
-        <div className="container">
+      <section className="relative pt-32 pb-14 lg:pt-40 lg:pb-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=2000&q=80"
+            alt="Los Angeles rental property exterior"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/70 via-[#111111]/75 to-[#111111]" />
+        </div>
+        <div className="container relative z-10">
           <span className="section-label block mb-4">Rental Listing Services - Property Owner Guide</span>
           <h1 className="text-4xl lg:text-6xl font-bold tracking-tight mb-6 max-w-5xl">
             The Smarter Way to
             <span className="font-light"> Rent Your Unit in Los Angeles</span>
           </h1>
-          <p className="text-lg text-white/50 max-w-3xl leading-relaxed mb-10">
+          <p className="text-lg text-white/70 max-w-3xl leading-relaxed mb-10">
             Most landlords spend weeks, sometimes months, fielding unqualified calls and coordinating
             showings. This process handles every step of leasing with a proven system designed to rent
             faster to stronger tenants with zero upfront risk.
           </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10 max-w-4xl">
+            {[
+              { label: "No Upfront Fees", value: "Pay only on placement", icon: BadgeDollarSign },
+              { label: "Average Timeline Focus", value: "Faster leasing cycles", icon: Clock3 },
+              { label: "Screening Standard", value: "5-layer tenant review", icon: ShieldCheck },
+            ].map((item) => (
+              <div key={item.label} className="folio-frame bg-black/35 border-white/20 p-4">
+                <item.icon className="w-4 h-4 text-amber-300 mb-2" />
+                <p className="text-[11px] tracking-[0.15em] uppercase text-white/45 mb-1">{item.label}</p>
+                <p className="text-sm text-white/90">{item.value}</p>
+              </div>
+            ))}
+          </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-300 text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-amber-200 transition-colors"
             >
               <CalendarDays className="w-4 h-4" />
               Book Rental Strategy Call
@@ -147,7 +183,7 @@ export default function RentalListingAgentLosAngeles() {
 
       <section className="py-14 lg:py-20">
         <div className="container">
-          <div className="folio-frame p-8 lg:p-10 bg-amber-200 text-black">
+          <div className="folio-frame p-8 lg:p-10 bg-gradient-to-r from-amber-200 via-orange-200 to-amber-300 text-black">
             <p className="text-xs tracking-[0.18em] uppercase mb-3 font-semibold">No Rent, No Fee Offer</p>
             <h2 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-3">
               You Do Not Pay Unless It Gets Rented
@@ -157,18 +193,26 @@ export default function RentalListingAgentLosAngeles() {
               On a $2,500/month unit, that&apos;s $1,800 total. Less than one month of rent for a
               fully managed leasing process.
             </p>
+            <div className="mt-6">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black text-white text-xs font-semibold tracking-[0.15em] uppercase hover:bg-black/85 transition-colors"
+              >
+                Claim the No-Risk Leasing Offer <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="py-14 lg:py-20 bg-[#0e0e0e]">
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="folio-frame p-7 bg-[#161616]">
+          <div className="folio-frame p-7 bg-gradient-to-br from-[#161616] to-[#1c1c1c]">
             <div className="flex items-center gap-2 mb-4">
-              <Calculator className="w-5 h-5 text-silver" />
+              <Calculator className="w-5 h-5 text-cyan-300" />
               <h2 className="text-2xl font-semibold tracking-tight">6% Annual Rental Income Calculator</h2>
             </div>
-            <p className="text-sm text-white/50 mb-6">
+            <p className="text-sm text-white/65 mb-6">
               Estimate the total placement fee based on your monthly rent.
             </p>
             <label htmlFor="monthlyRent" className="text-xs tracking-[0.15em] uppercase text-white/50 block mb-2">
@@ -184,15 +228,15 @@ export default function RentalListingAgentLosAngeles() {
               className="w-full bg-[#111111] border border-white/15 px-4 py-3 text-white mb-6"
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="border border-white/10 p-4 bg-[#111111]">
+              <div className="border border-cyan-300/25 p-4 bg-cyan-300/10">
                 <p className="text-xs tracking-[0.12em] uppercase text-white/45 mb-1">Annual Rent</p>
                 <p className="text-2xl font-semibold">
                   ${annualRent.toLocaleString()}
                 </p>
               </div>
-              <div className="border border-white/10 p-4 bg-[#111111]">
+              <div className="border border-emerald-300/30 p-4 bg-emerald-300/10">
                 <p className="text-xs tracking-[0.12em] uppercase text-white/45 mb-1">6% Service Fee</p>
-                <p className="text-2xl font-semibold text-silver">
+                <p className="text-2xl font-semibold text-emerald-300">
                   ${serviceFee.toLocaleString()}
                 </p>
               </div>
@@ -202,7 +246,7 @@ export default function RentalListingAgentLosAngeles() {
             </p>
           </div>
 
-          <div className="folio-frame p-7 bg-[#161616] flex flex-col justify-between">
+          <div className="folio-frame p-7 bg-gradient-to-br from-[#161616] to-[#1b1411] flex flex-col justify-between">
             <div>
               <h3 className="text-2xl font-semibold tracking-tight mb-4">
                 Why LA Investors Use a Dedicated Rental Listing Agent
@@ -218,7 +262,7 @@ export default function RentalListingAgentLosAngeles() {
                   "Multi-layer tenant vetting before lease execution",
                 ].map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-white/65">
-                    <ShieldCheck className="w-4 h-4 text-silver mt-0.5 shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-amber-300 mt-0.5 shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -227,7 +271,7 @@ export default function RentalListingAgentLosAngeles() {
             <div className="flex flex-col sm:flex-row gap-3 mt-8">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-300 text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-amber-200 transition-colors"
               >
                 Get My Rent Plan <ArrowRight className="w-3 h-3" />
               </Link>
@@ -244,7 +288,7 @@ export default function RentalListingAgentLosAngeles() {
 
       <section className="py-14 lg:py-20">
         <div className="container">
-          <span className="section-label block mb-4">My Proven 6-Part Leasing System</span>
+          <span className="section-label block mb-4">Section 1 - My Proven 6-Part Leasing System</span>
           <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-10">
             Full-Service Rental Listing Process for
             <span className="font-light"> Los Angeles Owners</span>
@@ -252,6 +296,7 @@ export default function RentalListingAgentLosAngeles() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {strategyItems.map((item, i) => (
               <div key={item.title} className="folio-frame p-6 bg-[#161616]">
+                <item.icon className="w-5 h-5 text-cyan-300 mb-3" />
                 <p className="text-xs tracking-[0.15em] uppercase text-silver mb-3">
                   {(i + 1).toString().padStart(2, "0")} -
                 </p>
@@ -265,9 +310,14 @@ export default function RentalListingAgentLosAngeles() {
 
       <section className="py-14 lg:py-20 bg-[#0e0e0e]">
         <div className="container">
-          <span className="section-label block mb-4">Tenant Screening - Gold Standard</span>
+          <span className="section-label block mb-4">Section 2 - Tenant Screening Gold Standard</span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="folio-frame p-7 bg-[#161616]">
+              <img
+                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80"
+                alt="Agent reviewing tenant applications"
+                className="w-full h-52 object-cover mb-5"
+              />
               <h2 className="text-2xl lg:text-3xl font-semibold tracking-tight mb-4">
                 Not all tenants are created equal.
               </h2>
@@ -286,7 +336,7 @@ export default function RentalListingAgentLosAngeles() {
                   "Face-to-face interview before final recommendation",
                 ].map((step, i) => (
                   <li key={step} className="flex items-start gap-3 text-sm text-white/65">
-                    <span className="inline-flex items-center justify-center w-6 h-6 bg-white text-black text-xs font-semibold shrink-0">
+                    <span className="inline-flex items-center justify-center w-6 h-6 bg-amber-300 text-black text-xs font-semibold shrink-0">
                       {i + 1}
                     </span>
                     <span>{step}</span>
@@ -300,7 +350,7 @@ export default function RentalListingAgentLosAngeles() {
 
       <section className="py-14 lg:py-20">
         <div className="container">
-          <span className="section-label block mb-4">How It Stacks Up</span>
+          <span className="section-label block mb-4">Section 3 - How It Stacks Up</span>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="folio-frame p-6 bg-[#161616]">
               <p className="text-xs tracking-[0.15em] uppercase text-white/45 mb-4">Doing It Yourself</p>
@@ -317,7 +367,7 @@ export default function RentalListingAgentLosAngeles() {
                 </p>
               ))}
             </div>
-            <div className="folio-frame p-6 bg-white/10 border-white/25">
+            <div className="folio-frame p-6 bg-emerald-300/15 border-emerald-300/40">
               <p className="text-xs tracking-[0.15em] uppercase text-silver mb-4">Working With Me</p>
               {[
                 "All inquiries handled for you",
@@ -353,7 +403,8 @@ export default function RentalListingAgentLosAngeles() {
 
       <section className="py-14 lg:py-20 bg-[#0e0e0e]">
         <div className="container">
-          <div className="folio-frame p-8 lg:p-12 bg-[#161616] text-center">
+          <div className="folio-frame p-8 lg:p-12 bg-gradient-to-r from-[#1c1710] via-[#1a1a1a] to-[#102018] text-center">
+            <Star className="w-6 h-6 text-amber-300 mx-auto mb-4" />
             <p className="text-xs tracking-[0.18em] uppercase text-silver mb-4">Ready to Get Your Unit Rented?</p>
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-4">
               The Most Hands-Off Way to Lease
@@ -366,7 +417,7 @@ export default function RentalListingAgentLosAngeles() {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-300 text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-amber-200 transition-colors"
               >
                 <PhoneCall className="w-4 h-4" />
                 Book a Call
