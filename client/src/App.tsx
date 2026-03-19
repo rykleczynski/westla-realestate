@@ -27,6 +27,7 @@ import SouthBayInvestors from "./pages/investors/SouthBayInvestors";
 import LongBeachInvestors from "./pages/investors/LongBeachInvestors";
 import WestwoodInvestors from "./pages/investors/WestwoodInvestors";
 import GardenaInvestors from "./pages/investors/GardenaInvestors";
+import RentalListingAgentLosAngeles from "./pages/investors/RentalListingAgentLosAngeles";
 
 function Router() {
   return (
@@ -54,6 +55,10 @@ function Router() {
       <Route path="/investors/long-beach" component={LongBeachInvestors} />
       <Route path="/investors/westwood" component={WestwoodInvestors} />
       <Route path="/investors/gardena" component={GardenaInvestors} />
+      <Route
+        path="/investors/rental-listing-agent-los-angeles"
+        component={RentalListingAgentLosAngeles}
+      />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

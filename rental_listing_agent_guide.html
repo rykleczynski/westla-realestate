@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Rental Listing Agent — One Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --text-muted: #8a8a8a;
+    --divider: rgba(201,168,76,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 48px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 24px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--divider);
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .header-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    white-space: nowrap;
+    margin-top: 6px;
+  }
+
+  /* ─── HERO STATEMENT ─── */
+  .hero-statement {
+    margin: 44px 0;
+    padding: 36px 40px;
+    border-left: 3px solid var(--gold);
+    background: rgba(201,168,76,0.05);
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .hero-statement p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--white);
+  }
+
+  .hero-statement p strong {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  /* ─── UNDENIABLE OFFER BOX ─── */
+  .offer-box {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 36px 40px;
+    margin: 0 0 52px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .offer-box::after {
+    content: '★';
+    position: absolute;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 96px;
+    opacity: 0.12;
+    font-family: serif;
+    line-height: 1;
+  }
+
+  .offer-box .offer-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+
+  .offer-box .offer-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .offer-box .offer-detail {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 560px;
+    opacity: 0.85;
+  }
+
+  /* ─── SECTION TITLE ─── */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  /* ─── STRATEGY GRID ─── */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 52px;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .strategy-card {
+    background: rgba(255,255,255,0.03);
+    padding: 28px 28px 28px 32px;
+    border-top: 1px solid var(--divider);
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .strategy-card:hover {
+    background: rgba(201,168,76,0.06);
+  }
+
+  .strategy-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: transparent;
+    transition: background 0.3s ease;
+  }
+
+  .strategy-card:hover::before {
+    background: var(--gold);
+  }
+
+  .strategy-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+  }
+
+  .strategy-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .strategy-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.65);
+  }
+
+  /* ─── VS COMPARISON ─── */
+  .comparison {
+    margin-bottom: 52px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+  }
+
+  .compare-col {
+    padding: 28px 24px;
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid var(--divider);
+  }
+
+  .compare-col.featured {
+    background: rgba(201,168,76,0.1);
+    border-top-color: var(--gold);
+  }
+
+  .compare-col-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    color: var(--text-muted);
+  }
+
+  .compare-col.featured .compare-col-label {
+    color: var(--gold);
+  }
+
+  .compare-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 13px;
+    font-size: 13px;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.45;
+  }
+
+  .compare-item .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .compare-col.featured .compare-item { color: var(--cream); }
+  .compare-col.featured .compare-item .dot { background: var(--gold); }
+
+  .cross { color: #c0392b; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+  .check { color: #27ae60; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── SCREENING SECTION ─── */
+  .screening {
+    margin-bottom: 52px;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .screening-inner {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid var(--divider);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .screening-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+
+  .screening-text p {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.65);
+  }
+
+  .screening-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .screening-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    font-size: 13px;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.5;
+    padding-top: 4px;
+  }
+
+  /* ─── FOOTER CTA ─── */
+  .footer-cta {
+    border-top: 1px solid var(--divider);
+    padding-top: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold-light);
+    max-width: 380px;
+    line-height: 1.4;
+  }
+
+  .footer-contact {
+    text-align: right;
+  }
+
+  .footer-contact .contact-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .footer-contact .contact-line {
+    font-size: 14px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── PRINT ─── */
+  @media print {
+    body { background: white; color: #0d1b2a; }
+    .page { padding: 32px; }
+    @page { margin: 0.5in; size: letter; }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 32px 24px; }
+    .strategy-grid { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .screening-inner { grid-template-columns: 1fr; }
+    .footer-cta { flex-direction: column; }
+    .footer-contact { text-align: left; }
+    .header { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="eyebrow">Rental Listing Services — Property Owner Guide</div>
+      <h1>The Smarter Way<br>to <em>Rent Your Unit</em></h1>
+    </div>
+    <div class="header-badge">No Rent, No Fee</div>
+  </header>
+
+  <!-- HERO STATEMENT -->
+  <div class="hero-statement">
+    <p>
+      Most landlords spend weeks — sometimes months — fielding unqualified calls, 
+      coordinating showings, and hoping for the best. There's a better way. 
+      I handle <strong>every step of the leasing process</strong> for you, backed by a proven system 
+      that gets your unit rented faster, to better tenants, with <strong>zero out-of-pocket risk.</strong>
+    </p>
+  </div>
+
+  <!-- UNDENIABLE OFFER -->
+  <div class="offer-box">
+    <div class="offer-label">The Undeniable Offer</div>
+    <div class="offer-headline">You Don't Pay Unless I Get It Rented.</div>
+    <div class="offer-detail">
+      My fee is just <strong>6% of one year's rental income</strong> — paid only upon successful placement. 
+      On a $2,500/month unit, that's $1,800 total. Less than a single month's rent, for a fully managed 
+      leasing experience with no risk, no upfront costs, and no surprises.
+    </div>
+  </div>
+
+  <!-- STRATEGIES -->
+  <div class="section-title">My Proven 6-Part Leasing System</div>
+  <div class="strategy-grid">
+
+    <div class="strategy-card">
+      <div class="strategy-number">01 —</div>
+      <div class="strategy-name">Exclusive Tenant Network Pool</div>
+      <div class="strategy-desc">Before your listing ever goes public, I tap into my private database of pre-screened, actively searching tenants. Many units are filled before they hit the market — meaning faster placement for you.</div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-number">02 —</div>
+      <div class="strategy-name">MLS + 300+ Syndicated Sites</div>
+      <div class="strategy-desc">Your property is listed on the MLS and automatically syndicated to 300+ rental platforms — Zillow, Trulia, Realtor.com, Apartments.com, and more — maximizing your exposure to qualified renters everywhere they search.</div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-number">03 —</div>
+      <div class="strategy-name">Social Media Marketing</div>
+      <div class="strategy-desc">Targeted paid and organic campaigns across Instagram, Facebook, and Nextdoor reach local, in-market renters. Professional photography and compelling copy ensure your listing stops the scroll and drives inquiries.</div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-number">04 —</div>
+      <div class="strategy-name">All Inquiries & Showings Handled</div>
+      <div class="strategy-desc">Every call, text, email, and showing request is handled by me — on your behalf. You never have to answer a question, coordinate a time, or show the unit yourself. Your time stays yours.</div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-number">05 —</div>
+      <div class="strategy-name">In-Depth Tenant Screening</div>
+      <div class="strategy-desc">Full credit, background, and income verification are just the baseline. I go further — including personal reference checks and face-to-face interviews — so you know exactly who is moving into your property.</div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-number">06 —</div>
+      <div class="strategy-name">End-to-End Lease Coordination</div>
+      <div class="strategy-desc">From offer to signed lease, I manage the paperwork, negotiate terms in your favor, and ensure everything is buttoned up legally before your new tenant takes possession. Clean, simple, done.</div>
+    </div>
+
+  </div>
+
+  <!-- TENANT SCREENING DEEP DIVE -->
+  <div class="screening">
+    <div class="section-title">Tenant Screening — The Gold Standard</div>
+    <div class="screening-inner">
+      <div class="screening-text">
+        <h3>Not all tenants are created equal. I make sure you get the right one.</h3>
+        <p>
+          A bad tenant costs far more than any leasing fee — in lost rent, legal fees, and property damage. 
+          My multi-layer screening process is specifically designed to surface the full picture of every 
+          applicant, well beyond what any algorithm can capture.
+        </p>
+      </div>
+      <div class="screening-steps">
+        <div class="screening-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong style="color:var(--cream)">Credit & Background Check</strong> — Full credit report, eviction history, and criminal background reviewed against strict benchmarks.</div>
+        </div>
+        <div class="screening-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong style="color:var(--cream)">Income Verification</strong> — Confirmed at 3× monthly rent minimum via pay stubs, bank statements, or employer letters.</div>
+        </div>
+        <div class="screening-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong style="color:var(--cream)">Rental History Review</strong> — Prior landlord references called directly. Not just listed — actually contacted.</div>
+        </div>
+        <div class="screening-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong style="color:var(--cream)">Personal Reference Checks</strong> — Character references verified. Who vouches for this person matters.</div>
+        </div>
+        <div class="screening-step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong style="color:var(--cream)">Face-to-Face Interview</strong> — Every finalist meets with me in person. Intuition and professionalism are non-negotiable filters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="comparison">
+    <div class="section-title">How It Stacks Up</div>
+    <div class="comparison-grid">
+
+      <div class="compare-col">
+        <div class="compare-col-label">Doing It Yourself</div>
+        <div class="compare-item"><span class="cross">✕</span> Hours of inquiry management</div>
+        <div class="compare-item"><span class="cross">✕</span> Limited listing exposure</div>
+        <div class="compare-item"><span class="cross">✕</span> Shallow screening process</div>
+        <div class="compare-item"><span class="cross">✕</span> Coordinating showings yourself</div>
+        <div class="compare-item"><span class="cross">✕</span> Legal & lease risk on you</div>
+        <div class="compare-item"><span class="cross">✕</span> Weeks to months on market</div>
+      </div>
+
+      <div class="compare-col featured">
+        <div class="compare-col-label">Working With Me</div>
+        <div class="compare-item"><span class="check">✓</span> All inquiries handled for you</div>
+        <div class="compare-item"><span class="check">✓</span> MLS + 300+ site syndication</div>
+        <div class="compare-item"><span class="check">✓</span> 5-layer gold standard screening</div>
+        <div class="compare-item"><span class="check">✓</span> Showings fully managed</div>
+        <div class="compare-item"><span class="check">✓</span> Lease coordination included</div>
+        <div class="compare-item"><span class="check">✓</span> Pay only when it's rented</div>
+      </div>
+
+      <div class="compare-col">
+        <div class="compare-col-label">Property Management Co.</div>
+        <div class="compare-item"><span class="cross">✕</span> 8–12% monthly mgmt. fees</div>
+        <div class="compare-item"><span class="cross">✕</span> Additional leasing fees</div>
+        <div class="compare-item"><span class="cross">✕</span> Maintenance markups</div>
+        <div class="compare-item"><span class="cross">✕</span> Long-term contracts</div>
+        <div class="compare-item"><span class="cross">✕</span> Fees even when vacant</div>
+        <div class="compare-item"><span class="cross">✕</span> Loss of direct control</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER CTA -->
+  <div class="footer-cta">
+    <div class="footer-tagline">"The most hassle-free way to rent your property — without the cost of management."</div>
+    <div class="footer-contact">
+      <div class="contact-label">Ready to get started?</div>
+      <div class="contact-line">Your Name</div>
+      <div class="contact-line">Licensed Real Estate Agent</div>
+      <div class="contact-line" style="color: var(--gold);">yourphone@email.com</div>
+      <div class="contact-line" style="color: var(--gold);">(000) 000-0000</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
