@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
 import express from "express";
+import fs from "node:fs";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { injectSeoIntoIndexHtml } from "./seoHtml";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -166,11 +168,21 @@ async function startServer() {
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
 
-  app.use(express.static(staticPath));
+  app.use(express.static(staticPath, { index: false }));
+
+  const indexPath = path.join(staticPath, "index.html");
+  const indexHtmlTemplate = fs.readFileSync(indexPath, "utf-8");
 
   // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+  app.get("*", (req, res) => {
+    let pathname = req.path || "/";
+    if (pathname.length > 1 && pathname.endsWith("/")) pathname = pathname.slice(0, -1);
+    const html = injectSeoIntoIndexHtml(indexHtmlTemplate, pathname);
+    if (html !== indexHtmlTemplate) {
+      res.type("html").send(html);
+      return;
+    }
+    res.sendFile(indexPath);
   });
 
   const port = process.env.PORT || 3000;

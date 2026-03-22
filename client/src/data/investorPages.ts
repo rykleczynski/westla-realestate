@@ -15,10 +15,10 @@ export interface InvestorPageData {
 export const investorPages: Record<string, InvestorPageData> = {
   "los-angeles": {
     slug: "los-angeles",
-    title: "Los Angeles Real Estate Investing Guide (2026)",
+    title: "Los Angeles Real Estate Investor Agent | Market Guide (2026)",
     h1: "Los Angeles Real Estate Investing",
     metaDescription:
-      "Investor-first LA real estate guide with market framework, due diligence checklist, and off-market deal access.",
+      "Investor-focused Los Angeles real estate agent: market framework, due diligence checklist, off-market deal access, and neighborhood-level strategy.",
     intro:
       "Use this page as your LA investor command center: neighborhoods to watch, underwriting mindset, and how to source quality inventory in a competitive market.",
     audience: "First-time and scaling investors targeting LA cash flow + appreciation.",
@@ -156,9 +156,10 @@ export const investorPages: Record<string, InvestorPageData> = {
 export const investorGeoPages: InvestorPageData[] = [
   {
     slug: "santa-monica",
-    title: "Santa Monica Real Estate Investment Guide",
+    title: "Santa Monica Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Santa Monica Investment Properties",
-    metaDescription: "Investor guide for Santa Monica real estate with strategy notes, checklist, and off-market request CTA.",
+    metaDescription:
+      "Investor-focused real estate agent serving Santa Monica: acquisition strategy, underwriting checklist, and off-market deal requests.",
     intro: "Santa Monica combines lifestyle demand and constrained inventory. Investors should prioritize durable rent demand and realistic entry assumptions.",
     audience: "Investors targeting premium coastal demand profiles.",
     geoFocus: "Santa Monica",
@@ -172,9 +173,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "venice",
-    title: "Venice Real Estate Investment Guide",
+    title: "Venice Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Venice Investment Properties",
-    metaDescription: "Venice investor landing page with underwriting checklist and off-market opportunity access.",
+    metaDescription:
+      "Investor-focused real estate agent serving Venice: underwriting checklist, neighborhood strategy, and off-market opportunity access.",
     intro: "Venice offers strong demand with distinct submarket behavior. Clear hold strategy and expense controls are key.",
     audience: "Investors balancing yield and long-term appreciation.",
     geoFocus: "Venice",
@@ -188,9 +190,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "culver-city",
-    title: "Culver City Real Estate Investment Guide",
+    title: "Culver City Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Culver City Investment Properties",
-    metaDescription: "Culver City investor guide with actionable due diligence and lead magnet CTA.",
+    metaDescription:
+      "Investor-focused real estate agent serving Culver City with due diligence frameworks, rent-demand analysis, and lead capture for deals.",
     intro: "Culver City demand remains strong for both owner-user and rental profiles. Tight underwriting improves entry quality.",
     audience: "Investors targeting steady renter demand and long holds.",
     geoFocus: "Culver City",
@@ -204,9 +207,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "beverly-hills",
-    title: "Beverly Hills Real Estate Investment Guide",
+    title: "Beverly Hills Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Beverly Hills Investment Properties",
-    metaDescription: "Beverly Hills investor strategy page with high-end acquisition framework and conversion CTAs.",
+    metaDescription:
+      "Investor-focused real estate agent serving Beverly Hills with premium acquisition frameworks, risk controls, and portfolio-level strategy.",
     intro: "Beverly Hills investing is highly selective. Focus on downside protection, liquidity, and premium asset fundamentals.",
     audience: "Investors pursuing trophy or premium long-hold assets.",
     geoFocus: "Beverly Hills",
@@ -220,9 +224,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "dtla",
-    title: "DTLA Real Estate Investment Guide",
+    title: "Downtown LA Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "DTLA Investment Properties",
-    metaDescription: "DTLA investor SEO page focused on rental demand, underwriting discipline, and off-market sourcing.",
+    metaDescription:
+      "Investor-focused real estate agent serving Downtown LA (DTLA): rental demand analysis, underwriting discipline, and off-market sourcing.",
     intro: "DTLA offers varied product types and demand drivers. Strong submarket selection and expense controls are essential.",
     audience: "Investors targeting urban rental demand and repositioning opportunities.",
     geoFocus: "DTLA",
@@ -236,9 +241,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "usc-area",
-    title: "USC Area Real Estate Investment Guide",
+    title: "USC Area Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "USC Area Investment Properties",
-    metaDescription: "USC-area investor page with rental-demand strategy, checklist, and conversion-focused lead magnet.",
+    metaDescription:
+      "Investor-focused real estate agent near USC with rental-demand strategy, student-housing underwriting, and deal-request workflow.",
     intro: "USC-area assets can offer strong rental demand when underwriting is conservative and operations are consistent.",
     audience: "Investors focused on student-adjacent rental demand.",
     geoFocus: "USC Area",
@@ -252,9 +258,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "south-bay",
-    title: "South Bay Real Estate Investment Guide",
+    title: "South Bay Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "South Bay Investment Properties",
-    metaDescription: "South Bay investor landing page with market approach, practical checklist, and lead capture CTAs.",
+    metaDescription:
+      "Investor-focused real estate agent serving the South Bay with submarket checklists, rent durability analysis, and off-market lead capture.",
     intro: "South Bay markets can offer strong tenant demand and quality long-term holds when acquired with disciplined criteria.",
     audience: "Investors seeking stable coastal-adjacent fundamentals.",
     geoFocus: "South Bay",
@@ -268,9 +275,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "long-beach",
-    title: "Long Beach Real Estate Investment Guide",
+    title: "Long Beach Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Long Beach Investment Properties",
-    metaDescription: "Long Beach investor SEO page with practical due diligence framework and off-market CTA.",
+    metaDescription:
+      "Investor-focused real estate agent serving Long Beach: due diligence framework, rent comps, off-market requests, and portfolio planning.",
     intro: "Long Beach can present attractive entry points relative to core LA areas. Proper screening and operations remain critical.",
     audience: "Investors looking for balanced entry basis and rental demand.",
     geoFocus: "Long Beach",
@@ -284,9 +292,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "westwood",
-    title: "Westwood Real Estate Investment Guide",
+    title: "Westwood Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Westwood Investment Properties",
-    metaDescription: "Westwood investor landing page focused on UCLA-adjacent demand, underwriting discipline, and off-market opportunities.",
+    metaDescription:
+      "Investor-focused real estate agent serving Westwood / West LA: UCLA-adjacent demand, disciplined underwriting, and off-market opportunities.",
     intro: "Westwood benefits from university and professional demand drivers. Focus on realistic rent assumptions and hold strategy alignment.",
     audience: "Investors targeting stable renter demand near major employers and UCLA.",
     geoFocus: "Westwood",
@@ -300,9 +309,10 @@ export const investorGeoPages: InvestorPageData[] = [
   },
   {
     slug: "gardena",
-    title: "Gardena Real Estate Investment Guide",
+    title: "Gardena Real Estate Investor Agent | Acquisitions & Strategy",
     h1: "Gardena Investment Properties",
-    metaDescription: "Gardena investor guide with practical underwriting checklist, risk controls, and off-market CTA.",
+    metaDescription:
+      "Investor-focused real estate agent serving Gardena: underwriting checklist, South Bay adjacency, risk controls, and off-market CTA.",
     intro: "Gardena can offer compelling basis and renter demand dynamics for investors who prioritize underwriting discipline and operations.",
     audience: "Investors seeking pragmatic entry points with long-hold potential.",
     geoFocus: "Gardena",
@@ -312,6 +322,35 @@ export const investorGeoPages: InvestorPageData[] = [
     faqs: [
       { q: "Is Gardena suitable for first-time investors?", a: "It can be, provided financing terms and operating assumptions are conservative from the start." },
       { q: "What drives returns in Gardena deals?", a: "Entry basis, consistent property management, and realistic rent-growth assumptions." },
+    ],
+  },
+  {
+    slug: "inglewood",
+    title: "Inglewood Real Estate Investor Agent | Acquisitions & Strategy",
+    h1: "Inglewood Investment Properties",
+    metaDescription:
+      "Investor-focused real estate agent serving Inglewood: rent-demand analysis, value-add screening, and investor workflows for Greater Westside access.",
+    intro:
+      "Inglewood offers investor interest tied to major employment, entertainment, and airport-adjacent demand drivers. Success depends on disciplined basis, expense control, and realistic rent assumptions.",
+    audience: "Investors evaluating Inglewood for cash flow, appreciation, or hybrid holds.",
+    geoFocus: "Inglewood",
+    strategyPoints: [
+      "Separate block-level rent comps from broader South LA averages.",
+      "Stress-test insurance, maintenance, and turnover for older housing stock.",
+      "Validate renovation scope and permit path before underwriting upside.",
+      "Map tenant demand to employment and transit corridors.",
+    ],
+    takeawayTitle: "Investor Takeaway: Inglewood Deal Screen",
+    takeawayItems: ["Rent comp radius quality", "CapEx and deferred maintenance map", "Vacancy and lease-up timeline", "Exit buyer pool depth"],
+    faqs: [
+      {
+        q: "What should Inglewood investors verify first?",
+        a: "Start with rent comps, operating expenses, and a realistic renovation or lease-up budget tied to the specific asset class.",
+      },
+      {
+        q: "Is Inglewood only an appreciation play?",
+        a: "Not necessarily. Cash flow outcomes depend on financing, basis, and execution. Underwriting should reflect both rent durability and long-term hold assumptions.",
+      },
     ],
   },
 ];

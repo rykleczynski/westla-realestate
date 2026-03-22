@@ -234,6 +234,18 @@ export default function Home() {
               </AnimatedSection>
             ))}
           </div>
+
+          <AnimatedSection className="mt-12 text-center">
+            <motion.div variants={fadeUp}>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-silver hover:text-white transition-colors"
+              >
+                Los Angeles real estate blog & market reports{" "}
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 

@@ -14,6 +14,7 @@ const navLinks = [
     label: "Services",
     children: [
       { label: "For Investors", href: "/investors" },
+      { label: "Investor Agent Coverage (LA)", href: "/investors/west-la-investor-agent-coverage" },
       { label: "Rental Listing Agent (LA)", href: "/investors/rental-listing-agent-los-angeles" },
       { label: "First-Time Buyers", href: "/buyers" },
       { label: "Selling Your Home", href: "/sellers" },

@@ -38,13 +38,13 @@ export default function Investors() {
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
-        title="Real Estate Investing in Los Angeles | Investor Portal"
-        description="Data-driven Los Angeles real estate investing resources, off-market opportunities, and neighborhood-specific investor strategy pages."
+        title="Los Angeles Real Estate Investor Agent | West LA, Long Beach, Gardena & Inglewood"
+        description="Investor-focused real estate agent hub for Los Angeles: West LA, Long Beach, Gardena, Inglewood, and city-specific strategy pages, off-market requests, 1031 and multifamily resources."
         canonical="https://ryanklosangeles.com/investors"
         schema={[
           getWebPageSchema(
-            "Los Angeles Real Estate Investor Portal",
-            "Investor-focused market data, strategy, and off-market deal access.",
+            "Los Angeles Real Estate Investor Agent Portal",
+            "Investor-focused real estate agent resources: West LA, Long Beach, Gardena, Inglewood, and LA-wide strategy, off-market requests, and topic hubs.",
             "https://ryanklosangeles.com/investors",
           ),
           getBreadcrumbSchema([
@@ -222,6 +222,10 @@ export default function Investors() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
+              {
+                label: "Investor agent coverage (West LA, Long Beach, Inglewood…)",
+                href: "/investors/west-la-investor-agent-coverage",
+              },
               { label: "Los Angeles Investor Guide", href: "/investors/los-angeles" },
               { label: "Off-Market Deals in LA", href: "/investors/off-market-deals-los-angeles" },
               { label: "1031 Exchange in LA", href: "/investors/1031-exchange-los-angeles" },
@@ -236,6 +240,7 @@ export default function Investors() {
               { label: "Long Beach Investors", href: "/investors/long-beach" },
               { label: "Westwood Investors", href: "/investors/westwood" },
               { label: "Gardena Investors", href: "/investors/gardena" },
+              { label: "Inglewood Investors", href: "/investors/inglewood" },
             ].map((item) => (
               <AnimatedSection key={item.href}>
                 <motion.div variants={fadeUp}>

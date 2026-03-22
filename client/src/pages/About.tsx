@@ -8,6 +8,7 @@ import { motion, useInView } from "framer-motion";
 import { Award, Building2, TrendingUp, ArrowRight, Target, BarChart3, Shield } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO, { getBreadcrumbSchema, getWebPageSchema } from "@/components/SEO";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -27,6 +28,22 @@ const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKw
 export default function About() {
   return (
     <div className="min-h-screen bg-[#111111]">
+      <SEO
+        title="About Ryan Kleczynski | West LA Real Estate"
+        description="Meet Ryan Kleczynski: West Los Angeles real estate with strategic insight, sharp negotiation, and investor-minded expertise for buyers, sellers, and investors."
+        canonical="https://ryanklosangeles.com/about"
+        schema={[
+          getWebPageSchema(
+            "About Ryan Kleczynski",
+            "West Los Angeles real estate professional serving buyers, sellers, and investors.",
+            "https://ryanklosangeles.com/about",
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "https://ryanklosangeles.com/" },
+            { name: "About", url: "https://ryanklosangeles.com/about" },
+          ]),
+        ]}
+      />
       <Navigation />
 
       {/* Hero */}

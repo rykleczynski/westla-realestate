@@ -1,4 +1,26 @@
 User-agent: *
 Allow: /
 
+# Optional index for AI assistants (see https://llmstxt.org/)
+# https://ryanklosangeles.com/llms.txt
+
+# AI / LLM crawlers (allow indexing of public marketing pages)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
 Sitemap: https://ryanklosangeles.com/sitemap.xml

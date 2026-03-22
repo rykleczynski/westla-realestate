@@ -93,7 +93,8 @@ export function getLocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     "name": "Ryan K Real Estate",
-    "description": "Premier real estate team specializing in luxury homes, investment properties, and first-time buyer guidance across West Los Angeles including Brentwood, Santa Monica, Westwood, Century City, Palms, Sawtelle, and Venice.",
+    "description":
+      "Real estate team led by Ryan Kleczynski, investor-focused agent serving West Los Angeles, Long Beach, Gardena, Inglewood, and surrounding markets with acquisition strategy, off-market sourcing, 1031 guidance, and leasing support.",
     "url": siteUrl,
     "telephone": "(224)-249-1004",
     "email": "rkleczynski@kw.com",
@@ -111,8 +112,17 @@ export function getLocalBusinessSchema() {
       "longitude": -118.4328
     },
     "areaServed": [
+      { "@type": "City", "name": "Los Angeles" },
       { "@type": "City", "name": "Santa Monica" },
-      { "@type": "City", "name": "Los Angeles" }
+      { "@type": "City", "name": "Venice" },
+      { "@type": "City", "name": "Culver City" },
+      { "@type": "City", "name": "Beverly Hills" },
+      { "@type": "City", "name": "Westwood" },
+      { "@type": "City", "name": "Long Beach" },
+      { "@type": "City", "name": "Gardena" },
+      { "@type": "City", "name": "Inglewood" },
+      { "@type": "AdministrativeArea", "name": "West Los Angeles" },
+      { "@type": "AdministrativeArea", "name": "South Bay" },
     ],
     "priceRange": "$$$",
     "openingHoursSpecification": [
@@ -189,6 +199,27 @@ export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
       "position": i + 1,
       "name": item.name,
       "item": item.url,
+    })),
+  };
+}
+
+/** ItemList for AI-friendly / SEO hub pages (city coverage, resources). */
+export function getItemListSchema(input: { name: string; description: string; url: string; items: { name: string; url: string }[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": input.name,
+    "description": input.description,
+    "url": input.url,
+    "numberOfItems": input.items.length,
+    "itemListElement": input.items.map((item, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "WebPage",
+        "name": item.name,
+        "url": item.url,
+      },
     })),
   };
 }
