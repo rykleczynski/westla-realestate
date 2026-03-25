@@ -30,6 +30,10 @@ import GardenaInvestors from "./pages/investors/GardenaInvestors";
 import InglewoodInvestors from "./pages/investors/InglewoodInvestors";
 import InvestorAgentCoverage from "./pages/investors/InvestorAgentCoverage";
 import RentalListingAgentLosAngeles from "./pages/investors/RentalListingAgentLosAngeles";
+import BuyersLP from "./pages/lp/BuyersLP";
+import InvestorsLP from "./pages/lp/InvestorsLP";
+import Exchange1031LP from "./pages/lp/Exchange1031LP";
+import SellersLP from "./pages/lp/SellersLP";
 
 function Router() {
   return (
@@ -63,6 +67,10 @@ function Router() {
         path="/investors/rental-listing-agent-los-angeles"
         component={RentalListingAgentLosAngeles}
       />
+      <Route path="/lp/buyers" component={BuyersLP} />
+      <Route path="/lp/investors" component={InvestorsLP} />
+      <Route path="/lp/1031" component={Exchange1031LP} />
+      <Route path="/lp/sellers" component={SellersLP} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
