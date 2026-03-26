@@ -1,5 +1,36 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
+// Common disposable / throwaway email domains to reject
+const DISPOSABLE_DOMAINS = new Set([
+  "mailinator.com","guerrillamail.com","guerrillamail.net","guerrillamail.org",
+  "guerrillamail.biz","guerrillamail.de","guerrillamail.info","guerrillamailblock.com",
+  "trashmail.com","trashmail.net","trashmail.org","trashmail.at","trashmail.io",
+  "trashmail.me","tempmail.com","temp-mail.org","temp-mail.io","dispostable.com",
+  "mailnull.com","spamgourmet.com","yopmail.com","yopmail.fr","cool.fr.nf",
+  "jetable.fr.nf","nospam.ze.tc","nomail.xl.cx","mega.zik.dj","speed.1s.fr",
+  "cool.fr.nf","courriel.fr.nf","jetable.net","jetable.org","jetable.pp.ua",
+  "filzmail.com","throwam.com","throwam.de","getnada.com","maildrop.cc",
+  "sharklasers.com","guerrillamail.info","grr.la","guerrillamailblock.com",
+  "spam4.me","fakeinbox.com","spamherelots.com","spamhereplease.com",
+  "mailnew.com","spamex.com","binkmail.com","bobmail.info","chammy.info",
+  "devnullmail.com","meltmail.com","put2.net","spamavert.com","spamevader.net",
+  "spamgourmet.net","spamgourmet.org","throwam.com","uggsrock.com","mvrht.com",
+]);
+
+function isDisposableEmail(email: string): boolean {
+  const domain = email.split("@")[1]?.toLowerCase();
+  if (!domain) return false;
+  return DISPOSABLE_DOMAINS.has(domain);
+}
+
+function isObviouslyFakePhone(digits: string): boolean {
+  // All same digit
+  if (/^(\d)\1+$/.test(digits)) return true;
+  // Sequential
+  if (digits === "1234567890" || digits === "0987654321") return true;
+  return false;
+}
+
 const GHL_API_URL = "https://services.leadconnectorhq.com";
 const GHL_API_VERSION = "2021-07-28";
 
@@ -57,13 +88,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const firstName = String(rawFirst).trim() || (legacyName ? String(legacyName).trim().split(/\s+/)[0] : "");
     const lastName = String(rawLast).trim() || (legacyName ? String(legacyName).trim().split(/\s+/).slice(1).join(" ") : "");
     const trimmedEmail = String(email).trim();
-    const trimmedPhone = phone ? String(phone).trim() : "";
+    const rawPhone = phone ? String(phone).trim() : "";
+    const phoneDigits = rawPhone.replace(/\D/g, "");
+    const normalizedPhone = phoneDigits.startsWith("1") && phoneDigits.length === 11 ? phoneDigits.slice(1) : phoneDigits;
     const interestValue = inquiryType || interest;
 
-    if (!firstName || !lastName || !trimmedEmail || !trimmedPhone) {
+    if (!firstName || !lastName || !trimmedEmail || !rawPhone) {
       res.status(400).json({ error: "First name, last name, email, and phone are required." });
       return;
     }
+
+    // Email format check
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRe.test(trimmedEmail)) {
+      res.status(400).json({ error: "Please enter a valid email address." });
+      return;
+    }
+
+    // Disposable email check
+    if (isDisposableEmail(trimmedEmail)) {
+      res.status(400).json({ error: "Please use a real email address." });
+      return;
+    }
+
+    // Phone format check
+    if (normalizedPhone.length !== 10 || isObviouslyFakePhone(normalizedPhone)) {
+      res.status(400).json({ error: "Please enter a valid 10-digit phone number." });
+      return;
+    }
+
+    const trimmedPhone = normalizedPhone;
 
     const leadType =
       inquiryType === "buying"

@@ -49,6 +49,27 @@ export default function LandingPageGate({ config, children }: Props) {
       setError("All fields are required.");
       return;
     }
+
+    // Email format validation
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRe.test(email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Phone validation — strip formatting, require 10 digits
+    const digits = phone.replace(/\D/g, "");
+    const normalized = digits.startsWith("1") && digits.length === 11 ? digits.slice(1) : digits;
+    if (normalized.length !== 10) {
+      setError("Please enter a valid 10-digit phone number.");
+      return;
+    }
+    // Reject obviously fake numbers (all same digit, sequential)
+    if (/^(\d)\1{9}$/.test(normalized) || normalized === "1234567890" || normalized === "0987654321") {
+      setError("Please enter a valid phone number.");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {

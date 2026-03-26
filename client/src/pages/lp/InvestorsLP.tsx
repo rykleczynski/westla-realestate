@@ -4,7 +4,7 @@
  */
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { TrendingUp, Search, BarChart3, Building2, ArrowRight } from "lucide-react";
+import { TrendingUp, Search, BarChart3, Building2, ArrowRight, AlertTriangle } from "lucide-react";
 import LandingPageGate from "@/components/LandingPageGate";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
@@ -34,6 +34,28 @@ const stats = [
   { stat: "$0",     label: "Buyer-side commission — my fee is paid by the seller" },
 ];
 
+const sampleDeal = [
+  { label: "Purchase price",         value: "$1,050,000" },
+  { label: "Property type",          value: "Duplex — Mar Vista" },
+  { label: "Down payment (25%)",     value: "$262,500" },
+  { label: "Monthly gross rent",     value: "$5,800 ($2,900/unit)" },
+  { label: "Vacancy allowance (5%)", value: "−$290/mo" },
+  { label: "Operating expenses",     value: "−$1,160/mo (est. 20%)" },
+  { label: "Net operating income",   value: "$4,350/mo · $52,200/yr" },
+  { label: "Cap rate",               value: "4.97%" },
+  { label: "Mortgage (30yr @ 7%)",   value: "−$5,570/mo (P&I)" },
+  { label: "Monthly cash flow",      value: "−$1,220/mo (equity-focused)" },
+  { label: "Estimated equity (5yr)", value: "+$180K–$250K appreciation" },
+];
+
+const rentControlGuide = [
+  { area: "City of Los Angeles", rule: "RSO applies to buildings built before 10/1/1978. Max annual increase: 3–8% based on CPI. No vacancy decontrol for covered units." },
+  { area: "Culver City", rule: "CSFRA covers buildings built before 2/1/1995. Max increase: CPI (typically 2–4%). Stricter eviction protections than LA City." },
+  { area: "Santa Monica", rule: "Among the most restrictive in California. Applies to pre-1979 buildings. Tightly controlled increases, strong tenant protections. Underwrite accordingly." },
+  { area: "Unincorporated LA County", rule: "LACRC applies to buildings built before 2/1/1995. Similar framework to LA City RSO. Check parcel boundary before assuming." },
+  { area: "Single-family / ADU (statewide)", rule: "AB 1482 exempts SFRs and condos (with notice). Post-2004 construction exempt. These offer more landlord flexibility — key for BRRRR exits." },
+];
+
 const faqs = [
   { q: "What's the minimum investment to get into LA real estate?", a: "For a small multifamily (duplex/triplex), expect $200K–$300K down in West LA markets. Single-family rentals start lower. We can also explore partnerships or syndications for smaller capital positions." },
   { q: "Is LA still worth investing in right now?", a: "For long-hold strategies — yes. Rent demand is structural, inventory is constrained, and appreciation has been consistent over 20+ years. Short-term cash flow is harder, but equity growth and eventual 1031 repositioning remain compelling." },
@@ -45,7 +67,7 @@ const GATE_CONFIG = {
   storageKey: "lp_gate_investors",
   eyebrow: "Free Investor Guide · Los Angeles",
   headline: "Find your next LA investment property before it hits the market.",
-  sub: "Enter your info to access Ryan's investor guide covering deal flow, underwriting, and the LA markets that actually pencil right now.",
+  sub: "Enter your info to access Ryan's investor guide — real deal numbers, rent control breakdown, and the LA submarkets that actually pencil right now.",
   inquiryType: "investing",
   tag: "Investor",
 };
@@ -86,6 +108,63 @@ export default function InvestorsLP() {
                   <div className="text-3xl lg:text-4xl font-bold mb-2">{s.stat}</div>
                   <div className="text-xs text-white/40 leading-relaxed">{s.label}</div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Sample Deal */}
+        <section className="py-20 lg:py-28 border-b border-white/5">
+          <div className="container max-w-3xl">
+            <Section className="mb-12">
+              <motion.span variants={fadeUp} className="section-label block mb-3">Sample Deal Breakdown</motion.span>
+              <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight">
+                What a real West LA duplex<span className="font-light"> looks like on paper.</span>
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-sm text-white/50 mt-4 leading-relaxed">
+                These numbers reflect a representative deal in the Mar Vista / Palms corridor — not a cherry-picked best case. LA multifamily in 2026 is an equity and appreciation play, not a cash-flow play. Underwrite accordingly.
+              </motion.p>
+            </Section>
+            <Section>
+              <div className="bg-white/5 divide-y divide-white/5">
+                {sampleDeal.map((row, i) => (
+                  <motion.div
+                    key={row.label}
+                    variants={fadeUp}
+                    className={`flex items-center justify-between px-7 py-4 ${i === sampleDeal.length - 1 ? "bg-white/5" : "bg-[#111111]"}`}
+                  >
+                    <span className="text-xs text-white/50">{row.label}</span>
+                    <span className={`text-sm font-semibold tabular-nums ${i === sampleDeal.length - 1 ? "text-white" : ""}`}>{row.value}</span>
+                  </motion.div>
+                ))}
+              </div>
+              <motion.p variants={fadeUp} className="text-xs text-white/25 mt-4 leading-relaxed">
+                Illustrative only. Actual returns vary based on purchase price, financing terms, vacancy, and local operating costs. Not financial advice.
+              </motion.p>
+            </Section>
+          </div>
+        </section>
+
+        {/* Rent Control Guide */}
+        <section className="py-20 lg:py-28 border-b border-white/5">
+          <div className="container">
+            <Section className="mb-14">
+              <motion.span variants={fadeUp} className="section-label block mb-3">Rent Control Reference</motion.span>
+              <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight max-w-xl">
+                Rent control in LA isn't one law.<span className="font-light"> It's five different ones.</span>
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-sm text-white/50 mt-4 max-w-xl leading-relaxed">
+                Which ordinance applies to a property depends on the municipality, building age, and unit type. This determines your rent increase limits, eviction protections, and flexibility. Know it before you buy.
+              </motion.p>
+            </Section>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/5">
+              {rentControlGuide.map((r) => (
+                <Section key={r.area}>
+                  <motion.div variants={fadeUp} className="bg-[#111111] p-8 lg:p-10 h-full">
+                    <h3 className="text-sm font-semibold tracking-wide mb-3">{r.area}</h3>
+                    <p className="text-sm text-white/50 leading-relaxed">{r.rule}</p>
+                  </motion.div>
+                </Section>
               ))}
             </div>
           </div>
