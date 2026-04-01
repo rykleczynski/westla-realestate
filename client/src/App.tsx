@@ -13,6 +13,7 @@ import Sellers from "./pages/Sellers";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import LosAngelesInvestors from "./pages/investors/LosAngelesInvestors";
 import OffMarketDealsLosAngeles from "./pages/investors/OffMarketDealsLosAngeles";
 import Exchange1031LosAngeles from "./pages/investors/Exchange1031LosAngeles";
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/investors/los-angeles" component={LosAngelesInvestors} />
       <Route path="/investors/off-market-deals-los-angeles" component={OffMarketDealsLosAngeles} />
       <Route path="/investors/1031-exchange-los-angeles" component={Exchange1031LosAngeles} />

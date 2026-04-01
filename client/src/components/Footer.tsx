@@ -107,7 +107,12 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <span className="text-xs text-white/30 tracking-wider">DRE# 02402858</span>
             <span className="text-xs text-white/30">|</span>
-            <span className="text-xs text-white/30 tracking-wider">Privacy Policy</span>
+            <Link
+              href="/privacy-policy"
+              className="text-xs text-white/30 tracking-wider hover:text-white/50 transition-colors"
+            >
+              Privacy Policy
+            </Link>
             <span className="text-xs text-white/30">|</span>
             <span className="text-xs text-white/30 tracking-wider">Terms</span>
           </div>
