@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Download the West LA 1031 Playbook — a practical guide for California property owners considering a tax-deferred exchange."
+  />
+  <title>West LA 1031 Playbook (Free PDF) | Ryan Kleczynski</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!--
+    Zapier setup (summary):
+    1. Use “Webhooks by Zapier” → Catch Hook (not “Catch Raw Hook”) so each field appears separately.
+    2. Paste hook URL into ZAPIER_1031_PLAYBOOK_WEBHOOK_URL (.env / Vercel). Submit a test from this form, then in Zap click “Test trigger” to refresh fields.
+    3. Airtable: map firstName / lastName / email / fullName; for phone use phoneDigits (10 digits) OR phone (formatted) OR phoneE164 (+1…) depending on column type.
+    4. Email step: send to {{email}}; attach PDF or link https://YOURDOMAIN/west-la-1031-playbook.pdf
+
+    Posted as application/x-www-form-urlencoded (flat keys):
+    firstName, lastName, fullName, email,
+    phone (e.g. (310) 555-0199),     phoneDigits, phoneE164, phoneRaw,
+    tcpaOptIn, tcpa_opt_in, tcpa_consent_at, tcpa_consent_text,
+    source, leadMagnet, submittedAt,
+    first_name, last_name, full_name, phone_display, phone_digits, phone_e164, lead_magnet, submitted_at
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #111110;
+      --white:    #ffffff;
+      --cream:    #f7f5f2;
+      --page:     #fafaf8;
+      --mauve:    #AF8674;
+      --mauve-dk: #8a6a5a;
+      --gray-200: #e8e5e1;
+      --gray-400: #b4afa9;
+      --gray-500: #6f6a64;
+      --gray-700: #3a3734;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --err: #b42318;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-700);
+      background: var(--page);
+      line-height: 1.7;
+      font-size: 1.02rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--mauve-dk); }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.1rem, 4.8vw, 2.85rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+
+    h1 em { font-style: italic; color: var(--mauve-dk); }
+
+    .hero {
+      text-align: center;
+      padding: clamp(3rem, 8vw, 4.5rem) 0 2rem;
+    }
+
+    .kicker {
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .lede {
+      color: var(--gray-500);
+      font-size: 1.05rem;
+      max-width: 38em;
+      margin: 0 auto 0.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem 1.5rem;
+      margin: 2rem auto 3rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .field { margin-bottom: 1.1rem; }
+
+    .field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 0.4rem;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      background: var(--page);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: var(--mauve);
+      box-shadow: 0 0 0 3px rgba(175, 134, 116, 0.2);
+    }
+
+    .consent {
+      margin: 1.25rem 0 0.25rem;
+      padding: 1rem 1rem;
+      background: var(--page);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+    }
+
+    .consent label {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--gray-700);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    .consent input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-top: 0.12rem;
+      flex-shrink: 0;
+      accent-color: var(--mauve-dk);
+      cursor: pointer;
+    }
+
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      background: var(--mauve-dk);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(138, 106, 90, 0.25);
+      transition: background 0.2s, transform 0.12s;
+    }
+
+    .btn:hover { background: var(--mauve); }
+    .btn:active { transform: scale(0.99); }
+    .btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+    .fineprint {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+      margin-top: 1rem;
+      line-height: 1.55;
+    }
+
+    .errbox {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      color: var(--err);
+      background: #fef3f2;
+      border: 1px solid #fecdca;
+      border-radius: 8px;
+    }
+
+    .errbox.visible { display: block; }
+
+    #success-panel {
+      display: none;
+      text-align: center;
+      padding: 2rem 1.25rem 2.5rem;
+    }
+
+    #success-panel.visible { display: block; }
+
+    #success-panel h2 {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.75rem;
+    }
+
+    #success-panel p { color: var(--gray-500); margin-bottom: 1rem; }
+
+    #form-wrap.hidden { display: none; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.25rem 2.5rem;
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      border-top: 1px solid var(--gray-200);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+
+    footer strong { color: var(--gray-500); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="container">
+      <p class="kicker">Free guide · West LA investors</p>
+      <h1>Get the <em>West LA 1031 Playbook</em></h1>
+      <p class="lede">
+        A concise PDF on timelines, common mistakes, and how to think about your next move — written for
+        California rental owners. Enter your details and we will email it to you.
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="form-wrap">
+      <form class="card" id="lead-form">
+        <div class="field">
+          <label for="firstName">First name <span aria-hidden="true">*</span></label>
+          <input id="firstName" name="firstName" type="text" autocomplete="given-name" required />
+        </div>
+        <div class="field">
+          <label for="lastName">Last name <span aria-hidden="true">*</span></label>
+          <input id="lastName" name="lastName" type="text" autocomplete="family-name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email <span aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="phone">Mobile phone <span aria-hidden="true">*</span></label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(310) 555-1234" />
+        </div>
+        <div class="field hp" aria-hidden="true">
+          <input
+            id="_hp"
+            name="_hp"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+            value=""
+            title=""
+          />
+        </div>
+
+        <div class="consent">
+          <label>
+            <input type="checkbox" id="tcpaOptIn" name="tcpaOptIn" value="true" required aria-required="true" />
+            <span>
+              I agree to receive marketing calls and texts (including autodialed or prerecorded messages) at the number
+              I provided from <strong>Ryan Kleczynski</strong> / <strong>Keller Williams Realty</strong>. Message and
+              data rates may apply. Consent is not a condition of purchase. I can opt out anytime (for example, reply
+              <strong>STOP</strong> to texts). <span aria-hidden="true">*</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="errbox" id="form-error" role="alert"></div>
+
+        <button type="submit" class="btn" id="submit-btn">Email me the playbook</button>
+
+        <p class="fineprint">
+          <span aria-hidden="true">*</span> All fields are required. This is not tax or legal advice. Have your attorney
+          or CPA review any exchange decision.
+        </p>
+      </form>
+    </div>
+
+    <div id="success-panel">
+      <h2>Check your inbox</h2>
+      <p>
+        If you do not see the email in a few minutes, check spam or promotions. The sender will be whatever address
+        you configure in your Zap.
+      </p>
+      <p class="fineprint" style="margin-top: 0;">
+        Direct download (same file):
+        <a href="/west-la-1031-playbook.pdf" download>West LA 1031 Playbook (PDF)</a>
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <strong>Ryan Kleczynski</strong> · Keller Williams Realty · DRE #02402858 · West Los Angeles<br />
+      Educational resource only — consult a qualified CPA and Qualified Intermediary before any exchange.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById("lead-form");
+      var formWrap = document.getElementById("form-wrap");
+      var success = document.getElementById("success-panel");
+      var errEl = document.getElementById("form-error");
+      var btn = document.getElementById("submit-btn");
+
+      function showErr(msg) {
+        errEl.textContent = msg;
+        errEl.classList.add("visible");
+      }
+      function clearErr() {
+        errEl.textContent = "";
+        errEl.classList.remove("visible");
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        clearErr();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        var firstName = document.getElementById("firstName").value.trim();
+        var lastName = document.getElementById("lastName").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var phone = document.getElementById("phone").value.trim();
+        var hpEl = document.getElementById("_hp");
+        var hp = hpEl ? hpEl.value : "";
+
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+
+        try {
+          var res = await fetch("/api/1031-playbook-lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              phone: phone,
+              tcpaOptIn: true,
+              _hp: hp,
+            }),
+          });
+          var data = await res.json().catch(function () {
+            return {};
+          });
+          if (!res.ok) {
+            showErr(data.error || "Something went wrong. Please try again.");
+            btn.disabled = false;
+            btn.textContent = "Email me the playbook";
+            return;
+          }
+          formWrap.classList.add("hidden");
+          success.classList.add("visible");
+        } catch (err) {
+          showErr("Network error. Check your connection and try again.");
+          btn.disabled = false;
+          btn.textContent = "Email me the playbook";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

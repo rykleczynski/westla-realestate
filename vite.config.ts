@@ -149,27 +149,36 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-/** Canonical URL /1031-cash-flow-audit (no .html); 301 from legacy .html in dev/preview. */
+/** Canonical URLs without .html for static landings; 301 from legacy .html in dev/preview. */
 function vitePluginClean1031AuditUrl(): Plugin {
+  const routes: { clean: string; file: string }[] = [
+    { clean: "/1031-cash-flow-audit", file: "/1031-cash-flow-audit.html" },
+    { clean: "/1031-playbook-guide", file: "/1031-playbook-guide.html" },
+  ];
+
   const middleware: Parameters<ViteDevServer["middlewares"]["use"]>[0] = (req, res, next) => {
     const raw = req.url ?? "";
     const q = raw.indexOf("?");
     const pathOnly = q === -1 ? raw : raw.slice(0, q);
     const search = q === -1 ? "" : raw.slice(q);
 
-    if (pathOnly === "/1031-cash-flow-audit.html") {
-      res.writeHead(301, { Location: `/1031-cash-flow-audit${search}` });
-      res.end();
-      return;
-    }
-    if (pathOnly === "/1031-cash-flow-audit" || pathOnly === "/1031-cash-flow-audit/") {
-      req.url = `/1031-cash-flow-audit.html${search}`;
+    for (const { clean, file } of routes) {
+      if (pathOnly === file) {
+        res.writeHead(301, { Location: `${clean}${search}` });
+        res.end();
+        return;
+      }
+      if (pathOnly === clean || pathOnly === `${clean}/`) {
+        req.url = `${file}${search}`;
+        next();
+        return;
+      }
     }
     next();
   };
 
   return {
-    name: "clean-1031-cash-flow-audit-url",
+    name: "clean-static-landing-urls",
     configureServer(server) {
       server.middlewares.use(middleware);
     },

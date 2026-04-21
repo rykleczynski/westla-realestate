@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { isTcpaOptInTrue, submit1031PlaybookLead } from "../shared/submit1031PlaybookLead";
 import { injectSeoIntoIndexHtml } from "./seoHtml";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -162,6 +163,32 @@ async function startServer() {
     }
   });
 
+  // West LA 1031 Playbook — Zapier → Airtable (+ email PDF in Zap)
+  app.post("/api/1031-playbook-lead", async (req, res) => {
+    try {
+      const b = req.body || {};
+      const tcpaOptIn = isTcpaOptInTrue(b.tcpaOptIn);
+
+      const result = await submit1031PlaybookLead({
+        firstName: String(b.firstName ?? ""),
+        lastName: String(b.lastName ?? ""),
+        email: String(b.email ?? ""),
+        phone: String(b.phone ?? ""),
+        tcpaOptIn,
+        _hp: b._hp != null ? String(b._hp) : undefined,
+      });
+      if (!result.ok) {
+        res.status(result.status).json({ error: result.error });
+        return;
+      }
+      res.status(200).json({ ok: true });
+    } catch (e) {
+      const err = e instanceof Error ? e : new Error(String(e));
+      console.error("1031 playbook lead error:", err.message, err.stack);
+      res.status(500).json({ error: "Something went wrong. Please try again." });
+    }
+  });
+
   // Serve static files from dist/public in production
   const staticPath =
     process.env.NODE_ENV === "production"
@@ -169,11 +196,17 @@ async function startServer() {
       : path.resolve(__dirname, "..", "dist", "public");
 
   const auditLandingPath = path.join(staticPath, "1031-cash-flow-audit.html");
+  const playbookLandingPath = path.join(staticPath, "1031-playbook-guide.html");
 
   app.use((req, res, next) => {
-    if (req.path === "/1031-cash-flow-audit.html") {
-      const qs = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
-      res.redirect(301, `/1031-cash-flow-audit${qs}`);
+    const redirects: [string, string][] = [
+      ["/1031-cash-flow-audit.html", "/1031-cash-flow-audit"],
+      ["/1031-playbook-guide.html", "/1031-playbook-guide"],
+    ];
+    const qs = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
+    const hit = redirects.find(([from]) => req.path === from);
+    if (hit) {
+      res.redirect(301, `${hit[1]}${qs}`);
       return;
     }
     next();
@@ -183,6 +216,10 @@ async function startServer() {
 
   app.get(["/1031-cash-flow-audit", "/1031-cash-flow-audit/"], (_req, res) => {
     res.sendFile(auditLandingPath);
+  });
+
+  app.get(["/1031-playbook-guide", "/1031-playbook-guide/"], (_req, res) => {
+    res.sendFile(playbookLandingPath);
   });
 
   const indexPath = path.join(staticPath, "index.html");
