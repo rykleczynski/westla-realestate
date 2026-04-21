@@ -168,7 +168,22 @@ async function startServer() {
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
 
+  const auditLandingPath = path.join(staticPath, "1031-cash-flow-audit.html");
+
+  app.use((req, res, next) => {
+    if (req.path === "/1031-cash-flow-audit.html") {
+      const qs = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
+      res.redirect(301, `/1031-cash-flow-audit${qs}`);
+      return;
+    }
+    next();
+  });
+
   app.use(express.static(staticPath, { index: false }));
+
+  app.get(["/1031-cash-flow-audit", "/1031-cash-flow-audit/"], (_req, res) => {
+    res.sendFile(auditLandingPath);
+  });
 
   const indexPath = path.join(staticPath, "index.html");
   const indexHtmlTemplate = fs.readFileSync(indexPath, "utf-8");

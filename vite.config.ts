@@ -149,7 +149,43 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+/** Canonical URL /1031-cash-flow-audit (no .html); 301 from legacy .html in dev/preview. */
+function vitePluginClean1031AuditUrl(): Plugin {
+  const middleware: Parameters<ViteDevServer["middlewares"]["use"]>[0] = (req, res, next) => {
+    const raw = req.url ?? "";
+    const q = raw.indexOf("?");
+    const pathOnly = q === -1 ? raw : raw.slice(0, q);
+    const search = q === -1 ? "" : raw.slice(q);
+
+    if (pathOnly === "/1031-cash-flow-audit.html") {
+      res.writeHead(301, { Location: `/1031-cash-flow-audit${search}` });
+      res.end();
+      return;
+    }
+    if (pathOnly === "/1031-cash-flow-audit" || pathOnly === "/1031-cash-flow-audit/") {
+      req.url = `/1031-cash-flow-audit.html${search}`;
+    }
+    next();
+  };
+
+  return {
+    name: "clean-1031-cash-flow-audit-url",
+    configureServer(server) {
+      server.middlewares.use(middleware);
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(middleware);
+    },
+  };
+}
+
+const plugins = [
+  react(),
+  tailwindcss(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+  vitePluginClean1031AuditUrl(),
+];
 
 export default defineConfig({
   plugins,

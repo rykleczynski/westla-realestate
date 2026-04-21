@@ -8,6 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
     rel="stylesheet"
@@ -17,16 +18,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:    #000000;
+      --black:    #111110;
       --ink:      #0d0c0b;
       --white:    #ffffff;
-      --cream:    #f7f4f0;
+      --cream:    #f7f5f2;
+      --page:     #fafaf8;
       --mauve:    #AF8674;
       --mauve-lt: #c9a898;
+      --mauve-dk: #8a6a5a;
       --gray-100: #f5f4f2;
       --gray-200: #e8e5e1;
       --gray-400: #b4afa9;
-      --gray-500: #888480;
+      --gray-500: #6f6a64;
       --gray-700: #3a3734;
       --font-display: 'Cormorant Garamond', Georgia, serif;
       --font-body:    'DM Sans', sans-serif;
@@ -37,8 +40,9 @@
     body {
       font-family: var(--font-body);
       color: var(--gray-700);
-      background: var(--white);
-      line-height: 1.65;
+      background: var(--page);
+      line-height: 1.7;
+      font-size: 1.02rem;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -48,12 +52,12 @@
 
     .container {
       width: 100%;
-      max-width: 1080px;
+      max-width: 920px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
-    .container--narrow { max-width: 780px; }
+    .container--narrow { max-width: 680px; }
 
     h1, h2, h3 {
       font-family: var(--font-display);
@@ -62,8 +66,8 @@
       letter-spacing: -0.01em;
     }
 
-    h1 { font-size: clamp(2.5rem, 6vw, 4.1rem); }
-    h2 { font-size: clamp(2rem, 4.2vw, 3rem); }
+    h1 { font-size: clamp(2.35rem, 5.2vw, 3.35rem); line-height: 1.12; }
+    h2 { font-size: clamp(1.75rem, 3.8vw, 2.35rem); line-height: 1.18; }
     h3 { font-size: 1.35rem; font-weight: 500; }
 
     em { font-style: italic; color: var(--mauve); }
@@ -110,37 +114,40 @@
     .btn:active { transform: translateY(0); }
 
     .btn-primary {
-      background: var(--mauve);
+      background: var(--mauve-dk);
       color: var(--white);
-      box-shadow: 0 8px 24px rgba(175, 134, 116, 0.25);
+      border-radius: 999px;
+      padding: 18px 36px;
+      box-shadow: 0 4px 20px rgba(138, 106, 90, 0.28);
     }
 
     .btn-primary:hover {
-      background: #9c755f;
+      background: var(--mauve);
       opacity: 1;
     }
 
     .btn .arrow { font-size: 1.1em; line-height: 1; }
 
     .btn-meta {
-      margin-top: 16px;
-      font-size: 0.78rem;
-      color: rgba(0, 0, 0, 0.45);
-      letter-spacing: 0.04em;
+      margin-top: 18px;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      letter-spacing: 0.02em;
     }
 
-    .btn-meta--light { color: rgba(255, 255, 255, 0.45); }
+    .btn-meta--light { color: var(--gray-500); }
 
     /* ─── Sticky Mobile CTA ─────────────────── */
     .sticky-cta {
       display: none;
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: var(--ink);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
       padding: 12px 16px;
       z-index: 50;
-      border-top: 1px solid rgba(175, 134, 116, 0.3);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+      border-top: 1px solid var(--gray-200);
+      box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.06);
     }
 
     .sticky-cta a {
@@ -148,152 +155,131 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: var(--mauve);
+      background: var(--mauve-dk);
       color: var(--white);
       padding: 14px 16px;
-      border-radius: 4px;
+      border-radius: 999px;
       font-size: 0.88rem;
       font-weight: 500;
       letter-spacing: 0.02em;
     }
 
-    /* ─── Hero ─────────────────────────────── */
+    /* ─── Hero (simple, centered, light) ─────── */
     #hero {
-      background: var(--ink);
-      color: var(--white);
-      padding: 96px 0 88px;
+      background: var(--page);
+      color: var(--gray-700);
+      padding: clamp(4.5rem, 10vw, 6.5rem) 0 clamp(3.5rem, 8vw, 5rem);
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
 
-    #hero::before {
-      content: '';
+    .hero-bg-photo {
       position: absolute;
-      top: -160px; right: -160px;
-      width: 560px; height: 560px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(175, 134, 116, 0.16) 0%, transparent 70%);
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1600&amp;q=70');
+      background-size: cover;
+      background-position: center 40%;
+      opacity: 0.11;
       pointer-events: none;
     }
 
-    #hero::after {
+    .hero-bg-photo::after {
       content: '';
       position: absolute;
-      bottom: -100px; left: -100px;
-      width: 360px; height: 360px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(175, 134, 116, 0.08) 0%, transparent 70%);
-      pointer-events: none;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        var(--page) 0%,
+        rgba(250, 250, 248, 0.65) 22%,
+        rgba(250, 250, 248, 0.75) 50%,
+        var(--page) 100%
+      );
     }
 
-    .hero-inner {
+    .hero-centered {
       position: relative;
       z-index: 1;
-      max-width: 780px;
+      max-width: 620px;
+      margin: 0 auto;
     }
 
     .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--mauve-lt);
+      color: var(--gray-500);
       font-weight: 500;
-      margin-bottom: 28px;
-      padding: 8px 16px;
-      border: 1px solid rgba(175, 134, 116, 0.3);
-      border-radius: 100px;
-      background: rgba(175, 134, 116, 0.05);
-    }
-
-    .hero-kicker .dot {
-      display: inline-block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--mauve);
-      box-shadow: 0 0 0 4px rgba(175, 134, 116, 0.15);
-      animation: pulse 2.2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(175, 134, 116, 0.15); }
-      50%      { box-shadow: 0 0 0 8px rgba(175, 134, 116, 0.05); }
+      margin-bottom: 1.5rem;
     }
 
     #hero h1 {
-      color: var(--white);
-      margin-bottom: 26px;
+      color: var(--black);
+      margin-bottom: 1.35rem;
+      font-weight: 600;
     }
 
-    #hero h1 em { color: var(--mauve-lt); }
+    #hero h1 em { color: var(--mauve-dk); font-style: italic; }
 
     .hero-sub {
-      font-size: 1.15rem;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.75);
-      max-width: 600px;
-      margin-bottom: 40px;
-      line-height: 1.7;
+      font-size: 1.08rem;
+      font-weight: 400;
+      color: var(--gray-500);
+      max-width: 34em;
+      margin: 0 auto 2rem;
+      line-height: 1.75;
     }
 
-    .hero-sub strong { color: var(--white); font-weight: 500; }
+    .hero-sub strong { color: var(--gray-700); font-weight: 500; }
 
-    /* ─── Hero Trust Bar ─────────────────────── */
-    .hero-trust {
-      margin-top: 56px;
-      padding-top: 32px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+    .hero-cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
 
-    .trust-stat .num {
-      font-family: var(--font-display);
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--mauve-lt);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .trust-stat .label {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.5);
+    .hero-trust-inline {
+      margin-top: 2.25rem;
+      font-size: 0.82rem;
+      color: var(--gray-400);
       letter-spacing: 0.04em;
-      line-height: 1.4;
     }
 
     /* ─── Section Base ───────────────────────── */
     .section {
-      padding: 100px 0;
+      padding: clamp(4rem, 9vw, 5.5rem) 0;
       position: relative;
     }
 
     .section--cream { background: var(--cream); }
     .section--dark  { background: var(--ink); color: var(--white); }
+    .section--white { background: var(--white); }
 
     .section-head {
       text-align: center;
-      margin-bottom: 64px;
-      max-width: 640px;
+      margin-bottom: clamp(2.5rem, 5vw, 3.25rem);
+      max-width: 560px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .section-head .eyebrow { justify-content: center; }
-    .section-head h2 { color: var(--black); margin-bottom: 18px; }
+    .section-head h2 { color: var(--black); margin-bottom: 1rem; }
     .section--dark .section-head h2 { color: var(--white); }
 
     .section-head p {
       color: var(--gray-500);
-      font-size: 1rem;
-      line-height: 1.7;
+      font-size: 1.05rem;
+      line-height: 1.75;
     }
 
     .section--dark .section-head p { color: rgba(255, 255, 255, 0.55); }
+
+    .section-cta-wrap {
+      text-align: center;
+      margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    }
 
     /* ─── Problem Section ───────────────────── */
     .problem-grid {
@@ -307,11 +293,11 @@
 
     .problem-card {
       background: var(--white);
-      padding: 44px 36px;
+      padding: 2.25rem 1.75rem;
       transition: background 0.25s;
     }
 
-    .problem-card:hover { background: var(--gray-100); }
+    .problem-card:hover { background: var(--cream); }
 
     .problem-num {
       font-family: var(--font-display);
@@ -331,9 +317,9 @@
     }
 
     .problem-card p {
-      font-size: 0.92rem;
+      font-size: 0.98rem;
       color: var(--gray-500);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* ─── Process Steps ──────────────────────── */
@@ -386,9 +372,9 @@
     }
 
     .process-step p {
-      font-size: 0.9rem;
+      font-size: 0.98rem;
       color: var(--gray-500);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* ─── Deliverables (What You Walk Away With) ─ */
@@ -404,38 +390,38 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      padding: 20px 22px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(175, 134, 116, 0.2);
-      border-radius: 6px;
+      padding: 1.15rem 1.25rem;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
     }
 
     .deliverable .check {
       flex-shrink: 0;
-      width: 22px; height: 22px;
+      width: 24px; height: 24px;
       border-radius: 50%;
-      background: rgba(175, 134, 116, 0.15);
-      border: 1px solid var(--mauve);
+      background: var(--cream);
+      border: 1px solid var(--gray-200);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--mauve);
-      font-size: 0.7rem;
+      color: var(--mauve-dk);
+      font-size: 0.72rem;
       margin-top: 2px;
     }
 
     .deliverable strong {
       display: block;
-      color: var(--white);
-      font-size: 0.95rem;
+      color: var(--black);
+      font-size: 0.98rem;
       font-weight: 500;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .deliverable span {
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.55);
-      line-height: 1.55;
+      font-size: 0.88rem;
+      color: var(--gray-500);
+      line-height: 1.6;
     }
 
     /* ─── Testimonials ───────────────────────── */
@@ -448,31 +434,21 @@
     .testimonial {
       background: var(--white);
       border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      padding: 32px 28px;
+      border-radius: 10px;
+      padding: 1.75rem 1.5rem;
       position: relative;
-      transition: transform 0.25s, box-shadow 0.25s;
+      transition: box-shadow 0.2s;
     }
 
     .testimonial:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-    }
-
-    .testimonial-quote {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      color: var(--mauve);
-      opacity: 0.25;
-      line-height: 1;
-      margin-bottom: -12px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
     }
 
     .testimonial-text {
-      font-size: 0.92rem;
+      font-size: 1rem;
       color: var(--gray-700);
       line-height: 1.75;
-      margin-bottom: 22px;
+      margin-bottom: 1.25rem;
     }
 
     .testimonial-author {
@@ -506,15 +482,13 @@
       justify-content: center;
     }
 
-    .about-photo .photo-initials {
-      font-family: var(--font-display);
-      font-size: 6rem;
-      color: rgba(255, 255, 255, 0.12);
-      font-weight: 700;
+    .about-photo img {
       position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
     }
 
     .about-photo .photo-caption {
@@ -573,7 +547,7 @@
     .faq-item:first-child { border-top: 1px solid var(--gray-200); }
 
     .faq-q {
-      padding: 24px 0;
+      padding: 1.15rem 0;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -583,7 +557,7 @@
       border: none;
       cursor: pointer;
       font-family: var(--font-body);
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       font-weight: 500;
       color: var(--black);
       text-align: left;
@@ -626,86 +600,78 @@
     }
 
     .faq-a-inner {
-      padding: 0 0 24px;
-      font-size: 0.94rem;
+      padding: 0 0 1.15rem;
+      font-size: 1rem;
       color: var(--gray-500);
-      line-height: 1.8;
+      line-height: 1.75;
       max-width: 640px;
     }
 
     /* ─── Final CTA ──────────────────────────── */
     #final-cta {
-      background: var(--ink);
-      color: var(--white);
-      padding: 100px 0;
+      background: var(--cream);
+      color: var(--gray-700);
+      padding: clamp(4rem, 9vw, 5.5rem) 0;
       position: relative;
-      overflow: hidden;
-    }
-
-    #final-cta::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 800px; height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(175, 134, 116, 0.1) 0%, transparent 60%);
-      pointer-events: none;
+      border-top: 1px solid var(--gray-200);
     }
 
     .final-cta-inner {
       position: relative;
       z-index: 1;
       text-align: center;
-      max-width: 720px;
+      max-width: 620px;
       margin: 0 auto;
     }
 
+    .final-cta-inner .eyebrow { justify-content: center; }
+
     .final-cta-inner h2 {
-      color: var(--white);
-      margin-bottom: 24px;
+      color: var(--black);
+      margin-bottom: 1.15rem;
     }
 
-    .final-cta-inner h2 em { color: var(--mauve-lt); }
+    .final-cta-inner h2 em { color: var(--mauve-dk); }
 
-    .final-cta-inner p {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 40px;
+    .final-cta-inner > p {
+      color: var(--gray-500);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 2rem;
     }
 
     .final-testimonial {
-      margin-top: 56px;
-      padding: 28px 32px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(175, 134, 116, 0.2);
-      border-radius: 8px;
-      max-width: 560px;
+      margin-top: 2.75rem;
+      padding: 1.35rem 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
       text-align: left;
     }
 
     .final-testimonial p {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.98rem;
+      color: var(--gray-700);
       line-height: 1.7;
-      margin-bottom: 16px;
+      margin-bottom: 0.75rem;
       font-style: italic;
     }
 
     .final-testimonial .ft-author {
-      font-size: 0.8rem;
-      color: var(--mauve-lt);
-      letter-spacing: 0.04em;
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      letter-spacing: 0.02em;
     }
 
     /* ─── Footer ─────────────────────────────── */
     footer {
-      background: var(--black);
-      padding: 40px 0 28px;
-      color: rgba(255, 255, 255, 0.5);
+      background: var(--white);
+      padding: 2.25rem 0 1.75rem;
+      color: var(--gray-500);
+      border-top: 1px solid var(--gray-200);
     }
 
     .footer-inner {
@@ -718,30 +684,30 @@
 
     .footer-brand {
       font-family: var(--font-display);
-      font-size: 1.1rem;
-      color: var(--white);
+      font-size: 1.15rem;
+      color: var(--black);
       font-weight: 600;
     }
 
     .footer-brand span {
       display: block;
       font-family: var(--font-body);
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.1em;
+      font-size: 0.72rem;
+      color: var(--gray-500);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 5px;
       font-weight: 400;
     }
 
     .footer-legal {
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.72rem;
+      color: var(--gray-400);
       text-align: center;
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      line-height: 1.7;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--gray-200);
+      line-height: 1.65;
     }
 
     /* ─── Fade-up animations ─────────────────── */
@@ -758,7 +724,6 @@
 
     /* ─── Responsive ─────────────────────────── */
     @media (max-width: 860px) {
-      .hero-trust { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; }
       .problem-grid { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; gap: 36px; }
       .process-steps::before { display: none; }
@@ -769,13 +734,11 @@
     }
 
     @media (max-width: 500px) {
-      .section { padding: 72px 0; }
-      #hero { padding: 72px 0 64px; }
+      .section { padding: 3.25rem 0; }
+      #hero { padding: 3.5rem 0 3rem; }
       .sticky-cta { display: block; }
       body { padding-bottom: 72px; }
-      .btn { width: 100%; justify-content: center; }
-      .hero-trust { grid-template-columns: repeat(2, 1fr); }
-      .trust-stat .num { font-size: 1.5rem; }
+      .btn { width: 100%; justify-content: center; max-width: 100%; }
     }
   </style>
 </head>
@@ -784,56 +747,37 @@
 
   <!-- ━━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━━ -->
   <section id="hero">
+    <div class="hero-bg-photo" aria-hidden="true"></div>
     <div class="container">
-      <div class="hero-inner">
-        <div class="hero-kicker">
-          <span class="dot"></span>
-          West LA · 1031 Exchange Specialist
-        </div>
+      <div class="hero-centered">
+        <p class="hero-kicker">West LA · 1031 exchange specialist</p>
 
-        <h1>Thinking about selling your West LA property? <em>Let's run the numbers — before you list.</em></h1>
+        <h1>Thinking about selling your LA investment property? <em>Let's run the numbers first.</em></h1>
 
         <p class="hero-sub">
-          A <strong>free, no-obligation 30-minute consultation</strong> for West LA property owners
-          weighing a sale, a 1031 exchange, or simply wondering what their equity is really worth
-          today. No pressure. No sales pitch. Just the numbers — so you can decide.
+          Free 30-minute consultation for West LA owners weighing a sale or a 1031 exchange.
+          <strong>No pitch</strong> — just clear numbers so you can decide with confidence.
         </p>
 
-        <a
-          href="https://calendly.com/rykleczynski/la-cash-flow-audit-consultation"
-          target="_blank"
-          rel="noopener"
-          class="btn btn-primary"
-        >
-          Book My Free 30-Min Consultation <span class="arrow">→</span>
-        </a>
-
-        <p class="btn-meta btn-meta--light">30 minutes · No cost · No obligation</p>
-
-        <div class="hero-trust">
-          <div class="trust-stat">
-            <div class="num">30 min</div>
-            <div class="label">Focused strategy session</div>
-          </div>
-          <div class="trust-stat">
-            <div class="num">$0</div>
-            <div class="label">No cost, no pressure</div>
-          </div>
-          <div class="trust-stat">
-            <div class="num">1031</div>
-            <div class="label">Exchange-specialist guidance</div>
-          </div>
-          <div class="trust-stat">
-            <div class="num">KW</div>
-            <div class="label">Keller Williams Realty</div>
-          </div>
+        <div class="hero-cta-wrap">
+          <a
+            href="https://calendly.com/rykleczynski/la-cash-flow-audit-consultation"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary"
+          >
+            Book my free 30-minute call <span class="arrow">→</span>
+          </a>
+          <p class="btn-meta">30 minutes · No cost · No obligation</p>
         </div>
+
+        <p class="hero-trust-inline">30 min session · $0 · 1031 guidance</p>
       </div>
     </div>
   </section>
 
   <!-- ━━━━━━━━━━━━━━━ PROBLEM / WHO THIS IS FOR ━━━━━━━━━━━━━━━ -->
-  <section class="section">
+  <section class="section section--white">
     <div class="container">
       <div class="section-head fade-up">
         <div class="eyebrow">If This Sounds Familiar</div>
@@ -918,14 +862,14 @@
         </div>
       </div>
 
-      <div style="text-align:center; margin-top: 64px;" class="fade-up">
+      <div class="section-cta-wrap fade-up">
         <a
           href="https://calendly.com/rykleczynski/la-cash-flow-audit-consultation"
           target="_blank"
           rel="noopener"
           class="btn btn-primary"
         >
-          Book My Free 30-Min Consultation <span class="arrow">→</span>
+          Book my free 30-minute call <span class="arrow">→</span>
         </a>
         <p class="btn-meta">30 minutes · No cost · No obligation</p>
       </div>
@@ -933,10 +877,10 @@
   </section>
 
   <!-- ━━━━━━━━━━━━━━━ DELIVERABLES ━━━━━━━━━━━━━━━ -->
-  <section class="section section--dark">
+  <section class="section section--white">
     <div class="container">
       <div class="section-head fade-up">
-        <div class="eyebrow eyebrow--light">What You Walk Away With</div>
+        <div class="eyebrow">What you walk away with</div>
         <h2>Not a brochure. A real analysis.</h2>
         <p>
           In 30 minutes I'll give you the same analysis I'd prepare for a high-net-worth
@@ -1001,7 +945,6 @@
 
       <div class="testimonials">
         <div class="testimonial fade-up">
-          <div class="testimonial-quote">&ldquo;</div>
           <p class="testimonial-text">
             Ryan actually ran the numbers before telling us what to do. We almost sold without
             thinking about the 1031 and would have lost $160K to taxes. He saved us from ourselves.
@@ -1011,7 +954,6 @@
         </div>
 
         <div class="testimonial fade-up">
-          <div class="testimonial-quote">&ldquo;</div>
           <p class="testimonial-text">
             I've worked with three agents in LA. Ryan is the only one who talks like an investor.
             He owns property himself and actually knows depreciation and exchange timelines.
@@ -1021,7 +963,6 @@
         </div>
 
         <div class="testimonial fade-up">
-          <div class="testimonial-quote">&ldquo;</div>
           <p class="testimonial-text">
             The consultation was the most valuable hour I've spent on real estate in ten years.
             No sales pitch. Just the math, clearly. I knew exactly what to do by the end.
@@ -1038,7 +979,14 @@
     <div class="container">
       <div class="about-inner">
         <div class="about-photo fade-up">
-          <div class="photo-initials">RK</div>
+          <img
+            src="/ryan-headshot.png"
+            alt="Ryan Kleczynski, West LA Realtor"
+            width="1365"
+            height="2048"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="photo-caption">Ryan Kleczynski · Keller Williams</div>
         </div>
 
@@ -1047,8 +995,7 @@
           <h2>I've done this myself.</h2>
           <p>
             I'm a West LA Realtor at Keller Williams — and more importantly, I'm a real estate
-            investor who has sold, exchanged, and repositioned my own properties. I know what
-            a 1031 timeline actually feels like, because I've lived it.
+            investor. I know what a 1031 timeline actually feels like.
           </p>
           <p>
             Most agents will tell you to list. My job is different: <strong>help you figure out
@@ -1172,11 +1119,11 @@
   <section id="final-cta">
     <div class="container">
       <div class="final-cta-inner">
-        <div class="eyebrow eyebrow--light" style="justify-content:center; display:inline-flex;">Ready When You Are</div>
-        <h2>If it's not useful, you've lost 30 minutes.<br /><em>If it is, you've saved six figures.</em></h2>
+        <div class="eyebrow">Ready when you are</div>
+        <h2>Thirty minutes to see the math clearly.</h2>
         <p>
-          The cost of not knowing your numbers isn't zero. It's the difference between what
-          you could net — and what you actually will. Spend 30 minutes. Get the math. Then decide.
+          If the numbers do not help, you have lost half an hour. If they do, they can save you
+          from an expensive guess. Book when it works for you.
         </p>
 
         <a
@@ -1185,10 +1132,10 @@
           rel="noopener"
           class="btn btn-primary"
         >
-          Book My Free 30-Min Consultation <span class="arrow">→</span>
+          Book my free 30-minute call <span class="arrow">→</span>
         </a>
 
-        <p class="btn-meta btn-meta--light">30 minutes · No cost · No obligation</p>
+        <p class="btn-meta">30 minutes · No cost · No obligation</p>
 
         <div class="final-testimonial">
           <p>
@@ -1213,7 +1160,7 @@
           href="https://calendly.com/rykleczynski/la-cash-flow-audit-consultation"
           target="_blank"
           rel="noopener"
-          style="font-size: 0.82rem; color: var(--mauve-lt); letter-spacing: 0.04em;"
+          style="font-size: 0.85rem; color: var(--mauve-dk); font-weight: 500;"
         >
           Book a Consultation →
         </a>

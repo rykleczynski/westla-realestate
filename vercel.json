@@ -4,7 +4,16 @@
   "outputDirectory": "dist/public",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
+  "redirects": [
+    {
+      "source": "/1031-cash-flow-audit.html",
+      "destination": "/1031-cash-flow-audit",
+      "permanent": true
+    }
+  ],
   "rewrites": [
+    { "source": "/1031-cash-flow-audit", "destination": "/1031-cash-flow-audit.html" },
+    { "source": "/1031-cash-flow-audit/", "destination": "/1031-cash-flow-audit.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
