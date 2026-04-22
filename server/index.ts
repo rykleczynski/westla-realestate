@@ -5,40 +5,12 @@ import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 import { isTcpaOptInTrue, submit1031PlaybookLead } from "../shared/submit1031PlaybookLead";
+import { submitContactToZapier } from "../shared/submitContactZapier";
 import { injectSeoIntoIndexHtml } from "./seoHtml";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
-
-const GHL_API_URL = "https://services.leadconnectorhq.com";
-const GHL_API_VERSION = "2021-07-28";
-
-const ghlHeaders = (token: string) => ({
-  Accept: "application/json",
-  Version: GHL_API_VERSION,
-  Authorization: `Bearer ${token}`,
-});
-
-// Resolve location ID: use env or fetch first location from API (works with Private Integration Token).
-let cachedLocationId: string | null = null;
-
-async function resolveLocationId(token: string): Promise<string | null> {
-  if (process.env.GHL_LOCATION_ID) return process.env.GHL_LOCATION_ID;
-  if (cachedLocationId) return cachedLocationId;
-  try {
-    const res = await fetch(`${GHL_API_URL}/locations/search?limit=1`, {
-      headers: ghlHeaders(token),
-    });
-    if (!res.ok) return null;
-    const data = (await res.json()) as { locations?: { id: string }[] };
-    const id = data.locations?.[0]?.id ?? null;
-    if (id) cachedLocationId = id;
-    return id;
-  } catch {
-    return null;
-  }
-}
 
 async function startServer() {
   const app = express();
@@ -46,19 +18,12 @@ async function startServer() {
 
   app.use(express.json());
 
-  // GoHighLevel CRM: submit contact form → create contact
+  // Contact form → Zapier Catch Hook (ZAPIER_CONTACT_WEBHOOK_URL)
   app.post("/api/contact", async (req, res) => {
     try {
-      const token = process.env.GHL_API_TOKEN;
-      if (!token) {
-        res.status(503).json({ error: "Contact form is not configured. Set GHL_API_TOKEN." });
-        return;
-      }
-      const locationId = await resolveLocationId(token);
-      if (!locationId) {
+      if (!process.env.ZAPIER_CONTACT_WEBHOOK_URL?.trim()) {
         res.status(503).json({
-          error:
-            "Could not determine GoHighLevel location. Set GHL_LOCATION_ID in .env, or use a token that has access to at least one location.",
+          error: "Contact form is not configured. Set ZAPIER_CONTACT_WEBHOOK_URL in .env.",
         });
         return;
       }
@@ -71,13 +36,12 @@ async function startServer() {
         phone = "",
         interest = "",
         inquiryType = "",
+        source: rawSource = "",
       } = req.body || {};
       const firstName = String(rawFirst).trim() || (legacyName ? String(legacyName).trim().split(/\s+/)[0] : "");
       const lastName = String(rawLast).trim() || (legacyName ? String(legacyName).trim().split(/\s+/).slice(1).join(" ") : "");
       const trimmedEmail = String(email).trim();
-      const interestValue = inquiryType || interest;
 
-      // Map inquiry type to lead_type label for CRM
       const leadType =
         inquiryType === "buying"
           ? "Buyer"
@@ -97,61 +61,18 @@ async function startServer() {
         return;
       }
 
-      const fullName = [firstName, lastName].filter(Boolean).join(" ");
-
-      const customFields: { id?: string; key?: string; field_value: string }[] = [];
-      if (process.env.GHL_INTEREST_FIELD_ID && interestValue) {
-        customFields.push({
-          id: process.env.GHL_INTEREST_FIELD_ID,
-          field_value: interestValue,
-        });
-      }
-      if (process.env.GHL_LEAD_TYPE_FIELD_ID && leadType) {
-        customFields.push({
-          id: process.env.GHL_LEAD_TYPE_FIELD_ID,
-          field_value: leadType,
-        });
-      }
-      if (process.env.GHL_CONVERSATIONAL_AI_STATUS_FIELD_ID) {
-        customFields.push({
-          id: process.env.GHL_CONVERSATIONAL_AI_STATUS_FIELD_ID,
-          field_value: "AI On",
-        });
-      }
-
-      const body = {
-        locationId,
+      const zapResult = await submitContactToZapier({
         firstName,
         lastName,
-        name: fullName,
         email: trimmedEmail,
-        phone: trimmedPhone,
-        source: "Website",
-        tags: interestValue ? [interestValue] : ["website"],
-        ...(customFields.length > 0 && { customFields }),
-      };
-
-      const response = await fetch(`${GHL_API_URL}/contacts/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Version: GHL_API_VERSION,
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
+        phoneRaw: trimmedPhone,
+        inquiryType: String(inquiryType || "").trim(),
+        interest: String(interest || "").trim(),
+        leadType,
+        source: String(rawSource || "").trim() || undefined,
       });
-
-      const responseData = (await response.json().catch(() => null)) as
-        | { id?: string; contact?: { id?: string } }
-        | null;
-
-      if (!response.ok) {
-        const err = responseData && typeof responseData === "object" ? (responseData as any) : { message: response.statusText };
-        const msg = err.message;
-        const errMessage = Array.isArray(msg) ? msg.join(", ") : typeof msg === "string" ? msg : "Failed to submit.";
-        console.error("GHL API error:", response.status, errMessage, responseData);
-        res.status(response.status).json({ error: errMessage });
+      if (!zapResult.ok) {
+        res.status(zapResult.status).json({ error: zapResult.error });
         return;
       }
 

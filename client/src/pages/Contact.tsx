@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
 import { toast } from "sonner";
 import BookingCalendar from "@/components/BookingCalendar";
+import { formatContactApiError, isLikelyDownstreamGhlTokenError } from "@/lib/formatContactApiError";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -59,8 +60,9 @@ export default function Contact() {
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        toast.error(data.error || "Something went wrong. Please try again.");
+      const apiError = (data as { error?: unknown }).error;
+      if (!res.ok && !isLikelyDownstreamGhlTokenError(apiError)) {
+        toast.error(formatContactApiError(apiError));
         return;
       }
       toast.success("Message sent! We'll be in touch within 24 hours.");
@@ -133,7 +135,7 @@ export default function Contact() {
       <div className="hairline" />
 
       {/* Contact Form + Info */}
-      <section className="py-16 lg:py-24">
+      <section id="contact-form" className="py-16 lg:py-24 scroll-mt-28">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             {/* Form */}

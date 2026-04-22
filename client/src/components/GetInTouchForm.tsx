@@ -1,26 +1,35 @@
-import React from "react";
+import { Link } from "wouter";
+
+const embedUrl = (import.meta.env.VITE_GET_IN_TOUCH_EMBED_URL as string | undefined)?.trim();
 
 export default function GetInTouchForm() {
+  if (embedUrl) {
+    return (
+      <div className="w-full" style={{ minHeight: 520 }}>
+        <iframe
+          src={embedUrl}
+          style={{ width: "100%", minHeight: 520, height: "100%", border: "none", borderRadius: "3px" }}
+          title="Get in Touch"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full" style={{ minHeight: 843 }}>
-      <iframe
-        src="https://api.leadconnectorhq.com/widget/form/wvY8q4yEEAYJ6sxI5Vro"
-        style={{ width: "100%", height: "100%", border: "none", borderRadius: "3px" }}
-        id="inline-wvY8q4yEEAYJ6sxI5Vro"
-        data-layout="{'id':'INLINE'}"
-        data-trigger-type="alwaysShow"
-        data-trigger-value=""
-        data-activation-type="alwaysActivated"
-        data-activation-value=""
-        data-deactivation-type="neverDeactivate"
-        data-deactivation-value=""
-        data-form-name="Get in Touch"
-        data-height="843"
-        data-layout-iframe-id="inline-wvY8q4yEEAYJ6sxI5Vro"
-        data-form-id="wvY8q4yEEAYJ6sxI5Vro"
-        title="Get in Touch"
-      />
+    <div className="space-y-4 text-center py-4">
+      <p className="text-sm text-white/45 leading-relaxed">
+        Request a personalized home valuation or selling strategy — we&apos;ll follow up with next steps.
+      </p>
+      <Link
+        href="/contact#contact-form"
+        className="inline-flex items-center justify-center px-6 py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
+      >
+        Contact us
+      </Link>
+      <p className="text-xs text-white/35">
+        Optional: set <span className="font-mono text-white/50">VITE_GET_IN_TOUCH_EMBED_URL</span> to embed an external
+        form.
+      </p>
     </div>
   );
 }
-

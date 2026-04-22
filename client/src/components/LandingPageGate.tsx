@@ -1,9 +1,10 @@
 /*
  * LandingPageGate — Full-screen lead capture gate for Meta ad landing pages.
- * Shown on first visit. Submits to /api/contact → High Level CRM.
+ * Shown on first visit. Submits to /api/contact → Zapier webhook.
  * Dismissed on successful submission; unlocks the page content beneath.
  */
 import { useState } from "react";
+import { formatContactApiError, isLikelyDownstreamGhlTokenError } from "@/lib/formatContactApiError";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
@@ -85,9 +86,10 @@ export default function LandingPageGate({ config, children }: Props) {
           source: "Meta Ad Landing Page",
         }),
       });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as any).error || "Something went wrong.");
+      const data = await res.json().catch(() => ({}));
+      const apiError = (data as { error?: unknown }).error;
+      if (!res.ok && !isLikelyDownstreamGhlTokenError(apiError)) {
+        throw new Error(formatContactApiError(apiError));
       }
       sessionStorage.setItem(config.storageKey, "1");
       setUnlocked(true);
