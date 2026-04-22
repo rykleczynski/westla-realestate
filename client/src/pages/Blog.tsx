@@ -1,14 +1,15 @@
 /*
  * THE BLACK FOLIO — Blog / Market Insights
- * SEO-rich content hub for market reports, guides, and analysis
+ * Date-gated: only published posts appear in the grid
  */
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
+import { getPublishedPosts } from "@/data/blogPosts";
 
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -23,71 +24,27 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
   );
 }
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/hero-westla-skyline-VBWfTyAEiaSCRKVWtRKwdj.webp";
-
-const featuredPost = {
-  title: "West LA Real Estate Market Report: Q1 2026",
-  excerpt: "A comprehensive analysis of West LA's real estate market performance in Q1 2026, including neighborhood-by-neighborhood breakdowns, pricing trends, and forecasts for the remainder of the year.",
-  category: "Market Report",
-  date: "March 1, 2026",
-  readTime: "8 min read",
-  image: HERO_IMG,
-};
-
-const posts = [
-  {
-    title: "Is Palms the Best Neighborhood for First-Time Buyers in 2026?",
-    excerpt: "With a median price of $950K and strong appreciation, Palms continues to attract first-time buyers. Here's what you need to know about buying in this up-and-coming West LA neighborhood.",
-    category: "Neighborhood Spotlight",
-    date: "February 24, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80",
-  },
-  {
-    title: "1031 Exchange Guide for Los Angeles Real Estate Investors",
-    excerpt: "Everything you need to know about tax-deferred exchanges in the LA market, including timelines, qualified intermediaries, and common pitfalls to avoid.",
-    category: "Investment Guide",
-    date: "February 18, 2026",
-    readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80",
-  },
-  {
-    title: "How to Sell Your Brentwood Home for Top Dollar",
-    excerpt: "Proven strategies for maximizing your sale price in Brentwood, from staging and photography to pricing and negotiation tactics.",
-    category: "Seller Tips",
-    date: "February 10, 2026",
-    readTime: "6 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/neighborhood-brentwood-dgfST7WRrkvkmMgP7r887h.webp",
-  },
-  {
-    title: "Silicon Beach Effect: How Tech Is Reshaping West LA Real Estate",
-    excerpt: "The continued growth of tech companies in Venice, Santa Monica, and Playa Vista is driving unprecedented demand for housing in West LA.",
-    category: "Market Analysis",
-    date: "February 3, 2026",
-    readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?w=600&q=80",
-  },
-  {
-    title: "First-Time Buyer Programs Available in Los Angeles for 2026",
-    excerpt: "A complete guide to down payment assistance, FHA loans, CalHFA programs, and other resources available to first-time home buyers in LA County.",
-    category: "Buyer Guide",
-    date: "January 27, 2026",
-    readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
-  },
-  {
-    title: "Cap Rates and Rental Yields: West LA Investment Analysis",
-    excerpt: "A data-driven comparison of cap rates and rental yields across West LA neighborhoods, helping investors identify the best opportunities.",
-    category: "Investment Analysis",
-    date: "January 20, 2026",
-    readTime: "8 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/investor-dashboard-6A7AA9zNUpCJZtV46oacDT.webp",
-  },
+const ALL_CATEGORIES = [
+  "All",
+  "Market Report",
+  "Investment Guide",
+  "Investment Analysis",
+  "Seller Tips",
+  "Buyer Guide",
 ];
 
-const categories = ["All", "Market Report", "Neighborhood Spotlight", "Investment Guide", "Seller Tips", "Buyer Guide", "Market Analysis", "Investment Analysis"];
-
 export default function Blog() {
+  const published = getPublishedPosts();
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const featured = published[0];
+  const rest = published.slice(1);
+
+  const filtered =
+    activeCategory === "All"
+      ? rest
+      : rest.filter((p) => p.category === activeCategory);
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
@@ -133,10 +90,15 @@ export default function Blog() {
       <section className="py-6 overflow-x-auto">
         <div className="container">
           <div className="flex gap-3 min-w-max">
-            {categories.map((cat) => (
+            {ALL_CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                className="px-4 py-2 text-xs tracking-[0.1em] uppercase border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-colors whitespace-nowrap"
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 text-xs tracking-[0.1em] uppercase border transition-colors whitespace-nowrap ${
+                  activeCategory === cat
+                    ? "border-white/50 text-white"
+                    : "border-white/10 text-white/50 hover:text-white hover:border-white/30"
+                }`}
               >
                 {cat}
               </button>
@@ -146,79 +108,102 @@ export default function Blog() {
       </section>
 
       {/* Featured Post */}
-      <section className="py-8 lg:py-12">
-        <div className="container">
-          <AnimatedSection>
-            <motion.div variants={fadeUp}>
-              <div className="group grid grid-cols-1 lg:grid-cols-2 gap-8 folio-frame overflow-hidden bg-[#161616] cursor-pointer">
-                <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden">
-                  <img
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 lg:p-10 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-2 py-1 text-[0.6rem] tracking-wider uppercase bg-white/10 text-white/70">
-                      {featuredPost.category}
-                    </span>
-                    <span className="text-xs text-white/30">Featured</span>
-                  </div>
-                  <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-4 group-hover:text-silver transition-colors">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="text-sm text-white/40 leading-relaxed mb-6">
-                    {featuredPost.excerpt}
-                  </p>
-                  <div className="flex items-center gap-4 text-xs text-white/30">
-                    <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {featuredPost.date}</span>
-                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {featuredPost.readTime}</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Posts Grid */}
-      <section className="py-8 lg:py-12">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post, i) => (
-              <AnimatedSection key={i}>
-                <motion.div variants={fadeUp} className="group folio-frame overflow-hidden bg-[#161616] cursor-pointer h-full flex flex-col">
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-2 py-1 text-[0.6rem] tracking-wider uppercase bg-black/40 backdrop-blur-sm text-white/70">
-                        {post.category}
+      {featured && (
+        <section className="py-8 lg:py-12">
+          <div className="container">
+            <AnimatedSection>
+              <motion.div variants={fadeUp}>
+                <Link href={`/blog/${featured.slug}`}>
+                  <div className="group grid grid-cols-1 lg:grid-cols-2 gap-8 folio-frame overflow-hidden bg-[#161616] cursor-pointer">
+                    <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden">
+                      <img
+                        src={featured.image}
+                        alt={featured.imageAlt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-6 lg:p-10 flex flex-col justify-center">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="px-2 py-1 text-[0.6rem] tracking-wider uppercase bg-white/10 text-white/70">
+                          {featured.category}
+                        </span>
+                        <span className="text-xs text-white/30">Featured</span>
+                      </div>
+                      <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-4 group-hover:text-silver transition-colors">
+                        {featured.title}
+                      </h2>
+                      <p className="text-sm text-white/40 leading-relaxed mb-6">
+                        {featured.excerpt}
+                      </p>
+                      <div className="flex items-center gap-4 text-xs text-white/30 mb-6">
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {featured.displayDate}</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {featured.readTime}</span>
+                      </div>
+                      <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.1em] uppercase text-white/60 group-hover:text-white transition-colors">
+                        Read Article <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
                   </div>
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-base font-semibold tracking-wide mb-2 group-hover:text-silver transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-white/40 leading-relaxed mb-4 flex-1 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-white/30">
-                      <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {post.date}</span>
-                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readTime}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
+                </Link>
+              </motion.div>
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Posts Grid */}
+      {filtered.length > 0 && (
+        <section className="py-8 lg:py-12">
+          <div className="container">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((post) => (
+                <AnimatedSection key={post.slug}>
+                  <motion.div variants={fadeUp}>
+                    <Link href={`/blog/${post.slug}`}>
+                      <div className="group folio-frame overflow-hidden bg-[#161616] cursor-pointer h-full flex flex-col">
+                        <div className="relative aspect-[16/10] overflow-hidden">
+                          <img
+                            src={post.image}
+                            alt={post.imageAlt}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                          <div className="absolute top-4 left-4">
+                            <span className="px-2 py-1 text-[0.6rem] tracking-wider uppercase bg-black/40 backdrop-blur-sm text-white/70">
+                              {post.category}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="p-5 flex flex-col flex-1">
+                          <h3 className="text-base font-semibold tracking-wide mb-2 group-hover:text-silver transition-colors">
+                            {post.title}
+                          </h3>
+                          <p className="text-sm text-white/40 leading-relaxed mb-4 flex-1 line-clamp-3">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center gap-4 text-xs text-white/30">
+                            <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {post.displayDate}</span>
+                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readTime}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Empty state */}
+      {published.length === 0 && (
+        <section className="py-20">
+          <div className="container text-center">
+            <p className="text-white/40">The first post publishes April 22, 2026. Check back soon.</p>
+          </div>
+        </section>
+      )}
 
       {/* Newsletter */}
       <section className="py-16 lg:py-24">
