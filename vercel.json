@@ -21,7 +21,7 @@
     { "source": "/1031-cash-flow-audit/", "destination": "/1031-cash-flow-audit.html" },
     { "source": "/1031-playbook-guide", "destination": "/1031-playbook-guide.html" },
     { "source": "/1031-playbook-guide/", "destination": "/1031-playbook-guide.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
