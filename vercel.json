@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "vite build",
+  "buildCommand": "tsx scripts/sync-blog-from-supabase.ts && vite build",
   "outputDirectory": "dist/public",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
