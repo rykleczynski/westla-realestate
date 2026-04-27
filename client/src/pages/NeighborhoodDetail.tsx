@@ -5,7 +5,7 @@
 import { useParams, Link } from "wouter";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowLeft, ArrowRight, MapPin, School, Clock, TrendingUp, Home as HomeIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, School, Clock, TrendingUp, Home as HomeIcon, Calendar, Building2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO, { getBreadcrumbSchema, getFAQSchema, getWebPageSchema } from "@/components/SEO";
@@ -31,6 +31,8 @@ const neighborhoodData: Record<string, {
   median: string; avgDom: string; yoyChange: string; inventory: string;
   lifestyle: string; schools: string[]; commute: string;
   faqs: { q: string; a: string }[];
+  seoTitle?: string;
+  seoDescription?: string;
 }> = {
   brentwood: {
     name: "Brentwood", tagline: "Where Elegance Meets Nature",
@@ -103,17 +105,25 @@ const neighborhoodData: Record<string, {
     ],
   },
   sawtelle: {
-    name: "Sawtelle", tagline: "Culture, Community & Character",
-    description: "Known as Little Osaka, Sawtelle is a vibrant, walkable neighborhood celebrated for its Japanese restaurants, boutique shops, and strong community feel. The area offers a unique cultural experience within West LA.",
+    name: "Sawtelle", tagline: "Little Osaka — Culture, Community & Character",
+    description: "Sawtelle — widely known as Sawtelle Japantown or Little Osaka — is a vibrant, walkable West LA neighborhood bordered roughly by Santa Monica Boulevard, Olympic Boulevard, the 405 Freeway, and Sepulveda Boulevard. Beyond its celebrated Japanese restaurants, ramen shops, and izakaya along Sawtelle Boulevard, the neighborhood offers a tight-knit residential core of single-family bungalows, mid-century duplexes, and modern condo developments. With Westwood and UCLA to the north, Santa Monica to the west, and Century City to the east, Sawtelle real estate sits inside one of the most rentable, demand-resilient corridors on the Westside.",
     image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80",
     median: "$1,100,000", avgDom: "32 days", yoyChange: "+6.8%", inventory: "30 homes",
-    lifestyle: "Sawtelle's Japantown corridor is the neighborhood's beating heart, offering some of LA's best ramen, sushi, and izakaya dining. The area attracts a young, diverse population drawn to its walkability and cultural richness.",
+    lifestyle: "Sawtelle's Japantown corridor is the neighborhood's beating heart, offering some of LA's best ramen, sushi, and izakaya dining alongside specialty grocers, dessert shops, and boutique retail. The area attracts a young, diverse population of UCLA grad students, tech workers, healthcare professionals from the nearby VA campus, and long-time Japanese-American families. Stoner Park anchors recreation; Whole Foods, Mitsuwa, and the Olympic corridor handle daily essentials. Walkability scores rank among the highest in West LA outside of Santa Monica and Westwood Village.",
     schools: ["Nora Sterry Elementary", "Emerson Middle School", "University High School"],
     commute: "5 min to Westwood, 10 min to Santa Monica, 15 min to Century City",
+    seoTitle: "Sawtelle CA Real Estate | Condos, Houses & Open Houses in Little Osaka (West LA)",
+    seoDescription: "Sawtelle CA real estate guide: current condo and house pricing, open house schedule, market trends, and investor data for the Little Osaka / Sawtelle Japantown neighborhood of West LA.",
     faqs: [
-      { q: "What makes Sawtelle unique?", a: "Sawtelle's Japantown corridor offers a unique cultural experience with dozens of authentic Japanese restaurants, specialty shops, and community events. It's one of the most walkable neighborhoods in West LA." },
-      { q: "Is Sawtelle good for investment?", a: "Sawtelle offers strong investment potential with rising property values and high rental demand from young professionals. The neighborhood's growing popularity and limited inventory drive consistent appreciation." },
-      { q: "What types of homes are in Sawtelle?", a: "Sawtelle features a mix of single-family homes, duplexes, and small apartment buildings. Many properties offer renovation potential, making it attractive for value-add investors." },
+      { q: "What is Sawtelle CA real estate like in 2026?", a: "Sawtelle real estate in 2026 is characterized by tight inventory (~30 active listings), a median sale price of approximately $1.1M, and an average 32 days on market. The neighborhood's walkability, Westside location, and Little Osaka cultural identity drive consistent demand from owner-occupants and investors." },
+      { q: "How much do Sawtelle condos cost?", a: "Sawtelle condos typically range from $625,000 for a 1-bedroom in an older building to $1,400,000+ for a newer 2-bedroom unit with parking. Sawtelle condos under $800,000 most commonly appear in 1990s–2000s mid-rise buildings along Sawtelle, Stoner, and Federal — these move quickly when priced correctly." },
+      { q: "How much do Sawtelle houses cost?", a: "Sawtelle houses (single-family homes) generally range from approximately $1.4M for an unrenovated 2-bed bungalow to $2.6M+ for a renovated or newer-construction home. Most Sawtelle SFRs are on lots between 5,000 and 6,500 square feet, making them attractive for ADU additions and small-lot redevelopment." },
+      { q: "Are there Sawtelle open houses this weekend?", a: "Most active Sawtelle listings hold a public open house on Saturday or Sunday afternoon — typically 1–4 PM — within the first two weekends after going live on the MLS. For a current list of confirmed Sawtelle open houses, contact us directly and we'll send the upcoming weekend schedule with addresses, hosts, and price points." },
+      { q: "What makes Sawtelle unique?", a: "Sawtelle's Japantown corridor offers a unique cultural experience with dozens of authentic Japanese restaurants, specialty shops, and community events. It's one of the most walkable neighborhoods in West LA and one of the few with a clearly defined cultural identity, which supports both lifestyle appeal and long-term real estate values." },
+      { q: "Is Sawtelle a good investment?", a: "Sawtelle offers strong investment potential with rising property values (+6.8% YoY) and high rental demand from UCLA students, young professionals, and VA hospital staff. The neighborhood's growing popularity, limited inventory, and small-lot zoning that supports ADUs and duplex strategies drive consistent appreciation. See our /investors page for full Sawtelle investor data." },
+      { q: "What types of homes are in Sawtelle?", a: "Sawtelle features a mix of single-family Spanish and craftsman bungalows (1920s–1950s), mid-century duplexes and small apartment buildings, 1980s–2000s condo complexes, and newer townhome developments. Many SFRs offer renovation or ADU potential, making it attractive for value-add investors." },
+      { q: "What are property taxes in Sawtelle, CA?", a: "Sawtelle is part of the City of Los Angeles, so the effective property tax rate is approximately 1.15–1.25% of assessed value under California's Proposition 13. On a $1.1M Sawtelle home, expect annual property taxes in the $12,650–$13,750 range, plus any local Mello-Roos or special assessments shown on the property tax bill." },
+      { q: "What's the difference between Sawtelle and Sawtelle Japantown?", a: "They refer to the same neighborhood. 'Sawtelle Japantown' (officially designated by the City of Los Angeles in 2015) emphasizes the Japanese-American cultural corridor along Sawtelle Boulevard, while 'Sawtelle' as a real estate boundary covers the broader residential area between Santa Monica Blvd and Olympic Blvd, west of the 405." },
     ],
   },
   venice: {
@@ -131,6 +141,170 @@ const neighborhoodData: Record<string, {
     ],
   },
 };
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Sawtelle-specific deep content (matches literal search queries:
+ * "sawtelle ca condos / houses / open houses / real estate")
+ * Rendered only on /neighborhoods/sawtelle.
+ * ────────────────────────────────────────────────────────────────────────── */
+const SAWTELLE_CONDO_TIERS = [
+  { label: "Sawtelle condos under $700,000", desc: "Older 1-bed units (700–900 sq ft) in 1980s–1990s buildings along Sawtelle and Federal. Best for first-time buyers and house-hackers." },
+  { label: "Sawtelle condos under $900,000", desc: "1-bed and small 2-bed units in well-maintained mid-rise complexes with assigned parking and basic amenities." },
+  { label: "Sawtelle condos under $1,200,000", desc: "Mainstream 2-bed / 2-bath condos in 2000s–2010s buildings. Often include in-unit laundry, secured entry, and 2-car parking." },
+  { label: "Sawtelle condos $1,200,000 and above", desc: "Newer townhome-style condos and 3-bed units in modern construction. Many feature private patios, EV-ready garages, and Westside-quality finishes." },
+];
+
+const SAWTELLE_HOUSE_TIERS = [
+  { label: "Sawtelle houses under $1,500,000", desc: "Original-condition 2-bed Spanish or California bungalows on 5,000–5,500 sq ft lots — strong renovation and ADU candidates." },
+  { label: "Sawtelle houses $1,500,000–$2,000,000", desc: "Updated 3-bed homes, lightly remodeled bungalows, and small-lot subdivision townhomes built 2010 onward." },
+  { label: "Sawtelle houses $2,000,000 and above", desc: "Renovated 4-bed homes and newer construction (2018+) with primary suites, open-plan kitchens, and Westside design finishes." },
+];
+
+const SAWTELLE_INTERNAL_LINKS = [
+  { label: "Sawtelle Investor Strategy & Cap Rates", href: "/investors", note: "Cap rates, value-add SFR data, and entry points for Sawtelle." },
+  { label: "West LA Q1 2026 Market Report", href: "/blog/west-la-real-estate-market-data-q1-2026", note: "Westside-wide pricing and inventory context for Sawtelle." },
+  { label: "Cash-on-Cash Returns in West LA", href: "/blog/cash-on-cash-returns-west-la-2026", note: "How Sawtelle compares to Palms, Mar Vista, and Culver City for yield." },
+  { label: "Real Cost of Holding a West LA Rental", href: "/blog/real-cost-of-staying-west-la-rental", note: "For Sawtelle landlords weighing a sale or 1031 exchange." },
+  { label: "Schedule a Sawtelle Showing or Open House Tour", href: "/contact", note: "Get the current weekend open house list for Sawtelle." },
+];
+
+function SawtelleDeepContent({ slug }: { slug: string }) {
+  return (
+    <>
+      {/* Active Listings Module */}
+      <AnimatedSection className="mt-16">
+        <motion.div variants={fadeUp}>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            Sawtelle Real Estate: Active Listings &amp; Coming Soon
+          </h2>
+          <p className="text-white/60 leading-relaxed mb-6">
+            Sawtelle inventory turns over quickly — most well-priced condos and houses are under contract within 30 days. Because Sawtelle has a small active pool (typically 25–35 listings across condos, townhomes, and SFRs), the most effective way to evaluate the market is a curated list refreshed weekly rather than a stale public feed.
+          </p>
+          <div className="folio-frame p-6 lg:p-8 bg-[#161616]">
+            <div className="flex items-start gap-4 mb-6">
+              <Building2 className="w-5 h-5 text-silver shrink-0 mt-1" />
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Get the Current Sawtelle Listings Sheet</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  We send a weekly Sawtelle listings sheet covering active condos, houses, new construction, and unlisted/pocket inventory — including price, beds/baths, HOA, days on market, and the upcoming weekend open house schedule.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors">
+                Request Sawtelle Listings <ArrowRight className="w-3 h-3" />
+              </Link>
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/20 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-colors">
+                Schedule a Sawtelle Tour
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatedSection>
+
+      {/* Sawtelle Condos */}
+      <AnimatedSection className="mt-16">
+        <motion.div variants={fadeUp}>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            Sawtelle Condos for Sale
+          </h2>
+          <p className="text-white/60 leading-relaxed mb-6">
+            Sawtelle has one of the deepest condo markets in West LA outside of Santa Monica, with stock concentrated along Sawtelle Boulevard, Stoner Avenue, Federal Avenue, and the streets immediately south of Olympic. Most buildings range from 4 to 30 units, with mid-rise complexes built between 1985 and 2010 dominating the inventory. Pricing tiers as of 2026:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {SAWTELLE_CONDO_TIERS.map((tier) => (
+              <div key={tier.label} className="folio-frame p-5 bg-[#161616]">
+                <h3 className="text-base font-semibold mb-2">{tier.label}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{tier.desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </AnimatedSection>
+
+      {/* Sawtelle Houses */}
+      <AnimatedSection className="mt-16">
+        <motion.div variants={fadeUp}>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            Sawtelle Houses for Sale
+          </h2>
+          <p className="text-white/60 leading-relaxed mb-6">
+            Sawtelle's single-family inventory is small but consistent — most blocks contain a mix of original 1920s–1940s Spanish and craftsman bungalows alongside selectively rebuilt or remodeled homes. Lot sizes typically run 5,000–6,500 square feet, with R1 zoning that supports ADU additions and, in some cases, small-lot subdivision. Current pricing tiers:
+          </p>
+          <div className="space-y-4">
+            {SAWTELLE_HOUSE_TIERS.map((tier) => (
+              <div key={tier.label} className="folio-frame p-5 bg-[#161616]">
+                <h3 className="text-base font-semibold mb-2">{tier.label}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{tier.desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </AnimatedSection>
+
+      {/* Sawtelle Open Houses */}
+      <AnimatedSection className="mt-16">
+        <motion.div variants={fadeUp}>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            Sawtelle Open Houses This Weekend
+          </h2>
+          <p className="text-white/60 leading-relaxed mb-6">
+            Most active Sawtelle listings hold a public open house on Saturday and/or Sunday afternoon, typically 1–4 PM, within the first one to two weekends after going live on the MLS. Because the Sawtelle inventory pool is small and changes weekly, we maintain a current open house schedule rather than a static list.
+          </p>
+          <div className="folio-frame p-6 bg-[#161616]">
+            <div className="flex items-start gap-4">
+              <Calendar className="w-5 h-5 text-silver shrink-0 mt-1" />
+              <div className="flex-1">
+                <h3 className="text-base font-semibold mb-2">This Weekend's Sawtelle Open Houses</h3>
+                <p className="text-sm text-white/50 leading-relaxed mb-4">
+                  Request the current weekend list and we'll email back the addresses, price points, hosts, and showing windows for every public Sawtelle open house — condos and SFRs — plus any agent-only previews.
+                </p>
+                <Link href="/contact" className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.15em] uppercase text-white hover:text-silver transition-colors">
+                  Request Open House Schedule <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatedSection>
+
+      {/* Internal Linking Hub */}
+      <AnimatedSection className="mt-16">
+        <motion.div variants={fadeUp}>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            More Sawtelle Real Estate Resources
+          </h2>
+          <p className="text-white/60 leading-relaxed mb-6">
+            Continue your Sawtelle research with deeper context from our investor portal and West LA market reports:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {SAWTELLE_INTERNAL_LINKS.map((link) => (
+              <Link
+                key={link.href + link.label}
+                href={link.href}
+                className="group folio-frame p-5 bg-[#161616] flex items-start justify-between gap-4 hover:border-white/20 transition-colors"
+              >
+                <div>
+                  <h3 className="text-sm font-semibold mb-1 group-hover:text-white transition-colors">{link.label}</h3>
+                  <p className="text-xs text-white/40 leading-relaxed">{link.note}</p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-silver shrink-0 mt-1 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            ))}
+          </div>
+          <p className="text-xs text-white/30 mt-6">
+            Looking at adjacent neighborhoods?{" "}
+            <Link href="/neighborhoods/westwood" className="text-silver hover:text-white underline underline-offset-4">Westwood</Link>,{" "}
+            <Link href="/neighborhoods/santa-monica" className="text-silver hover:text-white underline underline-offset-4">Santa Monica</Link>,{" "}
+            <Link href="/neighborhoods/palms" className="text-silver hover:text-white underline underline-offset-4">Palms</Link>, and{" "}
+            <Link href="/neighborhoods/century-city" className="text-silver hover:text-white underline underline-offset-4">Century City</Link>{" "}
+            all border the Sawtelle area. Slug: <code className="text-white/40">{slug}</code>
+          </p>
+        </motion.div>
+      </AnimatedSection>
+    </>
+  );
+}
 
 export default function NeighborhoodDetail() {
   const params = useParams<{ slug: string }>();
@@ -151,16 +325,20 @@ export default function NeighborhoodDetail() {
     );
   }
 
+  const isSawtelle = params.slug === "sawtelle";
+  const seoTitle = data.seoTitle ?? `${data.name} Real Estate Guide | West LA Neighborhood`;
+  const seoDescription = data.seoDescription ?? `Explore ${data.name} real estate trends, pricing, lifestyle, schools, and investor-friendly neighborhood insights.`;
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
-        title={`${data.name} Real Estate Guide | West LA Neighborhood`}
-        description={`Explore ${data.name} real estate trends, pricing, lifestyle, schools, and investor-friendly neighborhood insights.`}
+        title={seoTitle}
+        description={seoDescription}
         canonical={`https://ryanklosangeles.com/neighborhoods/${params.slug}`}
         schema={[
           getWebPageSchema(
-            `${data.name} Real Estate Guide`,
-            `Market trends, lifestyle, and local insights for ${data.name}.`,
+            seoTitle,
+            seoDescription,
             `https://ryanklosangeles.com/neighborhoods/${params.slug}`,
           ),
           getFAQSchema(data.faqs),
@@ -234,6 +412,9 @@ export default function NeighborhoodDetail() {
                   <p className="text-white/60 leading-relaxed mb-8">{data.commute}</p>
                 </motion.div>
               </AnimatedSection>
+
+              {/* Sawtelle-specific deep content (active listings, condos, houses, open houses, internal links) */}
+              {isSawtelle && <SawtelleDeepContent slug={params.slug || ""} />}
 
               {/* FAQ Section - AEO optimized */}
               <AnimatedSection className="mt-12">
