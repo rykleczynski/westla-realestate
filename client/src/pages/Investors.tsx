@@ -27,11 +27,11 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
 const INVESTOR_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/investor-dashboard-6A7AA9zNUpCJZtV46oacDT.webp";
 
 const investmentAreas = [
-  { name: "Palms", type: "Multi-Family", capRate: "4.5%", appreciation: "+7.2%", entry: "$950K" },
-  { name: "Sawtelle", type: "Value-Add SFR", capRate: "3.8%", appreciation: "+6.8%", entry: "$1.1M" },
-  { name: "Venice", type: "Short-Term Rental", capRate: "5.2%", appreciation: "+5.5%", entry: "$2.1M" },
-  { name: "Westwood", type: "Student Housing", capRate: "4.1%", appreciation: "+5.8%", entry: "$1.8M" },
-  { name: "Century City", type: "Luxury Condo", capRate: "3.2%", appreciation: "+4.5%", entry: "$1.5M" },
+  { name: "Palms", slug: "palms", type: "Multi-Family", capRate: "4.5%", appreciation: "+7.2%", entry: "$950K" },
+  { name: "Sawtelle", slug: "sawtelle", type: "Value-Add SFR", capRate: "3.8%", appreciation: "+6.8%", entry: "$1.1M" },
+  { name: "Venice", slug: "venice", type: "Short-Term Rental", capRate: "5.2%", appreciation: "+5.5%", entry: "$2.1M" },
+  { name: "Westwood", slug: "westwood", type: "Student Housing", capRate: "4.1%", appreciation: "+5.8%", entry: "$1.8M" },
+  { name: "Century City", slug: "century-city", type: "Luxury Condo", capRate: "3.2%", appreciation: "+4.5%", entry: "$1.5M" },
 ];
 
 export default function Investors() {
@@ -154,7 +154,11 @@ export default function Investors() {
                 <tbody>
                   {investmentAreas.map((area) => (
                     <tr key={area.name} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                      <td className="py-4 px-4 text-sm font-medium">{area.name}</td>
+                      <td className="py-4 px-4 text-sm font-medium">
+                        <Link href={`/neighborhoods/${area.slug}`} className="hover:text-silver transition-colors underline-offset-4 hover:underline">
+                          {area.name}
+                        </Link>
+                      </td>
                       <td className="py-4 px-4 text-sm text-white/60">{area.type}</td>
                       <td className="py-4 px-4 text-sm text-white/60">{area.capRate}</td>
                       <td className="py-4 px-4 text-sm text-green-400">{area.appreciation}</td>
@@ -163,6 +167,10 @@ export default function Investors() {
                   ))}
                 </tbody>
               </table>
+              <p className="text-xs text-white/40 mt-6">
+                Looking specifically at <Link href="/neighborhoods/sawtelle" className="text-silver hover:text-white underline underline-offset-4">Sawtelle real estate</Link>?
+                The Little Osaka corridor offers strong value-add SFR plays — bungalows on 5,000–6,500 sq ft R1 lots with ADU potential — plus condo inventory under $900K for house-hacker entry. View the full <Link href="/neighborhoods/sawtelle" className="text-silver hover:text-white underline underline-offset-4">Sawtelle neighborhood guide</Link> for current pricing tiers.
+              </p>
             </motion.div>
           </AnimatedSection>
         </div>
@@ -230,6 +238,7 @@ export default function Investors() {
               { label: "Off-Market Deals in LA", href: "/investors/off-market-deals-los-angeles" },
               { label: "1031 Exchange in LA", href: "/investors/1031-exchange-los-angeles" },
               { label: "Multifamily Investing in LA", href: "/investors/multifamily-investment-los-angeles" },
+              { label: "Sawtelle Real Estate Guide", href: "/neighborhoods/sawtelle" },
               { label: "Santa Monica Investors", href: "/investors/santa-monica" },
               { label: "Venice Investors", href: "/investors/venice" },
               { label: "Culver City Investors", href: "/investors/culver-city" },
