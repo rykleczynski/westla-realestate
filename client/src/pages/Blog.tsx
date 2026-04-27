@@ -5,7 +5,7 @@
 import { useRef, useState } from "react";
 import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO, { getWebPageSchema, getBreadcrumbSchema } from "@/components/SEO";
@@ -31,6 +31,31 @@ const ALL_CATEGORIES = [
   "Investment Analysis",
   "Seller Tips",
   "Buyer Guide",
+];
+
+const NEIGHBORHOOD_SPOTLIGHTS = [
+  {
+    name: "Sawtelle (Little Osaka)",
+    slug: "sawtelle",
+    blurb:
+      "Walkable Westside corridor between Westwood and Santa Monica. Condo inventory under $900K, R1 bungalows with ADU potential, and current open house schedule.",
+    badge: "Featured",
+  },
+  {
+    name: "Palms",
+    slug: "palms",
+    blurb: "West LA's best yields. Median ~$950K with 4–5% cap rates on small multifamily near the Expo Line.",
+  },
+  {
+    name: "Culver City",
+    slug: "culver-city",
+    blurb: "Strong Q1 2026 outperformer (+4.8% YoY) anchored by Amazon Studios and Apple TV+ employment.",
+  },
+  {
+    name: "Westwood",
+    slug: "westwood",
+    blurb: "UCLA-driven rental demand and value vs. neighboring Brentwood — see the full neighborhood guide.",
+  },
 ];
 
 export default function Blog() {
@@ -204,6 +229,52 @@ export default function Blog() {
           </div>
         </section>
       )}
+
+      {/* Neighborhood Spotlights — internal links to deepen topical authority */}
+      <section className="py-12 lg:py-16">
+        <div className="container">
+          <AnimatedSection>
+            <motion.div variants={fadeUp} className="flex items-end justify-between mb-8 flex-wrap gap-4">
+              <div>
+                <span className="section-label block mb-2">Neighborhood Spotlights</span>
+                <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
+                  Read by West LA Neighborhood
+                </h2>
+              </div>
+              <Link href="/neighborhoods" className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.15em] uppercase text-silver hover:text-white transition-colors">
+                All Neighborhoods <ArrowRight className="w-3 h-3" />
+              </Link>
+            </motion.div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {NEIGHBORHOOD_SPOTLIGHTS.map((n) => (
+              <AnimatedSection key={n.slug}>
+                <motion.div variants={fadeUp}>
+                  <Link
+                    href={`/neighborhoods/${n.slug}`}
+                    className="group folio-frame p-5 bg-[#161616] h-full flex flex-col hover:border-white/20 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <MapPin className="w-4 h-4 text-silver" />
+                      <h3 className="text-sm font-semibold group-hover:text-white transition-colors">{n.name}</h3>
+                      {n.badge && (
+                        <span className="ml-auto px-2 py-0.5 text-[0.55rem] tracking-wider uppercase bg-white/10 text-white/70">
+                          {n.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-white/40 leading-relaxed flex-1">{n.blurb}</p>
+                    <span className="inline-flex items-center gap-1 mt-4 text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-silver group-hover:text-white transition-colors">
+                      View Guide <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </Link>
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Newsletter */}
       <section className="py-16 lg:py-24">
