@@ -16,6 +16,45 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
 };
 
+/**
+ * AEO: Per-slug FAQ overrides. Some posts are particularly citation-worthy
+ * for AI Overviews / Perplexity (tax-stack content with hard numbers) and
+ * we want to guarantee FAQ JSON-LD ships with the literal questions AI
+ * search engines surface, regardless of the upstream Supabase content.
+ *
+ * The keys here are post slugs; the values are FAQs that will be merged
+ * into (and take precedence over, by question text) the post's own FAQs.
+ */
+const REQUIRED_FAQS_BY_SLUG: Record<string, { q: string; a: string }[]> = {
+  "ula-tax-capital-gains-west-la-sellers": [
+    {
+      q: "What is the ULA tax in Los Angeles?",
+      a: "The ULA tax — formally Measure ULA, also called the Los Angeles 'mansion tax' — is a city-of-Los-Angeles real-property transfer tax that applies on top of the existing documentary transfer tax. As of 2026, sales of real property in the City of Los Angeles are taxed at an additional 4% of the gross sale price for transactions of $5 million or more, and 5.5% for transactions of $10 million or more. It applies to all property types — single-family homes, condos, multifamily, and commercial — and is calculated on the full sale price, not on the seller's gain.",
+    },
+    {
+      q: "Who pays the ULA tax?",
+      a: "The seller pays the ULA tax at close of escrow. It is collected by the escrow company and remitted to the City of Los Angeles. The tax is owed regardless of whether the seller has a gain, a loss, or breaks even on the sale, because it is calculated on gross sale price rather than on profit. Buyers do not pay ULA, but in some negotiated deals sellers attempt to offset the burden through pricing or credits — the legal liability remains with the seller.",
+    },
+    {
+      q: "How much is capital gains on a West LA home sale?",
+      a: "For a West LA seller in 2026, capital gains on a home sale typically stack as follows: federal long-term capital gains at 15–20% depending on income, the federal Net Investment Income Tax of 3.8% for higher earners, and California state income tax of up to 13.3% (California taxes capital gains as ordinary income). On an investment property, depreciation recapture is taxed at a flat 25% federal rate. A primary-residence seller can exclude up to $250,000 of gain (single) or $500,000 (married filing jointly) under IRC Section 121 before any of these rates apply. On top of all of that, City of LA sellers above $5M owe the ULA transfer tax (4% or 5.5%) on gross sale price — separate from, and in addition to, capital gains.",
+    },
+  ],
+};
+
+function mergeRequiredFaqs(
+  slug: string,
+  existing: { q: string; a: string }[],
+): { q: string; a: string }[] {
+  const required = REQUIRED_FAQS_BY_SLUG[slug];
+  if (!required || required.length === 0) return existing;
+  const seen = new Set(required.map((f) => f.q.trim().toLowerCase()));
+  const carryOver = existing.filter(
+    (f) => !seen.has(f.q.trim().toLowerCase()),
+  );
+  return [...required, ...carryOver];
+}
+
 function getArticleSchema(post: {
   title: string;
   metaDescription: string;
@@ -78,6 +117,21 @@ export default function BlogPost() {
   const canonical = `https://ryanklosangeles.com/blog/${post.slug}`;
   const related = allPublished.filter((p) => p.slug !== post.slug).slice(0, 3);
 
+  // Merge any per-slug required FAQs (AEO citation-worthy questions) into
+  // the post's own FAQs before rendering both the on-page section and the
+  // FAQPage JSON-LD.
+  const renderedFaqs = mergeRequiredFaqs(post.slug, post.faqs);
+
+  const schemaList: object[] = [
+    getArticleSchema(post),
+    ...(renderedFaqs.length > 0 ? [getFAQSchema(renderedFaqs)] : []),
+    getBreadcrumbSchema([
+      { name: "Home", url: "https://ryanklosangeles.com/" },
+      { name: "Blog", url: "https://ryanklosangeles.com/blog" },
+      { name: post.title, url: canonical },
+    ]),
+  ];
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
@@ -85,15 +139,7 @@ export default function BlogPost() {
         description={post.metaDescription}
         canonical={canonical}
         ogImage={post.image}
-        schema={[
-          getArticleSchema(post),
-          getFAQSchema(post.faqs),
-          getBreadcrumbSchema([
-            { name: "Home", url: "https://ryanklosangeles.com/" },
-            { name: "Blog", url: "https://ryanklosangeles.com/blog" },
-            { name: post.title, url: canonical },
-          ]),
-        ]}
+        schema={schemaList}
       />
       <Navigation />
 
@@ -153,7 +199,7 @@ export default function BlogPost() {
         </motion.article>
 
         {/* FAQ section — AEO structured */}
-        {post.faqs.length > 0 && (
+        {renderedFaqs.length > 0 && (
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -163,7 +209,7 @@ export default function BlogPost() {
             <div className="hairline mb-10" />
             <span className="section-label block mb-6">Frequently Asked Questions</span>
             <div className="space-y-6">
-              {post.faqs.map((faq, i) => (
+              {renderedFaqs.map((faq, i) => (
                 <div key={i} className="folio-frame p-6 bg-[#161616]">
                   <h3 className="text-sm font-semibold text-white mb-2">{faq.q}</h3>
                   <p className="text-sm text-white/55 leading-relaxed">{faq.a}</p>
