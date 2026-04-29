@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { isTcpaOptInTrue, submit1031PlaybookLead } from "../shared/submit1031PlaybookLead";
+
+const DEFAULT_DASHBOARD_URL = "https://social-dashboard-gold-six.vercel.app";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
@@ -19,19 +20,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const tcpaOptIn = isTcpaOptInTrue(body.tcpaOptIn);
+  const baseUrl = (process.env.LEAD_INTAKE_BASE_URL || DEFAULT_DASHBOARD_URL).replace(/\/+$/, "");
+  const target = `${baseUrl}/api/leads/intake/1031-playbook`;
+  const secret = process.env.LEAD_INTAKE_SECRET?.trim();
 
-  const result = await submit1031PlaybookLead({
-    firstName: String(body.firstName ?? ""),
-    lastName: String(body.lastName ?? ""),
-    email: String(body.email ?? ""),
-    phone: String(body.phone ?? ""),
-    tcpaOptIn,
-    _hp: body._hp != null ? String(body._hp) : undefined,
-  });
+  let upstream: Response;
+  try {
+    upstream = await fetch(target, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(secret ? { "x-intake-secret": secret } : {}),
+      },
+      body: JSON.stringify({
+        firstName: body.firstName ?? "",
+        lastName: body.lastName ?? "",
+        email: body.email ?? "",
+        phone: body.phone ?? "",
+        tcpaOptIn: body.tcpaOptIn,
+        _hp: body._hp,
+      }),
+    });
+  } catch (e) {
+    console.error("[1031-playbook] dashboard intake fetch failed:", e);
+    res.status(502).json({ error: "Could not reach the form service. Try again in a moment." });
+    return;
+  }
 
-  if (!result.ok) {
-    res.status(result.status).json({ error: result.error });
+  const text = await upstream.text().catch(() => "");
+  let json: { ok?: boolean; error?: string } = {};
+  try {
+    json = text ? (JSON.parse(text) as typeof json) : {};
+  } catch {
+    /* non-JSON response from dashboard */
+  }
+
+  if (!upstream.ok) {
+    console.error("[1031-playbook] dashboard returned non-OK:", upstream.status, text.slice(0, 500));
+    res.status(upstream.status).json({ error: json.error ?? "Submission failed. Please try again." });
     return;
   }
 
