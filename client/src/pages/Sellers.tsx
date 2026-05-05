@@ -28,16 +28,19 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
 const INTERIOR_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663031447369/G6dKwWk9EccqvcTqiPXfgn/luxury-interior-XkMNb7ufufLac9VK4t4iEv.webp";
 
 export default function Sellers() {
+  const sellersDescription =
+    "West LA sellers face up to 5.5% in ULA transfer tax + capital gains — see the full tax stack, prep checklist, and pricing strategy before you list.";
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <SEO
         title="Sell Your Home in Los Angeles | Seller Strategy + Valuation"
-        description="Seller-focused Los Angeles real estate page with valuation tools, prep checklists, and market-informed selling strategy."
+        description={sellersDescription}
         canonical="https://ryanklosangeles.com/sellers"
         schema={[
           getWebPageSchema(
             "Sell Your Home in Los Angeles",
-            "Practical resources and strategy for home sellers in West LA.",
+            sellersDescription,
             "https://ryanklosangeles.com/sellers",
           ),
           getBreadcrumbSchema([
