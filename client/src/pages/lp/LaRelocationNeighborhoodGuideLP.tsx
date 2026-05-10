@@ -117,6 +117,11 @@ const GATE_CONFIG = {
   inquiryType: "buying",
   tag: "LA Relocation Neighborhood Guide",
   submitApiPath: "/api/la-relocation-guide-lead",
+  thankYou: {
+    headline: "Your guide is on the way.",
+    body: "Check the inbox for the email address you just used. The LA Relocation Neighborhood Guide will arrive there, usually within a few minutes. If you do not see it, look in Promotions or Spam, then move the message to your primary inbox so nothing else from us gets buried.",
+    continueLabel: "Continue to the guide",
+  },
 };
 
 export default function LaRelocationNeighborhoodGuideLP() {

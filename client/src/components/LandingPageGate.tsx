@@ -23,6 +23,12 @@ interface GateConfig {
   tag: string;
   /** Defaults to /api/contact. Set to /api/la-relocation-guide-lead for the relocation LP Zapier hook. */
   submitApiPath?: string;
+  /** After a successful submit, show this screen before revealing page content (e.g. email delivery instructions). */
+  thankYou?: {
+    headline: string;
+    body: string;
+    continueLabel?: string;
+  };
 }
 
 interface Props {
@@ -40,6 +46,7 @@ export default function LandingPageGate({ config, children }: Props) {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [thankYouStep, setThankYouStep] = useState(false);
 
   const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -95,7 +102,11 @@ export default function LandingPageGate({ config, children }: Props) {
         throw new Error(formatContactApiError(apiError));
       }
       sessionStorage.setItem(config.storageKey, "1");
-      setUnlocked(true);
+      if (config.thankYou) {
+        setThankYouStep(true);
+      } else {
+        setUnlocked(true);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
     } finally {
@@ -121,73 +132,95 @@ export default function LandingPageGate({ config, children }: Props) {
 
               {/* Card */}
               <div className="bg-[#161616] border border-white/10 p-8 lg:p-10">
-                <p className="section-label mb-3">{config.eyebrow}</p>
-                <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-3 leading-tight">
-                  {config.headline}
-                </h2>
-                <p className="text-sm text-white/50 mb-8 leading-relaxed">{config.sub}</p>
+                {thankYouStep && config.thankYou ? (
+                  <>
+                    <p className="section-label mb-3">Thank you</p>
+                    <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-4 leading-tight">
+                      {config.thankYou.headline}
+                    </h2>
+                    <p className="text-sm text-white/50 mb-8 leading-relaxed">{config.thankYou.body}</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setThankYouStep(false);
+                        setUnlocked(true);
+                      }}
+                      className="w-full bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase py-4 hover:bg-white/90 transition-colors"
+                    >
+                      {config.thankYou.continueLabel ?? "Continue to guide"}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <p className="section-label mb-3">{config.eyebrow}</p>
+                    <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-3 leading-tight">
+                      {config.headline}
+                    </h2>
+                    <p className="text-sm text-white/50 mb-8 leading-relaxed">{config.sub}</p>
 
-                <form onSubmit={submit} noValidate>
-                  <div className="grid grid-cols-2 gap-3 mb-3">
-                    <input
-                      className={INPUT}
-                      placeholder="First name"
-                      autoComplete="given-name"
-                      value={form.firstName}
-                      onChange={set("firstName")}
-                      disabled={loading}
-                    />
-                    <input
-                      className={INPUT}
-                      placeholder="Last name"
-                      autoComplete="family-name"
-                      value={form.lastName}
-                      onChange={set("lastName")}
-                      disabled={loading}
-                    />
-                  </div>
-                  <input
-                    className={`${INPUT} mb-3`}
-                    type="email"
-                    placeholder="Email address"
-                    autoComplete="email"
-                    value={form.email}
-                    onChange={set("email")}
-                    disabled={loading}
-                  />
-                  <input
-                    className={`${INPUT} mb-6`}
-                    type="tel"
-                    placeholder="Phone number"
-                    autoComplete="tel"
-                    value={form.phone}
-                    onChange={set("phone")}
-                    disabled={loading}
-                  />
+                    <form onSubmit={submit} noValidate>
+                      <div className="grid grid-cols-2 gap-3 mb-3">
+                        <input
+                          className={INPUT}
+                          placeholder="First name"
+                          autoComplete="given-name"
+                          value={form.firstName}
+                          onChange={set("firstName")}
+                          disabled={loading}
+                        />
+                        <input
+                          className={INPUT}
+                          placeholder="Last name"
+                          autoComplete="family-name"
+                          value={form.lastName}
+                          onChange={set("lastName")}
+                          disabled={loading}
+                        />
+                      </div>
+                      <input
+                        className={`${INPUT} mb-3`}
+                        type="email"
+                        placeholder="Email address"
+                        autoComplete="email"
+                        value={form.email}
+                        onChange={set("email")}
+                        disabled={loading}
+                      />
+                      <input
+                        className={`${INPUT} mb-6`}
+                        type="tel"
+                        placeholder="Phone number"
+                        autoComplete="tel"
+                        value={form.phone}
+                        onChange={set("phone")}
+                        disabled={loading}
+                      />
 
-                  {error && (
-                    <p className="text-red-400 text-xs mb-4">{error}</p>
-                  )}
+                      {error && (
+                        <p className="text-red-400 text-xs mb-4">{error}</p>
+                      )}
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase py-4 hover:bg-white/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-                  >
-                    {loading ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        Submitting…
-                      </>
-                    ) : (
-                      "Get Free Access →"
-                    )}
-                  </button>
-                </form>
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase py-4 hover:bg-white/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                      >
+                        {loading ? (
+                          <>
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            Submitting…
+                          </>
+                        ) : (
+                          "Get Free Access →"
+                        )}
+                      </button>
+                    </form>
 
-                <p className="text-white/25 text-xs mt-5 text-center leading-relaxed">
-                  Your information is never shared or sold. No spam — just real estate intel.
-                </p>
+                    <p className="text-white/25 text-xs mt-5 text-center leading-relaxed">
+                      Your information is never shared or sold. No spam — just real estate intel.
+                    </p>
+                  </>
+                )}
               </div>
 
               {/* Hairline */}
