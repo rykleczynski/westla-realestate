@@ -1,6 +1,9 @@
 /**
  * POSTs LA Relocation Neighborhood Guide gate leads to ZAPIER_LA_RELOCATION_GUIDE_WEBHOOK_URL.
  * application/x-www-form-urlencoded so Zapier Catch Hook maps one field per key.
+ *
+ * Used by Express (server/index.ts). Vercel uses api/la-relocation-guide-lead.ts (inlined copy)
+ * because serverless bundles do not reliably include ../shared/.
  */
 
 function looksLikeDownstreamCrmTokenError(status: number, body: string): boolean {
