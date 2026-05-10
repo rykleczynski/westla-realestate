@@ -1,6 +1,6 @@
 /*
  * LandingPageGate — Full-screen lead capture gate for Meta ad landing pages.
- * Shown on first visit. Submits to /api/contact → Zapier webhook.
+ * Shown on first visit. Submits to /api/contact (default) or config.submitApiPath → Zapier / CRM.
  * Dismissed on successful submission; unlocks the page content beneath.
  */
 import { useState } from "react";
@@ -21,6 +21,8 @@ interface GateConfig {
   inquiryType: string;
   /** Tag sent to CRM for pipeline routing */
   tag: string;
+  /** Defaults to /api/contact. Set to /api/la-relocation-guide-lead for the relocation LP Zapier hook. */
+  submitApiPath?: string;
 }
 
 interface Props {
@@ -73,7 +75,8 @@ export default function LandingPageGate({ config, children }: Props) {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/contact", {
+      const submitUrl = config.submitApiPath?.trim() || "/api/contact";
+      const res = await fetch(submitUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

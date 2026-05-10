@@ -1,5 +1,5 @@
 /*
- * THE BLACK FOLIO — LA Relocation Neighborhood Guide Landing Page
+ * THE BLACK FOLIO / LA Relocation Neighborhood Guide Landing Page
  * Meta ad destination: /lp/la-relocation-neighborhood-guide
  */
 import { useRef } from "react";
@@ -24,12 +24,12 @@ const timeline = [
   {
     day: "Step 1",
     title: "Anchor work, school, and life",
-    body: "LA traffic is not a cliché — it is a budget item. Before you fall in love with a house, map realistic commute times at rush hour, school boundaries if they matter, and how often you need to be at LAX or downtown. Those anchors narrow the map faster than any listing alert.",
+    body: "LA traffic is not a cliché: it is a budget item. Before you fall in love with a house, map realistic commute times at rush hour, school boundaries if they matter, and how often you need to be at LAX or downtown. Those anchors narrow the map faster than any listing alert.",
   },
   {
     day: "Step 2",
     title: "Shortlist three macro areas",
-    body: "Westside, South Bay, Valley, and East Side each feel like different cities with different price curves and inventory. Most successful relocations pick three compatible zones — not fifteen scattered pins — then go deep on comps and block-by-block nuance inside those zones.",
+    body: "Westside, South Bay, Valley, and East Side each feel like different cities with different price curves and inventory. Most successful relocations pick three compatible zones, not fifteen scattered pins, then go deep on comps and block-by-block nuance inside those zones.",
   },
   {
     day: "Step 3",
@@ -39,21 +39,21 @@ const timeline = [
   {
     day: "Step 4",
     title: "Close, then settle in",
-    body: "California escrow is different from many states — timelines, disclosures, and repair negotiations have their own rhythm. Plan your move date around a realistic close, then layer in utilities, insurance, and HOA rules (if any) so week one in the new neighborhood is calm, not chaotic.",
+    body: "California escrow is different from many states: timelines, disclosures, and repair negotiations have their own rhythm. Plan your move date around a realistic close, then layer in utilities, insurance, and HOA rules (if any) so week one in the new neighborhood is calm, not chaotic.",
   },
 ];
 
 const stats = [
-  { stat: "3", label: "Macro zones to compare first — Westside, South Bay, Valley — before drilling into blocks" },
-  { stat: "2–4", label: "Months many serious buyers spend from start to accepted offer — pace matters for relocations" },
-  { stat: "0", label: "Cost to you for buyer representation — seller-side compensation in a typical LA resale" },
-  { stat: "1", label: "Local guide who actually previews doors for you — not just sends Zillow links from out of state" },
+  { stat: "3", label: "Macro zones to compare first (Westside, South Bay, Valley) before drilling into blocks" },
+  { stat: "2–4", label: "Months many serious buyers spend from start to accepted offer; pace matters for relocations" },
+  { stat: "0", label: "Cost to you for buyer representation: seller-side compensation in a typical LA resale" },
+  { stat: "1", label: "Local guide who actually previews doors for you, not just Zillow links from out of state" },
 ];
 
 const failures = [
   {
     title: "Choosing a neighborhood from listing photos alone",
-    body: "Two homes with the same bed count can sit in totally different micro-markets — one walkable and quiet, one pressed against a freeway or flight path. Street-level context, orientation, and what's being built next door rarely show up in photos. You need eyes on the ground.",
+    body: "Two homes with the same bed count can sit in totally different micro-markets: one walkable and quiet, one pressed against a freeway or flight path. Street-level context, orientation, and what's being built next door rarely show up in photos. You need eyes on the ground.",
   },
   {
     title: "Optimizing for Sunday traffic instead of Tuesday at 8 a.m.",
@@ -61,7 +61,7 @@ const failures = [
   },
   {
     title: "Assuming 'Los Angeles' has one price tag",
-    body: "A budget that buys a detached home in one pocket might buy a condo in another — or nothing at all in a third. Relocators who import expectations from Dallas, Chicago, or Seattle without recalibrating to LA micro-markets either overpay for the wrong product or miss the right one entirely.",
+    body: "A budget that buys a detached home in one pocket might buy a condo in another, or nothing at all in a third. Relocators who import expectations from Dallas, Chicago, or Seattle without recalibrating to LA micro-markets either overpay for the wrong product or miss the right one entirely.",
   },
   {
     title: "Waiting until after you move to get serious about offers",
@@ -69,27 +69,27 @@ const failures = [
   },
   {
     title: "Skipping the disclosure and natural-hazard read",
-    body: "California sellers deliver dense disclosure packages — earthquakes, soils, insurance history, HOA litigation, and more. Skimming them to get to the pretty pictures is how relocators miss expensive surprises. A patient walkthrough with a local agent pays for itself.",
+    body: "California sellers deliver dense disclosure packages: earthquakes, soils, insurance history, HOA litigation, and more. Skimming them to get to the pretty pictures is how relocators miss expensive surprises. A patient walkthrough with a local agent pays for itself.",
   },
 ];
 
 const checklist = [
-  "Confirm employer office location(s) and hybrid policy — they anchor your commute radius.",
+  "Confirm employer office location(s) and hybrid policy; they anchor your commute radius.",
   "Get fully underwritten pre-approval (not a soft pre-qual) before you tour or fly in for a buying trip.",
   "List your non-negotiables: schools, yard, parking, HOA tolerance, max commute minutes.",
   "Pick three compatible macro areas to compare; drop the fifteenth 'maybe' zip code.",
   "Schedule showings in a tight window so you can compare homes while memory is fresh.",
-  "Read seller disclosures and natural-hazard reports before you waive contingencies — never blindly.",
+  "Read seller disclosures and natural-hazard reports before you waive contingencies. Never blindly.",
   "Budget for closing costs (often 1.5–3% of price) on top of down payment and move.",
-  "Plan a backup if the first offer loses — in LA, that happens even to strong buyers.",
-  "Verify insurance quotes early — coastal and wildland-adjacent pockets can surprise newcomers.",
+  "Plan a backup if the first offer loses. In LA, that happens even to strong buyers.",
+  "Verify insurance quotes early. Coastal and wildland-adjacent pockets can surprise newcomers.",
   "Book a local agent who previews inventory in person and can FaceTime you when you are remote.",
 ];
 
 const faqs = [
   {
-    q: "We are moving from out of state — can we buy before we sell our current home?",
-    a: "Sometimes yes, with the right financing bridge or a contingent structure — but each path has tradeoffs in a competitive market. The key is modeling both payments and risk with a lender early, then writing offers that sellers will actually accept. I help relocators map those scenarios before we tour.",
+    q: "We are moving from out of state. Can we buy before we sell our current home?",
+    a: "Sometimes yes, with the right financing bridge or a contingent structure, but each path has tradeoffs in a competitive market. The key is modeling both payments and risk with a lender early, then writing offers that sellers will actually accept. I help relocators map those scenarios before we tour.",
   },
   {
     q: "How do we pick between Westside, South Bay, and the Valley?",
@@ -97,25 +97,26 @@ const faqs = [
   },
   {
     q: "Do we need to visit in person before making an offer?",
-    a: "You can buy remotely with video tours, inspections, and trusted local representation — many of my clients do — but you should only waive personal inspection if you understand the risks. Most families still plan at least one focused trip to validate neighborhood feel before they commit.",
+    a: "You can buy remotely with video tours, inspections, and trusted local representation (many of my clients do), but you should only waive personal inspection if you understand the risks. Most families still plan at least one focused trip to validate neighborhood feel before they commit.",
   },
   {
     q: "What is different about buying in LA versus Texas or the Midwest?",
-    a: "Higher sticker prices, lower inventory per buyer, faster offer timelines in desirable pockets, and disclosure-heavy escrow. Earthquake and insurance considerations matter more here. The emotional adjustment is real — but so is the lifestyle upside once you are in the right neighborhood for your actual daily life.",
+    a: "Higher sticker prices, lower inventory per buyer, faster offer timelines in desirable pockets, and disclosure-heavy escrow. Earthquake and insurance considerations matter more here. The emotional adjustment is real, but so is the lifestyle upside once you are in the right neighborhood for your actual daily life.",
   },
   {
     q: "How quickly can we realistically be in a home?",
-    a: "From accepted offer, many closings land in roughly 30–45 days depending on loan type and contingencies. Your search timeline varies more — some relocators find a fit in one trip; others need two. The constraint is rarely 'no homes exist'; it is preparation, speed, and picking the right micro-market.",
+    a: "From accepted offer, many closings land in roughly 30–45 days depending on loan type and contingencies. Your search timeline varies more: some relocators find a fit in one trip; others need two. The constraint is rarely 'no homes exist'; it is preparation, speed, and picking the right micro-market.",
   },
 ];
 
 const GATE_CONFIG = {
   storageKey: "lp_gate_la_relocation_neighborhood_guide",
   eyebrow: "Free LA Relocation Guide · Neighborhoods",
-  headline: "Land in the right LA neighborhood — not the one Zillow liked.",
+  headline: "Land in the right LA neighborhood, not the one Zillow liked.",
   sub: "Enter your info for Ryan's relocation neighborhood guide: how to shortlist areas, what remote buyers get wrong, a pre-offer checklist, and a direct line for strategy calls.",
   inquiryType: "buying",
   tag: "LA Relocation Neighborhood Guide",
+  submitApiPath: "/api/la-relocation-guide-lead",
 };
 
 export default function LaRelocationNeighborhoodGuideLP() {
@@ -260,7 +261,7 @@ export default function LaRelocationNeighborhoodGuideLP() {
                 Relocating to LA?<span className="font-light"> Let's shortlist neighborhoods before you tour.</span>
               </motion.h2>
               <motion.p variants={fadeUp} className="text-sm text-white/50 mb-10 leading-relaxed">
-                The earlier we align on commute, schools, and budget, the fewer wasted flights and dead-end offers. Text or email — no pressure, no boilerplate drip campaign.
+                The earlier we align on commute, schools, and budget, the fewer wasted flights and dead-end offers. Text or email: no pressure, no boilerplate drip campaign.
               </motion.p>
               <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="sms:+12242491004" className="px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors">
