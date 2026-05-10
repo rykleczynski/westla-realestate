@@ -36,6 +36,7 @@ import RentalListingAgentLosAngeles from "./pages/investors/RentalListingAgentLo
 import BuyersLP from "./pages/lp/BuyersLP";
 import InvestorsLP from "./pages/lp/InvestorsLP";
 import Exchange1031LP from "./pages/lp/Exchange1031LP";
+import LaRelocationNeighborhoodGuideLP from "./pages/lp/LaRelocationNeighborhoodGuideLP";
 import SellersLP from "./pages/lp/SellersLP";
 
 function Router() {
@@ -76,6 +77,7 @@ function Router() {
       <Route path="/lp/buyers" component={BuyersLP} />
       <Route path="/lp/investors" component={InvestorsLP} />
       <Route path="/lp/1031" component={Exchange1031LP} />
+      <Route path="/lp/la-relocation-neighborhood-guide" component={LaRelocationNeighborhoodGuideLP} />
       <Route path="/lp/sellers" component={SellersLP} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
