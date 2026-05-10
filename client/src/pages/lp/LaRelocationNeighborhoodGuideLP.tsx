@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, AlertTriangle, CheckCircle } from "lucide-react";
 import LandingPageGate from "@/components/LandingPageGate";
+import type { GateConfig } from "@/components/LandingPageGate";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -109,7 +110,7 @@ const faqs = [
   },
 ];
 
-const GATE_CONFIG = {
+const GATE_CONFIG: GateConfig = {
   storageKey: "lp_gate_la_relocation_neighborhood_guide",
   eyebrow: "Free LA Relocation Guide · Neighborhoods",
   headline: "Land in the right LA neighborhood, not the one Zillow liked.",
@@ -117,6 +118,7 @@ const GATE_CONFIG = {
   inquiryType: "buying",
   tag: "LA Relocation Neighborhood Guide",
   submitApiPath: "/api/la-relocation-guide-lead",
+  gateTheme: "light",
   thankYou: {
     headline: "Your guide is on the way.",
     body: "Check the inbox for the email address you just used. The LA Relocation Neighborhood Guide will arrive there, usually within a few minutes. If you do not see it, look in Promotions or Spam, then move the message to your primary inbox so nothing else from us gets buried.",
@@ -124,41 +126,43 @@ const GATE_CONFIG = {
   },
 };
 
+const kicker = "block text-[0.625rem] font-medium uppercase tracking-[0.16em] text-stone-500";
+
 export default function LaRelocationNeighborhoodGuideLP() {
   return (
     <LandingPageGate config={GATE_CONFIG}>
-      <div className="min-h-screen bg-[#111111]">
+      <div className="min-h-screen bg-[#fafaf8] text-stone-800 antialiased">
 
         {/* Hero */}
-        <section className="pt-24 pb-20 lg:pt-32 lg:pb-28 border-b border-white/5">
+        <section className="border-b border-stone-200 pt-24 pb-20 lg:pt-32 lg:pb-28">
           <div className="container">
             <Section>
-              <motion.span variants={fadeUp} className="section-label block mb-4">LA Relocation · Neighborhood Guide</motion.span>
-              <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 max-w-3xl leading-tight">
-                Move to Los Angeles with a plan.<span className="font-light"> Pick the neighborhood that fits your real life.</span>
+              <motion.span variants={fadeUp} className={`${kicker} mb-4`}>LA Relocation · Neighborhood Guide</motion.span>
+              <motion.h1 variants={fadeUp} className="mb-6 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+                Move to Los Angeles with a plan.<span className="font-light text-stone-700"> Pick the neighborhood that fits your real life.</span>
               </motion.h1>
-              <motion.p variants={fadeUp} className="text-base lg:text-lg text-white/50 max-w-xl leading-relaxed mb-10">
+              <motion.p variants={fadeUp} className="mb-10 max-w-xl text-base leading-relaxed text-stone-600 lg:text-lg">
                 LA is a city of micro-markets. The right block saves you an hour a day; the wrong one costs you sanity. This guide walks through how serious relocators shortlist areas, tour efficiently, and avoid the mistakes that burn remote buyers.
               </motion.p>
               <motion.a
                 variants={fadeUp}
                 href="sms:+12242491004"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors"
+                className="inline-flex items-center gap-2 bg-[#8a6a5a] px-8 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-[#9d7664]"
               >
-                Talk to Ryan <ArrowRight className="w-3.5 h-3.5" />
+                Talk to Ryan <ArrowRight className="h-3.5 w-3.5" />
               </motion.a>
             </Section>
           </div>
         </section>
 
         {/* Stats */}
-        <section className="py-20 lg:py-24 border-b border-white/5">
+        <section className="border-b border-stone-200 py-20 lg:py-24">
           <div className="container">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
+            <div className="grid grid-cols-2 gap-px bg-stone-200 lg:grid-cols-4">
               {stats.map((s) => (
-                <div key={s.label} className="bg-[#111111] p-8 lg:p-10">
-                  <div className="text-3xl lg:text-4xl font-bold mb-2">{s.stat}</div>
-                  <div className="text-xs text-white/40 leading-relaxed">{s.label}</div>
+                <div key={s.label} className="bg-white p-8 lg:p-10">
+                  <div className="mb-2 text-3xl font-bold text-stone-900 lg:text-4xl">{s.stat}</div>
+                  <div className="text-xs leading-relaxed text-stone-600">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -166,21 +170,21 @@ export default function LaRelocationNeighborhoodGuideLP() {
         </section>
 
         {/* Timeline */}
-        <section className="py-20 lg:py-28 border-b border-white/5">
+        <section className="border-b border-stone-200 py-20 lg:py-28">
           <div className="container">
             <Section className="mb-14">
-              <motion.span variants={fadeUp} className="section-label block mb-3">The Relocation Roadmap</motion.span>
-              <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight max-w-xl">
-                Four steps from out-of-state<span className="font-light"> to keys in the right neighborhood.</span>
+              <motion.span variants={fadeUp} className={`${kicker} mb-3`}>The Relocation Roadmap</motion.span>
+              <motion.h2 variants={fadeUp} className="max-w-xl text-3xl font-bold tracking-tight text-stone-900 lg:text-4xl">
+                Four steps from out-of-state<span className="font-light text-stone-700"> to keys in the right neighborhood.</span>
               </motion.h2>
             </Section>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/5">
+            <div className="grid grid-cols-1 gap-px bg-stone-200 lg:grid-cols-2">
               {timeline.map((t) => (
                 <Section key={t.day}>
-                  <motion.div variants={fadeUp} className="bg-[#111111] p-8 lg:p-10 h-full">
-                    <span className="section-label block mb-3">{t.day}</span>
-                    <h3 className="text-sm font-semibold tracking-wide mb-3">{t.title}</h3>
-                    <p className="text-sm text-white/50 leading-relaxed">{t.body}</p>
+                  <motion.div variants={fadeUp} className="h-full bg-white p-8 lg:p-10">
+                    <span className={`${kicker} mb-3`}>{t.day}</span>
+                    <h3 className="mb-3 text-sm font-semibold tracking-wide text-stone-900">{t.title}</h3>
+                    <p className="text-sm leading-relaxed text-stone-600">{t.body}</p>
                   </motion.div>
                 </Section>
               ))}
@@ -189,23 +193,23 @@ export default function LaRelocationNeighborhoodGuideLP() {
         </section>
 
         {/* Why relocators regret their pick */}
-        <section className="py-20 lg:py-28 border-b border-white/5">
+        <section className="border-b border-stone-200 py-20 lg:py-28">
           <div className="container max-w-3xl">
             <Section className="mb-12">
-              <motion.span variants={fadeUp} className="section-label block mb-3">Expensive Mistakes</motion.span>
-              <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight">
-                Five ways relocators pick the wrong LA pocket.<span className="font-light"> Sidestep them early.</span>
+              <motion.span variants={fadeUp} className={`${kicker} mb-3`}>Expensive Mistakes</motion.span>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight text-stone-900 lg:text-4xl">
+                Five ways relocators pick the wrong LA pocket.<span className="font-light text-stone-700"> Sidestep them early.</span>
               </motion.h2>
             </Section>
-            <div className="space-y-px bg-white/5">
+            <div className="space-y-px bg-stone-200">
               {failures.map((f) => (
                 <Section key={f.title}>
-                  <motion.div variants={fadeUp} className="bg-[#111111] p-7 lg:p-8">
-                    <div className="flex items-start gap-3 mb-3">
-                      <AlertTriangle className="w-4 h-4 text-white/30 mt-0.5 shrink-0" />
-                      <p className="text-sm font-semibold">{f.title}</p>
+                  <motion.div variants={fadeUp} className="bg-white p-7 lg:p-8">
+                    <div className="mb-3 flex items-start gap-3">
+                      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-700/70" />
+                      <p className="text-sm font-semibold text-stone-900">{f.title}</p>
                     </div>
-                    <p className="text-sm text-white/50 leading-relaxed pl-7">{f.body}</p>
+                    <p className="pl-7 text-sm leading-relaxed text-stone-600">{f.body}</p>
                   </motion.div>
                 </Section>
               ))}
@@ -214,20 +218,20 @@ export default function LaRelocationNeighborhoodGuideLP() {
         </section>
 
         {/* Checklist */}
-        <section className="py-20 lg:py-28 border-b border-white/5">
+        <section className="border-b border-stone-200 py-20 lg:py-28">
           <div className="container max-w-3xl">
             <Section className="mb-12">
-              <motion.span variants={fadeUp} className="section-label block mb-3">Pre-Offer Checklist</motion.span>
-              <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight">
-                Before you wire earnest money.<span className="font-light"> Check these boxes.</span>
+              <motion.span variants={fadeUp} className={`${kicker} mb-3`}>Pre-Offer Checklist</motion.span>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight text-stone-900">
+                Before you wire earnest money.<span className="font-light text-stone-700"> Check these boxes.</span>
               </motion.h2>
             </Section>
-            <div className="space-y-px bg-white/5">
+            <div className="space-y-px bg-stone-200">
               {checklist.map((item, i) => (
                 <Section key={i}>
-                  <motion.div variants={fadeUp} className="bg-[#111111] px-7 py-5 flex items-start gap-3">
-                    <CheckCircle className="w-4 h-4 text-white/25 mt-0.5 shrink-0" />
-                    <p className="text-sm text-white/60 leading-relaxed">{item}</p>
+                  <motion.div variants={fadeUp} className="flex items-start gap-3 bg-white px-7 py-5">
+                    <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#8a6a5a]/80" />
+                    <p className="text-sm leading-relaxed text-stone-700">{item}</p>
                   </motion.div>
                 </Section>
               ))}
@@ -236,20 +240,20 @@ export default function LaRelocationNeighborhoodGuideLP() {
         </section>
 
         {/* FAQs */}
-        <section className="py-20 lg:py-28 border-b border-white/5">
+        <section className="border-b border-stone-200 py-20 lg:py-28">
           <div className="container max-w-3xl">
             <Section className="mb-12">
-              <motion.span variants={fadeUp} className="section-label block mb-3">Common Questions</motion.span>
-              <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight">
+              <motion.span variants={fadeUp} className={`${kicker} mb-3`}>Common Questions</motion.span>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight text-stone-900">
                 Relocation questions, answered plainly.
               </motion.h2>
             </Section>
-            <div className="space-y-px bg-white/5">
+            <div className="space-y-px bg-stone-200">
               {faqs.map((f) => (
                 <Section key={f.q}>
-                  <motion.div variants={fadeUp} className="bg-[#111111] p-7 lg:p-8">
-                    <p className="text-sm font-semibold mb-3">{f.q}</p>
-                    <p className="text-sm text-white/50 leading-relaxed">{f.a}</p>
+                  <motion.div variants={fadeUp} className="bg-white p-7 lg:p-8">
+                    <p className="mb-3 text-sm font-semibold text-stone-900">{f.q}</p>
+                    <p className="text-sm leading-relaxed text-stone-600">{f.a}</p>
                   </motion.div>
                 </Section>
               ))}
@@ -258,21 +262,21 @@ export default function LaRelocationNeighborhoodGuideLP() {
         </section>
 
         {/* CTA */}
-        <section className="py-24 lg:py-32">
-          <div className="container text-center max-w-2xl">
+        <section className="bg-white py-24 lg:py-32">
+          <div className="container max-w-2xl text-center">
             <Section>
-              <motion.span variants={fadeUp} className="section-label block mb-4">Start the Conversation</motion.span>
-              <motion.h2 variants={fadeUp} className="text-3xl lg:text-4xl font-bold tracking-tight mb-5">
-                Relocating to LA?<span className="font-light"> Let's shortlist neighborhoods before you tour.</span>
+              <motion.span variants={fadeUp} className={`${kicker} mb-4`}>Start the Conversation</motion.span>
+              <motion.h2 variants={fadeUp} className="mb-5 text-3xl font-bold tracking-tight text-stone-900 lg:text-4xl">
+                Relocating to LA?<span className="font-light text-stone-700"> Let's shortlist neighborhoods before you tour.</span>
               </motion.h2>
-              <motion.p variants={fadeUp} className="text-sm text-white/50 mb-10 leading-relaxed">
+              <motion.p variants={fadeUp} className="mb-10 text-sm leading-relaxed text-stone-600">
                 The earlier we align on commute, schools, and budget, the fewer wasted flights and dead-end offers. Text or email: no pressure, no boilerplate drip campaign.
               </motion.p>
-              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="sms:+12242491004" className="px-8 py-4 bg-white text-black text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/90 transition-colors">
+              <motion.div variants={fadeUp} className="flex flex-col justify-center gap-4 sm:flex-row">
+                <a href="sms:+12242491004" className="bg-[#8a6a5a] px-8 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-[#9d7664]">
                   Text Ryan
                 </a>
-                <a href="mailto:rkleczynski@kw.com" className="px-8 py-4 border border-white/30 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/5 transition-colors">
+                <a href="mailto:rkleczynski@kw.com" className="border border-stone-300 px-8 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-stone-800 transition-colors hover:bg-stone-50">
                   Send an Email
                 </a>
               </motion.div>
@@ -280,10 +284,10 @@ export default function LaRelocationNeighborhoodGuideLP() {
           </div>
         </section>
 
-        <div className="border-t border-white/5 py-6">
-          <div className="container flex flex-col sm:flex-row items-center justify-between gap-2">
-            <p className="text-xs text-white/25 tracking-wide">Ryan Kleczynski · DRE #02402858 · Keller Williams</p>
-            <p className="text-xs text-white/25">ryanklosangeles.com · Los Angeles, CA</p>
+        <div className="border-t border-stone-200 bg-[#fafaf8] py-6">
+          <div className="container flex flex-col items-center justify-between gap-2 sm:flex-row">
+            <p className="text-center text-xs tracking-wide text-stone-500 sm:text-left">Ryan Kleczynski · DRE #02402858 · Keller Williams</p>
+            <p className="text-center text-xs text-stone-400 sm:text-right">ryanklosangeles.com · Los Angeles, CA</p>
           </div>
         </div>
       </div>
